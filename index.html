@@ -31,7 +31,7 @@
         <script type="text/javascript" src="lib/zeroClipboard/ZeroClipboard.js"></script>
 
     <!--MAIN----------------------------------------------------------------------------------------------------------->
-        <link rel="stylesheet" href="css/main.css">
+        <link rel="stylesheet" href="app/app.less">
         <script type="text/javascript" src="js/controller.js"></script>
         <script type="text/javascript" src="js/functions.js"></script>
         <script type="text/javascript" src="js/variables.js"></script>
@@ -39,19 +39,13 @@
     <!--ELEMENTS------------------------------------------------------------------------------------------------------->
         <script type="text/javascript" src="elements/knob/knob.js"></script>
         <script type="text/javascript" src="elements/dropDown/dropDown.js"></script>
-        <link rel="stylesheet" href="elements/dropDown/dropDown.css">
         <script type="text/javascript" src="elements/sliderHorizontal/sliderHorizontal.js"></script>
-        <link rel="stylesheet" href="elements/sliderHorizontal/sliderHorizontal.css">
 
     <!--DIRECTIVES----------------------------------------------------------------------------------------------------->
         <script type="text/javascript" src="directives/menu/menu.js"></script>
-        <link rel="stylesheet" href="directives/menu/menu.css">
         <script type="text/javascript" src="directives/synthControls/synthControls.js"></script>
-        <link rel="stylesheet" href="directives/synthControls/synthControls.css">
         <script type="text/javascript" src="directives/helpWindow/helpWindow.js"></script>
-        <link rel="stylesheet" href="directives/helpWindow/helpWindow.css">
         <script type="text/javascript" src="directives/importExportWindow/importExportWindow.js"></script>
-        <link rel="stylesheet" href="directives/importExportWindow/importExportWindow.css">
 
     <!--SERVICES------------------------------------------------------------------------------------------------------->
         <script type="text/javascript" src="js/services/event.js"></script>
@@ -59,6 +53,9 @@
         <script type="text/javascript" src="js/services/theme.js"></script>
         <script type="text/javascript" src="js/services/visualizer.js"></script>
 
+	<!-- STYLES -->
+		<link rel="stylesheet/less" href="app/app.less">
+		<script type="text/javascript" src="lib/less.js"></script>
 </head>
 
 <body data-ng-controller="discController" data-ng-style="{backgroundImage:themeService.theme.backgroundImage}">
