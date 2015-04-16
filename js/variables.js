@@ -12,9 +12,6 @@ else {
     discSynthLocalStorage = false;
 }
 
-var menuSize = 220;
-
-
 var visualizers = [
     {globalCompositeOperation: "",                   clearCanvas:false, functionToRun: false},
     {globalCompositeOperation: "lighter",            clearCanvas:true,  functionToRun: "visParticles"},

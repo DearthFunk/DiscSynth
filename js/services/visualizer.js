@@ -1,5 +1,5 @@
 angular.module('visualizerServiceModule', [])
-    .service("visualizerService", function($window, $timeout, $rootScope,themeService,eventService,discService){
+    .service("visualizerService", function($window, $timeout, $rootScope,themeService,eventService,discService, MENU_SIZE){
 
 
         var cnv = document.querySelectorAll('.visualizerCanvas')[0];
@@ -16,7 +16,7 @@ angular.module('visualizerServiceModule', [])
             h = $window.innerHeight;
             cnv.style.width = w +'px';
             cnv.style.height = h + 'px';
-            xCenter = (w-menuSize)/2;
+            xCenter = (w-MENU_SIZE)/2;
             yCenter = h/ 2;
             angular.element(cnv).attr({width:  w, height: h	});
         };

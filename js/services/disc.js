@@ -1,5 +1,5 @@
 angular.module('discServiceModule', [])
-    .service("discService", function($window,$timeout,themeService,$rootScope, SYNTHS){
+    .service("discService", function($window,$timeout,themeService,$rootScope, SYNTHS, MENU_SIZE){
 
         var disc = this;
         var audioCtx = typeof AudioContext !== 'undefined' ?	new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() :	null;
@@ -55,7 +55,7 @@ angular.module('discServiceModule', [])
         };
 
 		disc.reCalculateDiscs = function() {
-			midX = (w-menuSize) / 2;
+			midX = (w-MENU_SIZE) / 2;
 			midY = h/2;
 			disc.rad = (h/2)-10;
             centerButtonSize = disc.rad/3;
@@ -210,7 +210,7 @@ angular.module('discServiceModule', [])
         };
 
         disc.handleMouseMove = function(e) {
-            distanceFromCenter = Math.sqrt( Math.pow(e.clientX - (w - menuSize) / 2, 2) + Math.pow(e.clientY - (h/2), 2) );
+            distanceFromCenter = Math.sqrt( Math.pow(e.clientX - (w - MENU_SIZE) / 2, 2) + Math.pow(e.clientY - (h/2), 2) );
             if (distanceFromCenter < disc.rad && distanceFromCenter > disc.rad/2) {
                 for (var layer = 0; layer < disc.discs[0].osc.length-1; layer++) {
                     var d1 = (layer+3)/ 6 * disc.rad;
@@ -220,7 +220,7 @@ angular.module('discServiceModule', [])
                         break;
                     }
                 }
-                var angle = Math.atan2((h/2) - e.clientY,(w-menuSize) / 2 - e.clientX) + Math.PI;
+                var angle = Math.atan2((h/2) - e.clientY,(w-MENU_SIZE) / 2 - e.clientX) + Math.PI;
                 for (var i = 0; i < disc.discs.length-1; i++) {
                     if (angle > disc.discs[i].a1 && angle < disc.discs[i].a2) {
                         hoverDisc = i;

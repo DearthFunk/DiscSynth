@@ -1,6 +1,6 @@
 angular.module('menuModule', [])
 
-    .directive('menu', function ($timeout,$rootScope,themeService,discService,eventService,visualizerService, SYNTHS) {
+    .directive('menu', function ($timeout,$rootScope,themeService,discService,eventService,visualizerService, SYNTHS, MENU_SIZE) {
         return {
             restrict:'C',
             templateUrl:'directives/menu/menu.html',
@@ -11,7 +11,7 @@ angular.module('menuModule', [])
                 scope.eventService = eventService;
                 scope.visualizerService = visualizerService;
                 scope.discService = discService;
-	            scope.menuSize = menuSize;
+	            scope.menuSize = MENU_SIZE;
 
                 scope.editingVol = false;
                 scope.editingSpd = false;
