@@ -1,6 +1,6 @@
 angular.module('menuModule', [])
 
-    .directive('menu', function ($timeout,$rootScope,themeService,discService,eventService,visualizerService) {
+    .directive('menu', function ($timeout,$rootScope,themeService,discService,eventService,visualizerService, SYNTHS) {
         return {
             restrict:'C',
             templateUrl:'directives/menu/menu.html',
@@ -56,7 +56,7 @@ angular.module('menuModule', [])
                 };
 
                 scope.resetSynth = function(index) {
-                    discService.synthTemplates[index] = deepCopy(synthTemplates[index]);
+                    discService.synthTemplates[index] = deepCopy(SYNTHS[index]);
                     scope.resetIndex = index;
                     $timeout(function() {
                         scope.resetIndex = -1;

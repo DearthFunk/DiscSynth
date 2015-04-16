@@ -40,7 +40,7 @@ angular.module('visualizerServiceModule', [])
                 }
                 visualizer[visualizer.visualizers[visualizer.visualizerIndex].functionToRun]();
             }
-            prom = $timeout(visualizer.timer, drawSpeed);
+            prom = $timeout(visualizer.timer, 30);
 
         };
 

@@ -1,5 +1,5 @@
 angular.module('discServiceModule', [])
-    .service("discService", function($window,$timeout,themeService,$rootScope){
+    .service("discService", function($window,$timeout,themeService,$rootScope, SYNTHS){
 
         var disc = this;
         var audioCtx = typeof AudioContext !== 'undefined' ?	new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() :	null;
@@ -12,8 +12,9 @@ angular.module('discServiceModule', [])
         var w, h, midX, midY, angleSize, drawPromise,clickPromise,distanceFromCenter;
         var colors = [];
         var ctrlKey = false;
+		var audioBufferSize = 1024;
 
-        disc.synthTemplates =   angular.isObject(discSynthLocalStorage) ? discSynthLocalStorage.synthTemplates : deepCopy(synthTemplates);
+        disc.synthTemplates =   angular.isObject(discSynthLocalStorage) ? discSynthLocalStorage.synthTemplates : deepCopy(SYNTHS);
         disc.synthIndex =       angular.isObject(discSynthLocalStorage) ? discSynthLocalStorage.synthIndex : 0;
         disc.spd =              angular.isObject(discSynthLocalStorage) ? discSynthLocalStorage.spd : 0.5;
         disc.len =              angular.isObject(discSynthLocalStorage) ? discSynthLocalStorage.len : 0.5;

@@ -9,7 +9,12 @@ angular.module('synthControlsModule', [])
 
                 scope.resetIndex = -1;
                 scope.discService = discService;
-                scope.oscWaveTypes = oscWaveTypes;
+                scope.oscWaveTypes = [
+	                {txt:'Sine',        type:"sine"},
+	                {txt:'Square',      type:"square"},
+	                {txt:'SawTooth',    type:"sawtooth"},
+	                {txt:'Triangle',    type:"triangle"}
+                ];
 
             }
         }
