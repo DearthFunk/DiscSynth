@@ -1,0 +1,31 @@
+div.synthControlsContainer {
+    height: calc(100% - 390px);
+    overflow-y: auto;
+}
+    div.synthControlsContainer > div.synthSelector {
+        height: 25px;
+        border-bottom: 1px solid #FFFFFF;
+        padding: 8px 0;
+        text-align: center;
+    }
+    div.synthControlsContainer > div.section {
+        font-size: 20px;
+        border-bottom: 1px solid #FFFFFF;
+        text-align: center;
+        padding: 10px 0;
+    
+    }
+        div.synthControlsContainer > div.section > span.title {
+            margin-bottom: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+    div.synthControlsContainer > div.section > div.left {
+        display: inline-block;
+    }
+
+    div.synthControlsContainer > div.section > div.right {
+        display: inline-block;
+        vertical-align: top;
+    }
