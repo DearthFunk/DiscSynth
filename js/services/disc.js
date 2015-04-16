@@ -14,7 +14,7 @@ angular.module('discServiceModule', [])
         var ctrlKey = false;
 		var audioBufferSize = 1024;
 
-        disc.synthTemplates =   angular.isObject(discSynthLocalStorage) ? discSynthLocalStorage.synthTemplates : deepCopy(SYNTHS);
+        disc.synthTemplates =   angular.isObject(discSynthLocalStorage) ? discSynthLocalStorage.synthTemplates : angular.copy(SYNTHS);
         disc.synthIndex =       angular.isObject(discSynthLocalStorage) ? discSynthLocalStorage.synthIndex : 0;
         disc.spd =              angular.isObject(discSynthLocalStorage) ? discSynthLocalStorage.spd : 0.5;
         disc.len =              angular.isObject(discSynthLocalStorage) ? discSynthLocalStorage.len : 0.5;
@@ -356,7 +356,7 @@ angular.module('discServiceModule', [])
 
 
             //copy current synth and store, then change index
-            disc.synthTemplates[disc.synthIndex] = deepCopy(data);
+            disc.synthTemplates[disc.synthIndex] = angular.copy(data);
             disc.synthIndex = index;
 
             //load new synth template

@@ -56,7 +56,7 @@ angular.module('menuModule', [])
                 };
 
                 scope.resetSynth = function(index) {
-                    discService.synthTemplates[index] = deepCopy(SYNTHS[index]);
+                    discService.synthTemplates[index] = angular.copy(SYNTHS[index]);
                     scope.resetIndex = index;
                     $timeout(function() {
                         scope.resetIndex = -1;

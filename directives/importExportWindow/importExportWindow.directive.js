@@ -22,7 +22,7 @@ angular.module('importExportWindowModule', [])
                         discService.spd = parsedData.spd;
                         discService.node.masterGain.gain.value = parsedData.vol;
                         discService.synthIndex = parsedData.synthIndex;
-                        discService.synthTemplates = deepCopy(parsedData.synthTemplates);
+                        discService.synthTemplates = angular.copy(parsedData.synthTemplates);
                         themeService.themeIndex = parsedData.themeIndex;
                         visualizerService.visualizerIndex = parsedData.visualizerIndex;
                     }

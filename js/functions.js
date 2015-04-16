@@ -7,7 +7,7 @@ function getStorageInfo(discService,themeService,visualizerService) {
         synthIndex: discService.synthIndex,
         themeIndex: themeService.theme.index,
         visualizerIndex: visualizerService.visualizerIndex,
-        synthTemplates: deepCopy(discService.synthTemplates)
+        synthTemplates: angular.copy(discService.synthTemplates)
     };
 }
 function hexToRGBA(hex,opacity){
@@ -50,23 +50,7 @@ function randomNumber (from,to,decimals) {
         return Math.random()*(to-from)+from;
     }
 }
-function deepCopy(obj) {
-    if (Object.prototype.toString.call(obj) === '[object Array]') {
-        var out = [], i = 0, len = obj.length;
-        for ( ; i < len; i++ ) {
-            out[i] = arguments.callee(obj[i]);
-        }
-        return out;
-    }
-    if (typeof obj === 'object') {
-        var out = {}, i;
-        for ( i in obj ) {
-            out[i] = arguments.callee(obj[i]);
-        }
-        return out;
-    }
-    return obj;
-}
+
 function randomHex() {
     return "#000000".replace(/0/g,function(){return (~~(Math.random()*16)).toString(16);});
 }

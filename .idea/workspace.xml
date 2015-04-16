@@ -2,19 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca022355-7c7a-41fc-8e34-cf549097dcf6" name="Default" comment="">
-      <change type="MOVED" beforePath="C:\GitHub\DearthFunk\DiscSynth\directives\helpWindow\helpWindow.js" afterPath="$PROJECT_DIR$/directives/helpWindow/helpWindow.directive.js" />
-      <change type="MOVED" beforePath="C:\GitHub\DearthFunk\DiscSynth\directives\importExportWindow\importExportWindow.js" afterPath="$PROJECT_DIR$/directives/importExportWindow/importExportWindow.directive.js" />
-      <change type="MOVED" beforePath="C:\GitHub\DearthFunk\DiscSynth\directives\menu\menu.js" afterPath="$PROJECT_DIR$/directives/menu/menu.directive.js" />
-      <change type="MOVED" beforePath="C:\GitHub\DearthFunk\DiscSynth\directives\synthControls\synthControls.js" afterPath="$PROJECT_DIR$/directives/synthControls/synthControls.directive.js" />
-      <change type="MOVED" beforePath="C:\GitHub\DearthFunk\DiscSynth\elements\dropDown\dropDown.js" afterPath="$PROJECT_DIR$/elements/dropDown/dropDown.directive.js" />
-      <change type="MOVED" beforePath="C:\GitHub\DearthFunk\DiscSynth\elements\knob\knob.js" afterPath="$PROJECT_DIR$/elements/knob/knob.directive.js" />
-      <change type="MOVED" beforePath="C:\GitHub\DearthFunk\DiscSynth\elements\sliderHorizontal\sliderHorizontal.js" afterPath="$PROJECT_DIR$/elements/sliderHorizontal/sliderHorizontal.directive.js" />
-      <change type="MOVED" beforePath="C:\GitHub\DearthFunk\DiscSynth\js\controller.js" afterPath="$PROJECT_DIR$/app/app.controller.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/services/disc.js" afterPath="$PROJECT_DIR$/js/services/disc.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/services/event.js" afterPath="$PROJECT_DIR$/js/services/event.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/variables.js" afterPath="$PROJECT_DIR$/js/variables.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/services/visualizer.js" afterPath="$PROJECT_DIR$/js/services/visualizer.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/functions.js" afterPath="$PROJECT_DIR$/js/functions.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/directives/importExportWindow/importExportWindow.directive.js" afterPath="$PROJECT_DIR$/directives/importExportWindow/importExportWindow.directive.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/directives/menu/menu.directive.js" afterPath="$PROJECT_DIR$/directives/menu/menu.directive.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="hexsynth.dearthfunk.com.iws" />
@@ -73,7 +64,7 @@
         <entry file="file://$PROJECT_DIR$/directives/importExportWindow/importExportWindow.directive.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="69" max-vertical-offset="663">
-              <caret line="24" column="36" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
+              <caret line="24" column="65" selection-start-line="24" selection-start-column="65" selection-end-line="24" selection-end-column="65" />
               <folding />
             </state>
           </provider>
@@ -83,17 +74,17 @@
         <entry file="file://$PROJECT_DIR$/directives/menu/menu.directive.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0" vertical-offset="647" max-vertical-offset="1241">
-              <caret line="2" column="116" selection-start-line="2" selection-start-column="116" selection-end-line="2" selection-end-column="116" />
+              <caret line="58" column="68" selection-start-line="58" selection-start-column="68" selection-end-line="58" selection-end-column="68" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="functions.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="functions.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/js/functions.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="579" max-vertical-offset="1496">
-              <caret line="70" column="91" selection-start-line="70" selection-start-column="91" selection-end-line="70" selection-end-column="91" />
+            <state vertical-scroll-proportion="0.28451177" vertical-offset="205" max-vertical-offset="1224">
+              <caret line="22" column="15" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -129,11 +120,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="disc.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="disc.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/services/disc.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.028619528" vertical-offset="0" max-vertical-offset="7344">
-              <caret line="1" column="85" selection-start-line="1" selection-start-column="85" selection-end-line="1" selection-end-column="85" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="5888" max-vertical-offset="7344">
+              <caret line="358" column="63" selection-start-line="358" selection-start-column="63" selection-end-line="358" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -159,8 +150,10 @@
         <option value="$PROJECT_DIR$/directives/synthControls/synthControls.directive.js" />
         <option value="$PROJECT_DIR$/js/variables.js" />
         <option value="$PROJECT_DIR$/app/app.controller.js" />
+        <option value="$PROJECT_DIR$/directives/importExportWindow/importExportWindow.directive.js" />
         <option value="$PROJECT_DIR$/directives/menu/menu.directive.js" />
         <option value="$PROJECT_DIR$/js/services/disc.js" />
+        <option value="$PROJECT_DIR$/js/functions.js" />
       </list>
     </option>
   </component>
@@ -467,17 +460,24 @@
       <option name="project" value="LOCAL" />
       <updated>1429144738869</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="start of switch to constants">
+      <created>1429149418530</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1429149418530</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-9" width="1864" height="1098" extended-state="6" />
     <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.34" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14827017" sideWeight="0.6666667" order="1" side_tool="false" content_ui="combo" />
@@ -489,7 +489,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -511,7 +510,8 @@
       <TodoPanelSettings />
     </option>
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="start of switch to constants" />
+    <option name="LAST_COMMIT_MESSAGE" value="start of switch to constants" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -759,14 +759,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/functions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="579" max-vertical-offset="1496">
-          <caret line="70" column="91" selection-start-line="70" selection-start-column="91" selection-end-line="70" selection-end-column="91" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/services/event.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="733" max-vertical-offset="1530">
@@ -810,7 +802,7 @@
     <entry file="file://$PROJECT_DIR$/directives/importExportWindow/importExportWindow.directive.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="69" max-vertical-offset="663">
-          <caret line="24" column="36" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
+          <caret line="24" column="65" selection-start-line="24" selection-start-column="65" selection-end-line="24" selection-end-column="65" />
           <folding />
         </state>
       </provider>
@@ -818,15 +810,23 @@
     <entry file="file://$PROJECT_DIR$/directives/menu/menu.directive.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="647" max-vertical-offset="1241">
-          <caret line="2" column="116" selection-start-line="2" selection-start-column="116" selection-end-line="2" selection-end-column="116" />
+          <caret line="58" column="68" selection-start-line="58" selection-start-column="68" selection-end-line="58" selection-end-column="68" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/services/disc.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.028619528" vertical-offset="0" max-vertical-offset="7344">
-          <caret line="1" column="85" selection-start-line="1" selection-start-column="85" selection-end-line="1" selection-end-column="85" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="5888" max-vertical-offset="7344">
+          <caret line="358" column="63" selection-start-line="358" selection-start-column="63" selection-end-line="358" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/functions.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.28451177" vertical-offset="205" max-vertical-offset="1224">
+          <caret line="22" column="15" selection-start-line="22" selection-start-column="15" selection-end-line="22" selection-end-column="15" />
           <folding />
         </state>
       </provider>
