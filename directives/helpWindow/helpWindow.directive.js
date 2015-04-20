@@ -1,18 +1,26 @@
-angular.module('helpWindowModule', [])
+angular
+	.module('helpWindowModule', [])
+    .directive('helpWindow', helpWindow);
 
-    .directive('helpWindow', function () {
-        return {
-            restrict:'C',
-            templateUrl:'directives/helpWindow/helpWindow.html',
-            replace: true,
-            link: function(scope)	{
+function helpWindow() {
+	var directive = {
+		restrict: 'EA',
+		templateUrl: 'directives/helpWindow/helpWindow.html',
+		replace: true,
+		controller: helpWindowController,
+		bindToController: true
+	};
+	return directive;
+}
 
+helpWindowController.$inject = ['$scope'];
+function helpWindowController($scope) {
 
+    $scope.preventDefault = preventDefault;
 
-                scope.preventProp = function(e) {
-                    e.stopPropagation();
+	//////////////////////////////////////////////
 
-                }
-            }
-        }
-    });
+    function preventDefault(e) {
+        e.stopPropagation();
+    }
+}

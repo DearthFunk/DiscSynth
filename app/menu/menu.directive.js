@@ -15,9 +15,9 @@ angular
 		return directive;
 	}
 
-	menuController.$inject = ['$scope', '$timeout', 'themeService', 'discService', 'eventService', 'visualizerService', 'SYNTHS', 'MENU_SIZE'];
+	menuController.$inject = ['$scope', '$rootScope', '$timeout', 'themeService', 'discService', 'eventService', 'visualizerService', 'SYNTHS', 'MENU_SIZE'];
 
-    function menuController($scope, $timeout,themeService,discService,eventService,visualizerService, SYNTHS, MENU_SIZE)	{
+    function menuController($scope, $rootScope, $timeout,themeService,discService,eventService,visualizerService, SYNTHS, MENU_SIZE)	{
 
         $scope.themeService = themeService;
         $scope.eventService = eventService;
@@ -53,13 +53,13 @@ angular
             $scope.helpWindowVisible = false;
             $scope.importExportVisible = !$scope.importExportVisible;
             var data = JSON.stringify(getStorageInfo(discService,themeService,visualizerService));
-            $root$scope.$broadcast("importExport",data);
+	        $rootScope.$broadcast("importExport",data);
         };
 
         $scope.changeTheme = function(item) {
             themeService.theme = item;
             discService.reCalculateDiscs();
-            $root$scope.$broadcast("themeChangeEvent");
+	        $rootScope.$broadcast("themeChangeEvent");
 
         };
 
