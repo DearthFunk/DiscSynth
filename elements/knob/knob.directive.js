@@ -1,4 +1,4 @@
-angular.module('knobElement', [])
+angular.module('discSynth')
 
     .directive('knob', function (themeService,$timeout) {
         return {

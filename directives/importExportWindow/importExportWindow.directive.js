@@ -16,7 +16,7 @@ function importExportWindow() {
 importExportController.$inject = ['$scope', 'discService', 'visualizerService', 'themeService'];
 function importExportController($scope, discService, visualizerService, themeService) {
 
-    var client = new ZeroClipboard( document.getElementById("copyButton") );
+    var client = new ZeroClipboard( document.getElementById('copyButton') );
     $scope.textAreaData = '';
 	$scope.importData = importData;
 	$scope.importExport = importExport;

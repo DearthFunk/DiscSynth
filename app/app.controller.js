@@ -8,10 +8,6 @@ angular
 	    'discServiceModule',
 	    'themeServiceModule',
 	    'visualizerServiceModule',
-
-	    'knobElement',
-		'sliderElement',
-	    'dropDownElement',
 	    'menuModule'
 	])
 	.constant('MENU_SIZE', 220)

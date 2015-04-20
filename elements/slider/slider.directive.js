@@ -1,4 +1,4 @@
-angular.module('sliderElement', [])
+angular.module('discSynth')
 
     .directive('slider', function(themeService) {
         return {

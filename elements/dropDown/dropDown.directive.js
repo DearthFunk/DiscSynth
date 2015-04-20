@@ -1,59 +1,68 @@
-angular.module('dropDownElement', [])
+angular
+	.module('discSynth')
+    .directive('dropDown', dropDown);
 
-    .directive('dropDown', function() {
-        return {
-            restrict:'C',
-            scope: {
-                list: "=list",
-                selected: "=selected"
-            },
-            templateUrl:'elements/dropDown/dropDown.html',
-            replace: true,
-            link: function(scope) {
+dropDown.$inject = [];
+function dropDown() {
+	var directive = {
+		restrict: 'EA',
+		templateUrl: 'elements/dropDown/dropDown.html',
+		transclude: true,
+		controller: dropDownController,
+		scope: {
+			list: '=list',
+			selected: '=selected'
+		},
+		bindToController: true
+	};
 
-                var adjust = 4;
-	            scope.expanded = false;
-	            scope.offset = 0;
-	            scope.maxListLength = 10;
+	return directive;
+}
 
-                function getIndex() {
-                    var index = 0;
-                    for (var i = 0; i < scope.list.length; i++) {
-                        if (scope.list[i].txt == scope.selected) {
-                            index = i;
-                            break;
-                        }
-                    }
-                    return index
-                }
+	dropDownController.$inject = ['$scope'];
+	function dropDownController($scope) {
 
-	            scope.toggleExpanded = function(){
-	                scope.expanded = !scope.expanded;
-                    var index = getIndex();
-					if (index + scope.maxListLength > scope.list.length) {
-						scope.offset = scope.list.length - scope.maxListLength;
-					}
-		            else {
-						scope.offset = index;
-					}
-	            };
+	    var adjust = 4;
+		$scope.expanded = false;
+		$scope.offset = 0;
+		$scope.maxListLength = 10;
 
-	            scope.scroll = function(directionUP) {
-					directionUP ?
-						scope.offset + scope.maxListLength + adjust < scope.list.length ?
-							scope.offset += adjust :
-							scope.offset = scope.list.length - scope.maxListLength
-						:
-						scope.offset - adjust < 0 ?
-							scope.offset = 0 :
-							scope.offset -= adjust;
-	            };
+		$scope.toggleExpanded = toggleExpanded;
+		$scope.scroll = scroll;
+		$scope.selectValue = selectValue;
+		$scope.getIndex = getIndex;
 
-                scope.selectValue = function(index) {
-                    scope.expanded = false;
-                    scope.selected = scope.list[index].type;
+		////////////////////////////////////////
 
-                }
-            }
-        }
-    });
+	    function getIndex() {
+	        var index = 0;
+	        for (var i = 0; i < $scope.list.length; i++) {
+	            if ($scope.list[i].txt == $scope.selected) {
+	                index = i;
+	                break;
+	            }
+	        }
+	        return index
+	    }
+		function toggleExpanded(){
+	        $scope.expanded = !$scope.expanded;
+	        var index = $scope.getIndex();
+			$scope.offset = index + $scope.maxListLength > $scope.list.length ?
+				$scope.list.length - $scope.maxListLength :
+				index;
+	    }
+		function scroll(directionUP) {
+			directionUP ?
+				$scope.offset + $scope.maxListLength + adjust < $scope.list.length ?
+					$scope.offset += adjust :
+					$scope.offset = $scope.list.length - $scope.maxListLength
+				:
+				$scope.offset - adjust < 0 ?
+					$scope.offset = 0 :
+					$scope.offset -= adjust;
+	    }
+		function selectValue(index) {
+	        $scope.expanded = false;
+	        $scope.selected = $scope.list[index].type;
+	    }
+	}
