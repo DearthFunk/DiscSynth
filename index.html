@@ -44,6 +44,7 @@
     <!-- DIRECTIVES -->
         <script type="text/javascript" src="app/menu/menu.directive.js"></script>
         <script type="text/javascript" src="app/menu/synthControls/synthControls.directive.js"></script>
+		<script type="text/javascript" src="directives/modal/modal.directive.js"></script>
         <script type="text/javascript" src="directives/helpWindow/helpWindow.directive.js"></script>
         <script type="text/javascript" src="directives/importExportWindow/importExportWindow.directive.js"></script>
 
@@ -53,9 +54,11 @@
         <script type="text/javascript" src="js/services/theme.service.js"></script>
         <script type="text/javascript" src="js/services/visualizer.service.js"></script>
 		<script type="text/javascript" src="js/services/menu.service.js"></script>
+
 	<!-- STYLES -->
 		<link rel="stylesheet/less" href="app/app.less">
 		<script type="text/javascript" src="lib/less.js"></script>
+
 </head>
 
 <body data-ng-controller="discController" data-ng-style="{backgroundImage:THEMES[menu.themeIndex].backgroundImage}">
@@ -63,7 +66,7 @@
     <canvas class="visualizerCanvas fullScreen"></canvas>
     <canvas class="discCanvas fullScreen"></canvas>
     <div class="menu"></div>
-    <div import-export-window data-ng-show="importExportVisible"></div>
-    <div help-window data-ng-show="helpWindowVisible"></div>
+    <div modal data-show-modal="importExportVisible" data-ng-show="importExportVisible"><div import-export-window></div></div>
+    <div modal data-show-modal="helpWindowVisible" data-ng-show="helpWindowVisible"><div help-window></div></div></div>
 </body>
 </html>

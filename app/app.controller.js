@@ -3,6 +3,7 @@ angular
 
 		'menuServiceModule',
 
+		'modalModule',
 	    'eventServiceModule',
 	    'discServiceModule',
 	    'themeServiceModule',

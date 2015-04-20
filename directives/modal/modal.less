@@ -1,0 +1,39 @@
+div.modalContainer {
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    background-color: rgba(0,0,0,0.7);
+    position: absolute;
+	> div.inner {
+		position: absolute;
+		border: 1px solid white;
+		background-color: #000000;
+		color: #FFFFFF;
+		left: 50%;
+		top: 50%;
+		z-index: 100;
+		height: 400px;
+		margin-top: -200px;
+		width: 600px;
+		margin-left: -300px;
+		box-sizing: border-box;
+		box-shadow: 1px 1px 1px rgba(255,255,255,0.5);
+		> div.headerBar {
+			border-bottom: 1px solid white;
+			text-align: right;
+			> div.close {
+				font-weight: bold;
+				font-size: 20px;
+				display: inline-block;
+				padding: 0 10px;
+				cursor: pointer;
+				&:hover {
+					background-color: rgba(100,100,255,0.4);
+				}
+			}
+		}
+		> div.mainWindow {
+			padding: 10px;
+		}
+	}
+}
