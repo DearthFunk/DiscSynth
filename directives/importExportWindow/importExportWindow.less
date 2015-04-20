@@ -1,35 +1,25 @@
 div.importExportWindowContainer {
-    position: absolute;
-    right: 218px;
-    display: inline-block;
-    border: 1px solid white;
-    background-color: rgba(0,0,0,0.6);
-    color: #FFFFFF;
-    padding: 20px 20px 10px 20px;
-    top: -1px;
+	> textarea {
+		width: 100%;
+		height: 200px;
+		max-width: 100%;
+		max-height: 200px;
+		margin-bottom: 20px;
+	}
+	> div.buttonsContainer {
+		text-align: center;
+		> div.button {
+			display: inline-block;
+			font-size: 20px;
+			margin: 10px 12px;
+			cursor: pointer;
+			padding: 10px 50px;
+			border: 1px solid #444;
+			width: 100px;
+			text-align: center;
+			&:hover,&.zeroclipboard-is-hover {
+				background-color: rgba(100,100,100,0.5);
+			}
+		}
+	}
 }
-    div.importExportWindowContainer > i {
-        cursor: pointer;
-        position: absolute;
-        top: 1px;
-        right: 3px;
-        font-size: 20px;
-    }
-    div.importExportWindowContainer > textarea {
-        width: 300px;
-        height: 100px;
-        max-width: 300px;
-        max-height: 100px;
-        margin-bottom: 5PX;
-    }
-    div.importExportWindowContainer > div.button {
-        display: table-cell;
-        font-size: 20px;
-        margin: 0 6px;
-        cursor: pointer;
-        padding: 1px 36px;
-    }
-
-        div.importExportWindowContainer > div.button:hover, div.importExportWindowContainer > div.button.zeroclipboard-is-hover {
-            background-color: rgba(100,100,100,0.5);
-        }

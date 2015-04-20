@@ -6,7 +6,7 @@ function modal() {
 	var directive = {
 		restrict: 'EA',
 		templateUrl: 'directives/modal/modal.html',
-		replace: true,
+		transclude: true,
 		controller: modalController,
 		scope: {
 			showModal: '=showModal'
@@ -20,8 +20,6 @@ modalController.$inject = ['$scope'];
 function modalController($scope) {
 
     $scope.preventProp = preventProp;
-
-	console.log(1);
 
 	//////////////////////////////////////////////
 

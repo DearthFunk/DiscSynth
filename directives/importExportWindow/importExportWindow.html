@@ -1,6 +1,7 @@
 <div class="importExportWindowContainer">
-    <i class="fa fa-close" data-ng-click="importExportVisible = !importExportVisible"></i>
     <textarea id="textAreaToCopy" data-ng-model="textAreaData"></textarea>
-    <div class="button" data-ng-click="importData()">IMPORT</div>
-    <div class="button" id="copyButton" data-clipboard-target="textAreaToCopy" data-ng-click="importExportVisible = !importExportVisible">CLIPBOARD</div>
+    <div class="buttonsContainer">
+	    <div class="button" data-ng-click="importData()">IMPORT</div>
+	    <div class="button" id="copyButton" data-clipboard-target="textAreaToCopy" data-ng-click="importExportVisible = !importExportVisible">CLIPBOARD</div>
+    </div>
 </div>

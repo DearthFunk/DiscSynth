@@ -16,11 +16,5 @@ function helpWindow() {
 helpWindowController.$inject = ['$scope'];
 function helpWindowController($scope) {
 
-    $scope.preventDefault = preventDefault;
 
-	//////////////////////////////////////////////
-
-    function preventDefault(e) {
-        e.stopPropagation();
-    }
 }
