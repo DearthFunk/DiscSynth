@@ -1,21 +1,17 @@
 angular
 	.module('discSynth', [
 
+		'modalModule',
 		'menuServiceModule',
 
-		'modalModule',
 	    'eventServiceModule',
 	    'discServiceModule',
 	    'themeServiceModule',
 	    'visualizerServiceModule',
 
 	    'knobElement',
-		'sliderHorizontalElement',
+		'sliderElement',
 	    'dropDownElement',
-
-	    'importExportWindowModule',
-	    'helpWindowModule',
-	    'synthControlsModule',
 	    'menuModule'
 	])
 	.constant('MENU_SIZE', 220)

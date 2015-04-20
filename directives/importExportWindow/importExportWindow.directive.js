@@ -1,5 +1,5 @@
 angular
-	.module('importExportWindowModule', [])
+	.module('modalModule')
     .directive('importExportWindow', importExportWindow);
 
 function importExportWindow() {

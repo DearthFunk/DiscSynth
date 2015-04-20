@@ -1,6 +1,6 @@
-angular.module('sliderHorizontalElement', [])
+angular.module('sliderElement', [])
 
-    .directive('sliderHorizontal', function(themeService) {
+    .directive('slider', function(themeService) {
         return {
             restrict:'C',
             scope: {
@@ -8,7 +8,7 @@ angular.module('sliderHorizontalElement', [])
                 sliderValue: "=sliderValue",
 	            callBack: "=callBack"
             },
-            templateUrl:'elements/sliderHorizontal/sliderHorizontal.html',
+            templateUrl:'elements/slider/slider.html',
             replace: true,
             link: function(scope,element) {
 
@@ -24,12 +24,12 @@ angular.module('sliderHorizontalElement', [])
 
 				scope.resetToOriginal = function() {
 					scope.sliderValue = originalValue;
-					if (angular.isDefined(scope.callBack)){scope.callBack.toRun(scope.sliderValue);}
+					if (angular.isDefined(scope.callBack)){scope.callBack(scope.sliderValue);}
 				};
 
 	            scope.$on('mouseUpEvent', function() {
 		            if (sliding) {
-			            if (angular.isDefined(scope.callBack)){scope.callBack.toRun(scope.sliderValue);}
+			            if (angular.isDefined(scope.callBack)){scope.callBack(scope.sliderValue);}
 			            sliding = false;
                         scope.currentlyMoving = false;
 		            }
@@ -48,7 +48,9 @@ angular.module('sliderHorizontalElement', [])
 		            if (!sliding) {
 			            scope.sliderValue = (e.clientX - element[0].getBoundingClientRect().left) / scope.width;
 			            scope.startMovingSlider(e);
-			            if (angular.isDefined(scope.callBack)){scope.callBack.toRun(scope.sliderValue);}
+
+			            if (angular.isDefined(scope.callBack)){
+				            scope.callBack(scope.sliderValue);}
 		            }
 	            };
 
@@ -63,6 +65,8 @@ angular.module('sliderHorizontalElement', [])
 
                         if(lastValue != newValue){
                             scope.sliderValue = ((xMin - newValue) / (xMin - scope.width));
+	                        if (angular.isDefined(scope.callBack)){
+		                        scope.callBack(scope.sliderValue);}
                             lastValue = newValue;
                         }
                     }

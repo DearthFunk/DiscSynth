@@ -1,5 +1,5 @@
 angular
-	.module('synthControlsModule', [])
+	.module('menuModule')
     .directive('synthControls', synthControls);
 
 	synthControls.$inject = [];

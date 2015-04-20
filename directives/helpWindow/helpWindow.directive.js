@@ -1,5 +1,5 @@
 angular
-	.module('helpWindowModule', [])
+	.module('modalModule')
     .directive('helpWindow', helpWindow);
 
 function helpWindow() {
