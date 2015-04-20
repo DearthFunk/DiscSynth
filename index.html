@@ -48,17 +48,17 @@
         <script type="text/javascript" src="directives/importExportWindow/importExportWindow.directive.js"></script>
 
     <!-- SERVICES -->
-        <script type="text/javascript" src="js/services/event.js"></script>
-        <script type="text/javascript" src="js/services/disc.js"></script>
-        <script type="text/javascript" src="js/services/theme.js"></script>
-        <script type="text/javascript" src="js/services/visualizer.js"></script>
-
+        <script type="text/javascript" src="js/services/event.service.js"></script>
+        <script type="text/javascript" src="js/services/disc.service.js"></script>
+        <script type="text/javascript" src="js/services/theme.service.js"></script>
+        <script type="text/javascript" src="js/services/visualizer.service.js"></script>
+		<script type="text/javascript" src="js/services/menu.service.js"></script>
 	<!-- STYLES -->
 		<link rel="stylesheet/less" href="app/app.less">
 		<script type="text/javascript" src="lib/less.js"></script>
 </head>
 
-<body data-ng-controller="discController" data-ng-style="{backgroundImage:themeService.theme.backgroundImage}">
+<body data-ng-controller="discController" data-ng-style="{backgroundImage:THEMES[menu.themeIndex].backgroundImage}">
 
     <canvas class="visualizerCanvas fullScreen"></canvas>
     <canvas class="discCanvas fullScreen"></canvas>
