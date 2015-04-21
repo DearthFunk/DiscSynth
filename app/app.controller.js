@@ -2,6 +2,7 @@ angular
 	.module('discSynth', [
 
 		'modalModule',
+		'visualizerModule',
 		'menuServiceModule',
 		'colorServiceModule',
 		'mathServiceModule',
