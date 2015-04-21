@@ -6,6 +6,7 @@ angular
 		'colorServiceModule',
 		'mathServiceModule',
 
+		'localStorageServiceModule',
 	    'eventServiceModule',
 	    'discServiceModule',
 	    'themeServiceModule',

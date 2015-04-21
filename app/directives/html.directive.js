@@ -15,7 +15,7 @@ angular
 				visualizerService.windowResize();
 			};
 			$window.onbeforeunload = function(){
-				var discSynthLocalStorage = getStorageInfo(discService,themeService,visualizerService);
+				var discSynthLocalStorage = localStorageService.getStorageInfo(discService,themeService,visualizerService);
 				localStorage.setItem('discSynthLocalStorage', JSON.stringify(discSynthLocalStorage));
 			};
 

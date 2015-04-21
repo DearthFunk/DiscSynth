@@ -57,7 +57,7 @@ angular
 	    function importExportWindow() {
             $scope.helpWindowVisible = false;
             $scope.importExportVisible = !$scope.importExportVisible;
-            var data = JSON.stringify(getStorageInfo(discService,themeService,visualizerService));
+            var data = JSON.stringify(localStorageService.getStorageInfo(discService,themeService,visualizerService));
 	        $rootScope.$broadcast("importExport",data);
         }
 	    function changeTheme(item) {
