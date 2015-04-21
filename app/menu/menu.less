@@ -11,76 +11,64 @@ div.menuContainer {
     box-sizing: border-box;
     z-index: 2;
 	overflow-y: auto;
+	canvas {
+		cursor: pointer;
+	}
+	span.title {
+		font-size: 16px;
+		width: 100%;
+		display: table;
+		vertical-align: top;
+	}
+	> div.helpPanel {
+		padding: 10px 0;
+	}
+	> div.button {
+		text-align: center;
+		padding: 6px 0;
+		font-size: 16px;
+		cursor: pointer;
+		&:hover {
+			background-color: rgba(200,200,100,0.3);
+		}
+	}
+	> .border {
+		border-bottom: 1px solid #FFFFFF;
+	}
+	> table.sliders {
+		width: 100%;
+		td.label{
+			width: 22px;
+			max-width: 22px;
+			font-size: 16px;
+			text-align: right;
+			padding-right: 5px;
+		}
+	}
+	> div.selector {
+		text-align: center;
+		padding: 10px 0;
+		> div.button {
+			width: 26px;
+			display: inline-block;
+			height: 26px;
+			margin: 0 2px;
+			border: 1px solid #999999;
+			border-radius: 3px;
+			cursor: pointer;
+			padding: 2px;
+			box-sizing: border-box;
+			vertical-align: top;
+			> div.inner {
+				width: 100%;
+				height: 100%;
+				border: 1px solid #FFFFFF;
+				box-sizing: border-box;
+				font-size: 14px;
+				&:hover {
+					background-color: rgba(255,255,255,0.3);
+				}
+			}
+		}
+	}
 }
-
-    div.menuContainer canvas {
-        cursor: pointer;
-    }
-    div.menuContainer > div.helpPanel {
-        padding: 10px 0;
-    }
-
-    div.menuContainer span.title {
-        font-size: 16px;
-        width: 100%;
-        display: table;
-        vertical-align: top;
-    }
-
-    div.menuContainer > div.button {
-        text-align: center;
-        padding: 6px 0;
-        font-size: 16px;
-        text-align: center;
-        cursor: pointer;
-    }
-        div.menuContainer > div.button:hover {
-            background-color: rgba(200,200,100,0.3);
-        }
-
-
-    div.menuContainer > .border {
-        border-bottom: 1px solid #FFFFFF;
-    }
-
-    div.menuContainer > table.sliders {
-            width: 100%;
-        }
-        div.menuContainer > table.sliders tr {
-
-        }
-            div.menuContainer > table.sliders tr td.label{
-                width: 22px;
-                max-width: 22px;
-                font-size: 16px;
-                text-align: right;
-                padding-right: 5px;
-            }
-
-    div.menuContainer > div.selector {
-        text-align: center;
-        padding: 10px 0;
-    }
-        div.menuContainer > div.selector > div.button {
-            width: 26px;
-            display: inline-block;
-            height: 26px;
-            margin: 0 2px;
-            border: 1px solid #999999;
-            border-radius: 3px;
-            cursor: pointer;
-            padding: 2px;
-            box-sizing: border-box;
-            vertical-align: top;
-        }
-            div.menuContainer > div.selector > div.button > div.inner:hover {
-                background-color: rgba(255,255,255,0.3);
-            }
-            div.menuContainer > div.selector > div.button > div.inner {
-                width: 100%;
-                height: 100%;
-                border: 1px solid #FFFFFF;
-                box-sizing: border-box;
-                font-size: 14px;
-            }
-
