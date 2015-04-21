@@ -3,9 +3,9 @@
     <div class="button border" data-ng-style="{backgroundColor: hoverImport ? themeService.theme.menuSectionalBackground : '' }" data-ng-mouseenter="hoverImport = true" data-ng-mouseleave="hoverImport = false" data-ng-click="importExportWindow()">IMPORT / EXPORT</div>
     <div class="button border" data-ng-style="{backgroundColor: hoverRandom ? themeService.theme.menuSectionalBackground : '' }" data-ng-mouseenter="hoverRandom = true" data-ng-mouseleave="hoverRandom = false" data-ng-click="discService.randomize()">RANDOMIZE CELLS</div>
     <table class="sliders border">
-        <tr><td class="label">{{editingVol ? discService.node.masterGain.gain.value.toFixed(1) : 'VOL'}}</td><td><div class="slider" data-currently-moving="editingVol" data-slider-value="discService.node.masterGain.gain.value"></div></td></tr>
-        <tr><td class="label">{{editingSpd ? discService.spd.toFixed(1) : 'SPD'}}</td><td>                     <div class="slider" data-currently-moving="editingSpd" data-slider-value="discService.spd"></div></td></tr>
-        <tr><td class="label">{{editingLen ? (4 + (discService.len*28)).toFixed(0) : 'LEN'}}</td><td>          <div class="slider" data-currently-moving="editingLen" data-slider-value="discService.len" data-call-back="updateLen"></div></td></tr>
+        <tr><td class="label">{{editingVol ? discService.node.masterGain.gain.value.toFixed(1) : 'VOL'}}</td><td><div slider data-currently-moving="editingVol" data-slider-value="discService.node.masterGain.gain.value"></div></td></tr>
+        <tr><td class="label">{{editingSpd ? discService.spd.toFixed(1) : 'SPD'}}</td><td>                     <div slider data-currently-moving="editingSpd" data-slider-value="discService.spd"></div></td></tr>
+        <tr><td class="label">{{editingLen ? (4 + (discService.len*28)).toFixed(0) : 'LEN'}}</td><td>          <div slider data-currently-moving="editingLen" data-slider-value="discService.len" data-call-back="updateLen"></div></td></tr>
     </table>
 
     <div class="selector border">
