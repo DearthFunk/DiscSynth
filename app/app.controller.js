@@ -3,6 +3,8 @@ angular
 
 		'modalModule',
 		'menuServiceModule',
+		'colorServiceModule',
+		'mathServiceModule',
 
 	    'eventServiceModule',
 	    'discServiceModule',

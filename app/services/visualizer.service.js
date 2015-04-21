@@ -1,5 +1,5 @@
 angular.module('visualizerServiceModule', [])
-    .service("visualizerService", function($window, $timeout, $rootScope,themeService,eventService,discService, MENU_SIZE){
+    .service("visualizerService", function($window, $timeout, $rootScope,themeService,eventService,discService, MENU_SIZE, mathService, colorService){
 
 
         var cnv = document.querySelectorAll('.visualizerCanvas')[0];
@@ -85,13 +85,13 @@ angular.module('visualizerServiceModule', [])
         function createParticle(firstLoad) {
             return {
                 position: { x: xCenter, y: yCenter },
-                size: firstLoad ? 0 : randomNumber(10,20),
-                fillColor: randomRGBA(0.4),
-                xMod: randomNumber(-4,4),
-                yMod: randomNumber(-4,4),
+                size: firstLoad ? 0 : mathService.randomNumber(10,20),
+                fillColor: colorService.randomRGBA(0.4),
+                xMod: mathService.randomNumber(-4,4),
+                yMod: mathService.randomNumber(-4,4),
                 angle: 0,
-                speed: randomNumber(0.1,0.2),
-                orbit: randomNumber(1,8)
+                speed: mathService.randomNumber(0.1,0.2),
+                orbit: mathService.randomNumber(1,8)
             }
         }
         for (var i = 0; i < 1000; i++) {
@@ -157,7 +157,7 @@ angular.module('visualizerServiceModule', [])
             var nextIndex = false;
             var db = visualizer.getAverageDB();
             ctx.lineWidth = 1;
-            ctx.strokeStyle = hexToRGBA("#FFFFFF",db > 10 ? db/200 : 0);
+            ctx.strokeStyle = colorService.hexToRGBA("#FFFFFF",db > 10 ? db/200 : 0);
 
             for (var index = 0; index < lines.length + 1; index++) {
                 if (lines[index] != undefined) {
@@ -221,13 +221,13 @@ angular.module('visualizerServiceModule', [])
         var particles = [];
 
         function burst() {
-            this.speed = randomNumber(3,10);
+            this.speed = mathService.randomNumber(3,10);
             this.x = xCenter;
             this.y = yCenter;
-            this.xD = randomNumber(-1,1);
-            this.yD = randomNumber(-1,1);
+            this.xD = mathService.randomNumber(-1,1);
+            this.yD = mathService.randomNumber(-1,1);
             this.rad = 10+Math.random()*150;
-            this.color = randomHex();
+            this.color = colorService.randomHex();
             this.o = 1;
             this.drawBorder = Math.random() >= 0.8;
         }
@@ -250,8 +250,8 @@ angular.module('visualizerServiceModule', [])
 
                     var gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.rad);
                     gradient.addColorStop(0, "rgba(255,255,255,0.7)");
-                    gradient.addColorStop(0.5, hexToRGBA(p.color, p.o));
-                    gradient.addColorStop(1, hexToRGBA(p.color, 0));
+                    gradient.addColorStop(0.5, colorService.hexToRGBA(p.color, p.o));
+                    gradient.addColorStop(1, colorService.hexToRGBA(p.color, 0));
                     ctx.fillStyle = gradient;
 
                     ctx.arc(p.x, p.y, p.rad, Math.PI*2, false);

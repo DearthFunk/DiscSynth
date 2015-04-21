@@ -1,5 +1,5 @@
 angular.module('discServiceModule', [])
-    .service("discService", function($window,$timeout,themeService,$rootScope, SYNTHS, MENU_SIZE){
+    .service("discService", function($window,$timeout,themeService,$rootScope, SYNTHS, MENU_SIZE, mathService, colorService){
 
         var disc = this;
         var audioCtx = typeof AudioContext !== 'undefined' ?	new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() :	null;
@@ -60,7 +60,7 @@ angular.module('discServiceModule', [])
 			disc.rad = (h/2)-10;
             centerButtonSize = disc.rad/3;
 			angleSize = (1 / disc.discLength) * Math.PI*2;
-			colors = hexArray(themeService.theme.discTileStart,themeService.theme.discTileEnd,disc.discLength);
+			colors = colorService.hexArray(themeService.theme.discTileStart,themeService.theme.discTileEnd,disc.discLength);
 			for (var i = 0; i < disc.discs.length; i++) {
                 var a1 = angleSize * i;
                 var a2 = angleSize * (i+1);
@@ -79,7 +79,7 @@ angular.module('discServiceModule', [])
             for (var discIndex = 0; discIndex < disc.discs.length-1; discIndex++) {
                 for (var layer = 0; layer < disc.discs[discIndex].osc.length; layer++) {
                     disc.discs[discIndex].osc[layer].active = Math.random() >= 0.5;
-                    disc.discs[discIndex].osc[layer].freq = parseInt(randomNumber(100,15000,0));
+                    disc.discs[discIndex].osc[layer].freq = parseInt(mathService.randomNumber(100,15000,0));
                 }
             }
         };
@@ -101,12 +101,12 @@ angular.module('discServiceModule', [])
 
                         if (disc1.osc[layer].active && i == disc.clickTrack) {
                             ctx.strokeStyle = themeService.theme.discLines;
-                            ctx.fillStyle = hexToRGBA(colors[i],0.7);
+                            ctx.fillStyle = colorService.hexToRGBA(colors[i],0.7);
                             ctx.fill();
                         }
                         if (disc1.osc[layer].active) {
                             ctx.strokeStyle = themeService.theme.discLines;
-                            ctx.fillStyle = hexToRGBA(colors[i],0.4);
+                            ctx.fillStyle = colorService.hexToRGBA(colors[i],0.4);
                             ctx.fill();
                         }
                         else if (i == disc.clickTrack) {
@@ -121,7 +121,7 @@ angular.module('discServiceModule', [])
                             ctx.fill();
                         }
                         else {
-                            ctx.strokeStyle = hexToRGBA(themeService.theme.discLines,0.2);
+                            ctx.strokeStyle = colorService.hexToRGBA(themeService.theme.discLines,0.2);
                         }
                         ctx.stroke();
                         ctx.closePath();
