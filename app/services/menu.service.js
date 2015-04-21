@@ -1,15 +1,19 @@
-angular
-	.module('menuServiceModule', [])
-	.factory('menu', menu);
+(function () {
+	'use strict';
+
+	angular
+		.module('menuServiceModule', [])
+		.factory('menu', menu);
 
 	menu.$inject = [];
 
-function menu(){
+	function menu() {
 
-	var service = {
-		themeIndex: 0
-	};
+		var service = {
+			themeIndex: 0
+		};
 
-	return service;
+		return service;
 
-}
+	}
+})();

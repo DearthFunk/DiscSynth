@@ -1,6 +1,8 @@
-angular
-	.module('discSynth')
-    .directive('slider', slider);
+(function () {
+	'use strict';
+	angular
+		.module('discSynth')
+		.directive('slider', slider);
 
 	slider.$inject = [];
 	function slider() {
@@ -47,6 +49,7 @@ angular
 				$scope.callBack($scope.sliderValue);
 			}
 		}
+
 		function mouseUpEvent() {
 			if (sliding) {
 				if (angular.isDefined($scope.callBack)) {
@@ -56,6 +59,7 @@ angular
 				$scope.currentlyMoving = false;
 			}
 		}
+
 		function startMovingSlider(event) {
 			$scope.currentlyMoving = true;
 			sliding = true;
@@ -63,6 +67,7 @@ angular
 			newValue = $scope.sliderValue * ($scope.width - $scope.thumbWidth);
 			originalX = newValue;
 		}
+
 		function movePos(e) {
 			if (!sliding) {
 				$scope.sliderValue = (e.clientX - $element[0].getBoundingClientRect().left) / $scope.width;
@@ -73,6 +78,7 @@ angular
 				}
 			}
 		}
+
 		function mouseMoveEvent(event, args) {
 			if (sliding) {
 				var newLeft = originalX - startX + args.clientX;
@@ -95,3 +101,4 @@ angular
 			}
 		}
 	}
+})();

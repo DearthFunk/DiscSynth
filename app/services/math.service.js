@@ -1,8 +1,11 @@
-angular
-	.module('mathServiceModule', [])
-    .factory('mathService', mathService);
+(function () {
+	'use strict';
 
-	function mathService(){
+	angular
+		.module('mathServiceModule', [])
+		.factory('mathService', mathService);
+
+	function mathService() {
 		var service = {
 			randomNumber: randomNumber,
 			roundedNumber: roundedNumber
@@ -11,12 +14,12 @@ angular
 
 		/////////////////////////////////////
 
-		function randomNumber(from,to,decimals) {
+		function randomNumber(from, to, decimals) {
 			if (decimals != undefined) {
-				return (Math.random()*(Number(to)-Number(from))+Number(from)).toFixed(decimals);
+				return (Math.random() * (Number(to) - Number(from)) + Number(from)).toFixed(decimals);
 			}
 			else {
-				return Math.random()*(to-from)+from;
+				return Math.random() * (to - from) + from;
 			}
 		}
 
@@ -28,6 +31,7 @@ angular
 				integral = String((neg ? Math.ceil : Math.floor)(value / power)),
 				fraction = String((neg ? -value : value) % power),
 				padding = new Array(Math.max(precision - fraction.length, 0) + 1).join('0');
-			return parseFloat(precision ? integral + '.' +  padding + fraction : integral);
+			return parseFloat(precision ? integral + '.' + padding + fraction : integral);
 		}
 	}
+})();

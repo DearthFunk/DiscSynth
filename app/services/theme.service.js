@@ -1,6 +1,9 @@
-angular.module('themeServiceModule', [])
+(function () {
+	'use strict';
 
-	.factory('themeService', themeService);
+	angular.module('themeServiceModule', [])
+
+		.factory('themeService', themeService);
 
 	themeService.$inject = ['localStorageService'];
 	function themeService(localStorageService) {
@@ -128,3 +131,5 @@ angular.module('themeServiceModule', [])
 		return service;
 
 	}
+
+})();

@@ -1,37 +1,47 @@
-angular
-	.module('discSynth')
-	.directive('knob', knob);
+(function () {
+	'use strict';
+	angular
+		.module('discSynth')
+		.directive('knob', knob);
 
-knob.$inject = [];
+	knob.$inject = [];
 
-function knob() {
-	var directive = {
-		restrict: 'EA',
-		scope: {
-			size: '=size',
-			label: '=label',
-			callBack: '=callBack',
-			minValue: '=minValue',
-			maxValue: '=maxValue',
-			knobValue: '=knobValue'
-		},
-		template: '<canvas data-ng-dblclick="resetToOriginal()" data-ng-mousedown="startMovingKnob($event)"></canvas>',
-		replace: true,
-		controller: knobController,
-		bindToController: true
-	};
-	return directive;
-}
+	function knob() {
+		var directive = {
+			restrict: 'EA',
+			scope: {
+				size: '=size',
+				label: '=label',
+				callBack: '=callBack',
+				minValue: '=minValue',
+				maxValue: '=maxValue',
+				knobValue: '=knobValue'
+			},
+			template: '<canvas data-ng-dblclick="resetToOriginal()" data-ng-mousedown="startMovingKnob($event)"></canvas>',
+			replace: true,
+			controller: knobController,
+			bindToController: true
+		};
+		return directive;
+	}
 
 	knobController.$inject = ['$scope', '$element'];
 
-	function knobController($scope,$element) {
+	function knobController($scope, $element) {
 
 
-		if (angular.isUndefined($scope.knobValue))   { $scope.knobValue = 0; }
-		if (angular.isUndefined($scope.size))        { $scope.size = 40; }
-		if (angular.isUndefined($scope.size))        { $scope.size = 40; }
-		if (angular.isUndefined($scope.label))       { $scope.label = ''; }
+		if (angular.isUndefined($scope.knobValue)) {
+			$scope.knobValue = 0;
+		}
+		if (angular.isUndefined($scope.size)) {
+			$scope.size = 40;
+		}
+		if (angular.isUndefined($scope.size)) {
+			$scope.size = 40;
+		}
+		if (angular.isUndefined($scope.label)) {
+			$scope.label = '';
+		}
 		var minValue = angular.isUndefined($scope.minValue) ? 0 : $scope.minValue;
 		var maxValue = angular.isUndefined($scope.maxValue) ? 1 : $scope.maxValue;
 
@@ -59,7 +69,7 @@ function knob() {
 
 		$scope.eraseAndDrawCanvas();
 
-		$scope.$watch('knobValue',$scope.knobValueUpdate);
+		$scope.$watch('knobValue', $scope.knobValueUpdate);
 		$scope.$on('mouseUpEvent', $scope.mouseUpEvent);
 		$scope.$on('mouseMoveEvent', mouseMoveEvent);
 
@@ -97,15 +107,21 @@ function knob() {
 		}
 
 		function knobValueUpdate(newValue, oldValue) {
-			if (newValue === oldValue) {return false; }
+			if (newValue === oldValue) {
+				return false;
+			}
 			rotationValue = ($scope.knobValue - minValue) / (maxValue - minValue);
-			if($scope.callBack) {$scope.callBack();}
+			if ($scope.callBack) {
+				$scope.callBack();
+			}
 			$scope.eraseAndDrawCanvas();
 		}
 
 		function resetToOriginal() {
 			$scope.knobValue = resetValue;
-			if($scope.callBack) {$scope.callBack();}
+			if ($scope.callBack) {
+				$scope.callBack();
+			}
 			$scope.eraseAndDrawCanvas();
 		}
 
@@ -116,18 +132,24 @@ function knob() {
 		}
 
 		function mouseUpEvent() {
-			if (!rotating) {return false;}
+			if (!rotating) {
+				return false;
+			}
 			rotating = false;
 			var newKnob = getKnobValue();
 			if ($scope.knobValue != newKnob) {
 				$scope.knobValue = getKnobValue();
-				if($scope.callBack) {$scope.callBack();}
+				if ($scope.callBack) {
+					$scope.callBack();
+				}
 			}
 			$scope.eraseAndDrawCanvas();
 		}
 
 		function mouseMoveEvent(e, args) {
-			if (!rotating) {return false;}
+			if (!rotating) {
+				return false;
+			}
 			var mouseRotation = originalMouseRotation + startY - args.clientY;
 			if (mouseRotation < 0) {
 				mouseRotation = 0;
@@ -138,9 +160,12 @@ function knob() {
 			rotationValue = (mouseRotation / panAngleLimit);
 			if (lastValue != rotationValue) {
 				$scope.knobValue = getKnobValue();
-				if($scope.callBack) {$scope.callBack();}
+				if ($scope.callBack) {
+					$scope.callBack();
+				}
 				$scope.eraseAndDrawCanvas();
 				lastValue = mouseRotation;
 			}
 		}
 	}
+})();

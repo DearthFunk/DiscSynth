@@ -1,6 +1,8 @@
-angular
-	.module('visualizerModule')
-    .factory('VisBurst', visBurstFactory);
+(function () {
+	'use strict';
+	angular
+		.module('visualizerModule')
+		.factory('VisBurst', visBurstFactory);
 
 	visBurstFactory.$inject = [];
 
@@ -10,7 +12,7 @@ angular
 			this.ctx = ctx;
 		};
 
-		VisBurst.prototype.draw = function() {
+		VisBurst.prototype.draw = function () {
 			if (this.ctx) {
 
 			}
@@ -18,3 +20,4 @@ angular
 		return VisBurst;
 
 	}
+})();

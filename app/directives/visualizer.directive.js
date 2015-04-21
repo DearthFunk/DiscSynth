@@ -1,8 +1,11 @@
-angular
-	.module('visualizerModule',[])
-	.directive('visualizer', visualizer);
+(function () {
+	'use strict';
 
-	function visualizer(){
+	angular
+		.module('visualizerModule', [])
+		.directive('visualizer', visualizer);
+
+	function visualizer() {
 		var directive = {
 			restrict: 'EA',
 			template: '<canvas class="visualizer"></canvas>',
@@ -17,3 +20,4 @@ angular
 
 	}
 
+})();

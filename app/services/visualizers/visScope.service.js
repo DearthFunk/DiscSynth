@@ -1,6 +1,8 @@
-angular
-	.module('visualizerModule')
-    .factory('VisTunnel', visTunnelFactory);
+(function () {
+	'use strict';
+	angular
+		.module('visualizerModule')
+		.factory('VisTunnel', visTunnelFactory);
 
 	visTunnelFactory.$inject = [];
 
@@ -10,7 +12,7 @@ angular
 			this.audioData = [];
 		};
 
-		VisTunnel.prototype.draw = function() {
+		VisTunnel.prototype.draw = function () {
 			if (this.ctx) {
 
 			}
@@ -18,3 +20,4 @@ angular
 
 		return VisTunnel;
 	}
+})();

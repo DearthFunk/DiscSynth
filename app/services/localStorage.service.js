@@ -1,10 +1,12 @@
-angular
-	.module('localStorageServiceModule', [])
-	.factory('localStorageService', localStorageService);
+(function () {
+	'use strict';
+	angular
+		.module('localStorageServiceModule', [])
+		.factory('localStorageService', localStorageService);
 
 	localStorageService.$inject = [];
 
-	function localStorageService(){
+	function localStorageService() {
 
 		var service = {
 			storage: JSON.parse(localStorage.getItem('discSynthLocalStorage')),
@@ -12,7 +14,7 @@ angular
 		};
 		if (service.storage != null) {
 			if ('active' in service.storage) {
-				if (!service.storage.active){
+				if (!service.storage.active) {
 					service.storage = false;
 				}
 			}
@@ -41,3 +43,4 @@ angular
 			};
 		}
 	}
+})();

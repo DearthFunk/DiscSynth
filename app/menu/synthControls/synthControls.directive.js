@@ -1,6 +1,8 @@
-angular
-	.module('menuModule')
-    .directive('synthControls', synthControls);
+(function () {
+	'use strict';
+	angular
+		.module('menuModule')
+		.directive('synthControls', synthControls);
 
 	synthControls.$inject = [];
 
@@ -28,3 +30,4 @@ angular
 			{txt: 'Triangle', type: 'triangle'}
 		];
 	}
+})();

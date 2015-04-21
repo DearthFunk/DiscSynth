@@ -1,6 +1,8 @@
-angular
-	.module('visualizerModule')
-    .factory('VisBubbles', visBubblesFactory);
+(function () {
+	'use strict';
+	angular
+		.module('visualizerModule')
+		.factory('VisBubbles', visBubblesFactory);
 
 	visBubblesFactory.$inject = ['mathService', 'colorService', 'browserService'];
 
@@ -15,7 +17,7 @@ angular
 			this.balls = [];
 		};
 
-		VisBubbles.prototype.draw = function() {
+		VisBubbles.prototype.draw = function () {
 			if (this.ctx) {
 				var db = this.audioDB;
 				for (var i = 0; i < totalBalls; i++) {
@@ -38,7 +40,7 @@ angular
 				}
 			}
 		};
-		VisBubbles.prototype.newBall = function() {
+		VisBubbles.prototype.newBall = function () {
 			return {
 				x: mathService.randomNumber(0, this.ctx.canvas.width),
 				y: this.ctx.canvas.height + 15,
@@ -52,3 +54,4 @@ angular
 		return VisBubbles;
 
 	}
+})();

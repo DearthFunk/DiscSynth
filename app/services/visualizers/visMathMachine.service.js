@@ -1,20 +1,23 @@
-angular
-	.module('visualizerModule')
-	.factory('VisMathMachine', visMathMachineFactory);
+(function () {
+	'use strict';
+	angular
+		.module('visualizerModule')
+		.factory('VisMathMachine', visMathMachineFactory);
 
-visMathMachineFactory.$inject = [];
+	visMathMachineFactory.$inject = [];
 
-function visMathMachineFactory() {
+	function visMathMachineFactory() {
 
-	var VisMathMachine = function (ctx) {
-		this.ctx = ctx;
-	};
+		var VisMathMachine = function (ctx) {
+			this.ctx = ctx;
+		};
 
-	VisMathMachine.prototype.draw = function() {
-		if (this.ctx) {
+		VisMathMachine.prototype.draw = function() {
+			if (this.ctx) {
 
-		}
-	};
-	return VisMathMachine;
+			}
+		};
+		return VisMathMachine;
 
-}
+	}
+})();
