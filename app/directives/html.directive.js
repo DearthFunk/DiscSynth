@@ -1,6 +1,6 @@
 angular
 	.module('discSynth')
-	.directive('html', function($rootScope,$window, themeService, eventService, discService, visualizerService){
+	.directive('html', function($rootScope,$window, themeService, eventService, discService, visualizerService, localStorageService){
 	return {
 		restrict: 'E',
 		link: function(scope,element){

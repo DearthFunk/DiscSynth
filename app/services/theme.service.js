@@ -1,6 +1,6 @@
 angular.module('themeServiceModule', [])
 
-	.service('themeService', function(){
+	.service('themeService', function(localStorageService){
 		var themeServiceScope = this;
         themeServiceScope.themes = [
             {
@@ -119,7 +119,7 @@ angular.module('themeServiceModule', [])
 
             }
         ];
-        themeServiceScope.theme = themeServiceScope.themes[angular.isObject(discSynthLocalStorage) ? discSynthLocalStorage.themeIndex : 0];
+        themeServiceScope.theme = themeServiceScope.themes[angular.isObject(localStorageService.storage) ? localStorageService.storage.themeIndex : 0];
 
     });
 

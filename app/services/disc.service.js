@@ -1,5 +1,5 @@
 angular.module('discServiceModule', [])
-    .service("discService", function($window,$timeout,themeService,$rootScope, SYNTHS, MENU_SIZE, mathService, colorService){
+    .service("discService", function($window,$timeout,themeService,$rootScope, SYNTHS, MENU_SIZE, mathService, colorService, localStorageService){
 
         var disc = this;
         var audioCtx = typeof AudioContext !== 'undefined' ?	new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() :	null;
@@ -14,10 +14,10 @@ angular.module('discServiceModule', [])
         var ctrlKey = false;
 		var audioBufferSize = 1024;
 
-        disc.synthTemplates =   angular.isObject(discSynthLocalStorage) ? discSynthLocalStorage.synthTemplates : angular.copy(SYNTHS);
-        disc.synthIndex =       angular.isObject(discSynthLocalStorage) ? discSynthLocalStorage.synthIndex : 0;
-        disc.spd =              angular.isObject(discSynthLocalStorage) ? discSynthLocalStorage.spd : 0.5;
-        disc.len =              angular.isObject(discSynthLocalStorage) ? discSynthLocalStorage.len : 0.5;
+        disc.synthTemplates =   angular.isObject(localStorageService.storage) ? localStorageService.storage.synthTemplates : angular.copy(SYNTHS);
+        disc.synthIndex =       angular.isObject(localStorageService.storage) ? localStorageService.storage.synthIndex : 0;
+        disc.spd =              angular.isObject(localStorageService.storage) ? localStorageService.storage.spd : 0.5;
+        disc.len =              angular.isObject(localStorageService.storage) ? localStorageService.storage.len : 0.5;
         disc.playing = false;
         disc.discLength = 0;
         disc.clickTrack = 0;
@@ -271,7 +271,7 @@ angular.module('discServiceModule', [])
         disc.node.osc3 = audioCtx.createOscillator();
         disc.node.stopper = audioCtx.createGain();
         disc.node.masterGain = audioCtx.createGain();
-        disc.node.masterGain.gain.value = angular.isObject(discSynthLocalStorage) ? discSynthLocalStorage.vol : 0.5;
+        disc.node.masterGain.gain.value = angular.isDefined(localStorageService.storage) ? localStorageService.storage.vol : 0.5;
         disc.node.javascript = audioCtx.createScriptProcessor(audioBufferSize, 0, 1);
         disc.node.analyser = audioCtx.createAnalyser();
 
@@ -366,6 +366,7 @@ angular.module('discServiceModule', [])
 
             var template = disc.synthTemplates[index];
 
+	        console.log(template);
             disc.node.osc1.type = template.osc1.type;
             disc.node.osc2.type = template.osc2.type;
             disc.node.osc3.type = template.osc3.type;

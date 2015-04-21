@@ -1,5 +1,5 @@
 angular.module('visualizerServiceModule', [])
-    .service("visualizerService", function($window, $timeout, $rootScope,themeService,eventService,discService, MENU_SIZE, mathService, colorService){
+    .service("visualizerService", function($window, $timeout, $rootScope,themeService,eventService,discService, MENU_SIZE, mathService, colorService, localStorageService){
 
 
         var cnv = document.querySelectorAll('.visualizerCanvas')[0];
@@ -8,8 +8,17 @@ angular.module('visualizerServiceModule', [])
         var w, h,xCenter,yCenter = 0;
         var prom;
 
-        visualizer.visualizerIndex = angular.isObject(discSynthLocalStorage) ? discSynthLocalStorage.visualizerIndex : 0;
-        visualizer.visualizers = visualizers;
+        visualizer.visualizerIndex = angular.isObject(localStorageService.storage) ? localStorageService.storage.visualizerIndex : 0;
+        visualizer.visualizers = [
+			{globalCompositeOperation: "",                   clearCanvas:false, functionToRun: false},
+			{globalCompositeOperation: "lighter",            clearCanvas:true,  functionToRun: "visParticles"},
+			{globalCompositeOperation: "lighter",            clearCanvas:false, functionToRun: "visScope"},
+			{globalCompositeOperation: "lighter",            clearCanvas:true, functionToRun: "visTunnel"},
+			{globalCompositeOperation: "lighter",            clearCanvas:true, functionToRun: "visMathMachine"},
+			{globalCompositeOperation: "lighter",            clearCanvas:true, functionToRun: "visBurst"}
+
+		];
+
 
         visualizer.windowResize = function() {
             w = $window.innerWidth;

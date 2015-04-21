@@ -7,7 +7,7 @@ angular
 	function localStorageService(){
 
 		var service = {
-			storage: JSON.parse(localStorage.getItem('hexSynthDearthFunkSaveObject')),
+			storage: JSON.parse(localStorage.getItem('discSynthLocalStorage')),
 			getStorageInfo: getStorageInfo
 		};
 		if (service.storage != null) {
