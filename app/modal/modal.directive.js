@@ -5,7 +5,7 @@ angular
 function modal() {
 	var directive = {
 		restrict: 'EA',
-		templateUrl: 'directives/modal/modal.html',
+		templateUrl: 'app/modal/modal.html',
 		transclude: true,
 		controller: modalController,
 		scope: {

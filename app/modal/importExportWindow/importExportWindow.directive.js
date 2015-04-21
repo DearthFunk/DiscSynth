@@ -5,7 +5,7 @@ angular
 function importExportWindow() {
 	var directive = {
 		restrict: 'EA',
-		templateUrl: 'directives/importExportWindow/importExportWindow.html',
+		templateUrl: 'app/modal/importExportWindow/importExportWindow.html',
 		replace: true,
 		controller: importExportController,
 		bindToController: true

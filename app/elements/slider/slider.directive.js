@@ -8,7 +8,7 @@ angular.module('discSynth')
                 sliderValue: "=sliderValue",
 	            callBack: "=callBack"
             },
-            templateUrl:'elements/slider/slider.html',
+            templateUrl:'app/elements/slider/slider.html',
             replace: true,
             link: function(scope,element) {
 

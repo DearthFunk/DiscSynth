@@ -5,7 +5,7 @@ angular
 function helpWindow() {
 	var directive = {
 		restrict: 'EA',
-		templateUrl: 'directives/helpWindow/helpWindow.html',
+		templateUrl: 'app/modal/helpWindow/helpWindow.html',
 		replace: true,
 		controller: helpWindowController,
 		bindToController: true

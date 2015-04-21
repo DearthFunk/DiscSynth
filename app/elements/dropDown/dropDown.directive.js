@@ -6,7 +6,7 @@ dropDown.$inject = [];
 function dropDown() {
 	var directive = {
 		restrict: 'EA',
-		templateUrl: 'elements/dropDown/dropDown.html',
+		templateUrl: 'app/elements/dropDown/dropDown.html',
 		transclude: true,
 		controller: dropDownController,
 		scope: {
