@@ -14,8 +14,8 @@
 		return directive
 	}
 
-	htmlController.$inject = ['$scope', '$element', '$rootScope', '$window', 'themeService', 'discService', 'visualizerService', 'localStorageService'];
-	function htmlController($scope, $element, $rootScope, $window, themeService, discService, visualizerService, localStorageService) {
+	htmlController.$inject = ['$element', '$rootScope', '$window', 'themeService', 'discService', 'visualizerService', 'localStorageService'];
+	function htmlController($element, $rootScope, $window, themeService, discService, visualizerService, localStorageService) {
 
 		$window.onblur = windowOnBlur;
 		$window.onresize = windowOnResize;

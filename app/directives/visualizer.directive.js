@@ -10,13 +10,13 @@
 			restrict: 'EA',
 			template: '<canvas class="visualizer"></canvas>',
 			replace: true,
-			controller: visisualizerController,
+			controller: visualizerController,
 			bindToController: true
 		};
 		return directive;
 	}
 
-	function visisualizerController() {
+	function visualizerController() {
 
 	}
 
