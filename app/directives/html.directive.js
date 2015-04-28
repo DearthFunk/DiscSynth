@@ -14,8 +14,8 @@
 		return directive
 	}
 
-	htmlController.$inject = ['$element', '$rootScope', '$window', 'themeService', 'discService', 'visualizerService', 'localStorageService'];
-	function htmlController($element, $rootScope, $window, themeService, discService, visualizerService, localStorageService) {
+	htmlController.$inject = ['$element', '$rootScope', '$window', 'themeService', 'visualizerService', 'localStorageService'];
+	function htmlController($element, $rootScope, $window, themeService, visualizerService, localStorageService) {
 
 		$window.onblur = windowOnBlur;
 		$window.onresize = windowOnResize;
@@ -35,11 +35,10 @@
 		}
 		function windowOnResize() {
 			$rootScope.$broadcast('windowResizeEvent', event);
-			discService.windowResize();
-			visualizerService.windowResize();
+			//visualizerService.windowResize();
 		}
 		function windowOnBeforeUnload() {
-			var discSynthLocalStorage = localStorageService.getStorageInfo(discService, themeService, visualizerService);
+			var discSynthLocalStorage = localStorageService.getStorageInfo(themeService, visualizerService);
 			localStorage.setItem('discSynthLocalStorage', JSON.stringify(discSynthLocalStorage));
 		}
 
@@ -52,30 +51,27 @@
 		}
 		function mouseMove(event) {
 			if (event.target.localName !== 'textarea') {
-				discService.handleMouseMove(event);
 				$rootScope.$broadcast('mouseMoveEvent', event);
 			}
 		}
 		function mouseDown(event) {
 			if (event.target.localName !== 'textarea') {
-				discService.handleMouseDown(event);
 				$rootScope.$broadcast('mouseDownEvent', event);
 			}
 		}
 		function mouseUp(event) {
 			if (event.target.localName !== 'textarea') {
-				discService.handleMouseUp();
 				$rootScope.$broadcast('mouseUpEvent', event);
 			}
 		}
 		function keyDown(event) {
 			if (event.target.localName !== 'textarea') {
-				discService.handleKeyDown(event);
+				$rootScope.$broadcast('keyDownEvent', event);
 			}
 		}
 		function keyUp(event) {
 			if (event.target.localName !== 'textarea') {
-				discService.handleKeyUp(event);
+				$rootScope.$broadcast('keyUpEvent', event);
 			}
 		}
 	}

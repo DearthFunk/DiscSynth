@@ -6,13 +6,13 @@
 
 			'modalModule',
 			'visualizerModule',
+			'discModule',
 			'menuServiceModule',
 			'colorServiceModule',
 			'mathServiceModule',
 
 			'localStorageServiceModule',
 			'eventServiceModule',
-			'discServiceModule',
 			'themeServiceModule',
 			'visualizerServiceModule',
 			'menuModule'

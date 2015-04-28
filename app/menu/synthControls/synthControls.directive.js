@@ -17,12 +17,12 @@
 		return directive
 	}
 
-	synthControlsController.$inject = ['$scope', 'discService'];
+	synthControlsController.$inject = ['$scope'];
 
-	function synthControlsController($scope, discService) {
+	function synthControlsController($scope) {
 
 		$scope.resetIndex = -1;
-		$scope.discService = discService;
+		//$scope.discService = discService;
 		$scope.oscWaveTypes = [
 			{txt: 'Sine', type: 'sine'},
 			{txt: 'Square', type: 'square'},

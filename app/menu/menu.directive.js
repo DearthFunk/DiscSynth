@@ -17,14 +17,13 @@
 		return directive;
 	}
 
-	menuController.$inject = ['$scope', '$rootScope', '$timeout', 'themeService', 'discService', 'eventService', 'visualizerService', 'SYNTHS', 'MENU_SIZE'];
+	menuController.$inject = ['$scope', '$rootScope', '$timeout', 'themeService', 'eventService', 'visualizerService', 'SYNTHS', 'MENU_SIZE'];
 
-	function menuController($scope, $rootScope, $timeout, themeService, discService, eventService, visualizerService, SYNTHS, MENU_SIZE) {
+	function menuController($scope, $rootScope, $timeout, themeService, eventService, visualizerService, SYNTHS, MENU_SIZE) {
 
 		$scope.themeService = themeService;
 		$scope.eventService = eventService;
 		$scope.visualizerService = visualizerService;
-		$scope.discService = discService;
 		$scope.menuSize = MENU_SIZE;
 
 		$scope.editingVol = false;
@@ -39,14 +38,14 @@
 		$scope.helpWindow = helpWindow;
 		$scope.updateLen = updateLen;
 
-		updateLen(discService.len);
+		//updateLen(discService.len);
 
 		////////////////////////////////////////////////
 
 		function updateLen(x) {
-			discService.playing = false;
-			discService.discLength = 4 + Math.floor(x * 28);
-			discService.reCalculateDiscs();
+			//discService.playing = false;
+			//discService.discLength = 4 + Math.floor(x * 28);
+			//discService.reCalculateDiscs();
 		}
 
 		function changeVisualizer(index) {
@@ -62,23 +61,23 @@
 		function importExportWindow() {
 			$scope.helpWindowVisible = false;
 			$scope.importExportVisible = !$scope.importExportVisible;
-			var data = JSON.stringify(localStorageService.getStorageInfo(discService, themeService, visualizerService));
+			var data = JSON.stringify(localStorageService.getStorageInfo(themeService, visualizerService));
 			$rootScope.$broadcast("importExport", data);
 		}
 
 		function changeTheme(item) {
 			themeService.theme = item;
-			discService.reCalculateDiscs();
+			//discService.reCalculateDiscs();
 			$rootScope.$broadcast("themeChangeEvent");
 
 		}
 
 		function changeSynth(index) {
-			discService.switchSynthTemplate(index);
+			//discService.switchSynthTemplate(index);
 		}
 
 		function resetSynth(index) {
-			discService.synthTemplates[index] = angular.copy(SYNTHS[index]);
+			//discService.synthTemplates[index] = angular.copy(SYNTHS[index]);
 			$scope.resetIndex = index;
 			$timeout(function () {
 				$scope.resetIndex = -1;

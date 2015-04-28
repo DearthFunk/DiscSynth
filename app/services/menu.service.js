@@ -10,7 +10,13 @@
 	function menu() {
 
 		var service = {
-			themeIndex: 0
+			synthTemplates: [],
+			synthIndex: 0,
+			themeIndex: 0,
+			len: 0,
+			spd: 0,
+			vol: 0
+
 		};
 
 		return service;

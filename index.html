@@ -42,6 +42,7 @@
 	<script type="text/javascript" src="app/directives/html.directive.js"></script>
 	<script type="text/javascript" src="app/directives/ngRightClick.directive.js"></script>
 	<script type="text/javascript" src="app/directives/visualizer.directive.js"></script>
+	<script type="text/javascript" src="app/directives/disc.directive.js"></script>
 
 	<script type="text/javascript" src="app/menu/menu.directive.js"></script>
         <script type="text/javascript" src="app/menu/synthControls/synthControls.directive.js"></script>
@@ -53,9 +54,9 @@
 	<script type="text/javascript" src="app/services/color.service.js"></script>
 	<script type="text/javascript" src="app/services/math.service.js"></script>
 	<script type="text/javascript" src="app/services/localStorage.service.js"></script>
+	<script type="text/javascript" src="app/services/menu.service.js"></script>
 
         <script type="text/javascript" src="app/services/event.service.js"></script>
-        <script type="text/javascript" src="app/services/disc.service.js"></script>
         <script type="text/javascript" src="app/services/theme.service.js"></script>
         <script type="text/javascript" src="app/services/visualizer.service.js"></script>
 
@@ -66,7 +67,6 @@
 			<script type="text/javascript" src="app/services/visualizers/visScope.service.js"></script>
 			<script type="text/javascript" src="app/services/visualizers/visTunnel.service.js"></script>
 
-		<script type="text/javascript" src="app/services/menu.service.js"></script>
 
 	<!-- STYLES -->
 		<link rel="stylesheet/less" href="app/app.less">
@@ -77,7 +77,7 @@
 <body data-ng-controller="discController" data-ng-style="{backgroundImage:THEMES[menu.themeIndex].backgroundImage}">
 
     <canvas class="visualizerCanvas fullScreen"></canvas>
-    <canvas class="discCanvas fullScreen"></canvas>
+    <canvas disc class="fullScreen"></canvas>
     <div class="menu"></div>
     <div modal data-show-modal="importExportVisible" data-ng-show="importExportVisible"><div import-export-window></div></div>
     <div modal

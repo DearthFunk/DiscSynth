@@ -1,7 +1,200 @@
 (function () {
 	'use strict';
 	angular
-		.module('discServiceModule', [])
+		.module('discModule', [])
+		.directive('disc', disc);
+
+	function disc() {
+		var directive = {
+			restrict: 'EA',
+			transclude: true,
+			controller: discController,
+			bindToController: true
+		};
+		return directive;
+	}
+
+	discController.$inject = ['$scope', '$element', '$timeout', '$window'];
+	function discController($scope, $element, $timeout, $window) {
+		var disc = {discs:[]};
+		var cnv = $element[0];
+		var ctx = cnv.getContext('2d');
+		var hoverRing, hoverDisc, ringSelect, discSelect, mouseDownY, startFreq, centerButtonSize = -1;
+		var midX, midY, angleSize, drawPromise, clickPromise, distanceFromCenter;
+		var colors = [];
+
+
+		for (var i = 0; i < 33; i++) { //disc setup
+			disc.discs.push({
+				a1: 0,
+				a2: 0,
+				c: '',
+				osc: [
+					{x: 0, freq: 200, y: 0, rad: 0, active: false},
+					{x: 0, freq: 600, y: 0, rad: 0, active: false},
+					{x: 0, freq: 1400, y: 0, rad: 0, active: false},
+					{x: 0, freq: -1, y: 0, rad: 0, active: false}
+				]
+			});
+		}
+
+		$scope.$on('windowResizeEvent', windowResize);
+
+		windowResize();
+		timer();
+
+		console.log(disc,cnv);
+		////////////////////////////////////////////////////
+
+		function timer() {
+			//disc.drawDisc();
+			drawPromise = $timeout(timer, 10);
+		}
+		function windowResize() {
+			var w = $window.innerWidth;
+			var h = $window.innerHeight;
+			cnv.style.width = w + 'px';
+			cnv.style.height = h + 'px';
+			angular.element(cnv).attr({width: w, height: h});
+			//disc.reCalculateDiscs();
+		}
+		function reCalculateDiscs() {
+			midX = (w - MENU_SIZE) / 2;
+			midY = h / 2;
+			disc.rad = (h / 2) - 10;
+			centerButtonSize = disc.rad / 3;
+			angleSize = (1 / disc.discLength) * Math.PI * 2;
+			colors = colorService.hexArray(themeService.theme.discTileStart, themeService.theme.discTileEnd, disc.discLength);
+			for (var i = 0; i < disc.discs.length; i++) {
+				var a1 = angleSize * i;
+				var a2 = angleSize * (i + 1);
+				var theDisc = disc.discs[i];
+				theDisc.a1 = a1;
+				theDisc.a2 = a2;
+				for (var d = 0; d < 4; d++) {
+					theDisc.osc[d].x = midX + ((d + 3) / 6 * disc.rad) * Math.cos(a1);
+					theDisc.osc[d].y = midY + ((d + 3) / 6 * disc.rad) * Math.sin(a1);
+					theDisc.osc[d].rad = (d + 3) / 6 * disc.rad;
+				}
+			}
+		}
+		function drawDisc() {
+			ctx.clearRect(0, 0, w, h);
+			for (var i = 0; i < disc.discs.length - 1; i++) {
+				var disc1 = disc.discs[i];
+				var disc2 = disc.discs[i + 1];
+				for (var layer = 0; layer < disc1.osc.length - 1; layer++) {
+					if (i < disc.discLength) {
+						ctx.beginPath();
+						ctx.lineWidth = 1;
+						ctx.moveTo(disc1.osc[layer].x, disc1.osc[layer].y);
+						ctx.arc(midX, midY, disc1.osc[layer].rad, disc1.a1, disc1.a2, false);
+						ctx.lineTo(disc2.osc[layer + 1].x, disc2.osc[layer + 1].y);
+						ctx.arc(midX, midY, disc1.osc[layer + 1].rad, disc1.a2, disc1.a1, true);
+						ctx.lineTo(disc1.osc[layer].x, disc1.osc[layer].y);
+
+						if (disc1.osc[layer].active && i == disc.clickTrack) {
+							ctx.strokeStyle = themeService.theme.discLines;
+							ctx.fillStyle = colorService.hexToRGBA(colors[i], 0.7);
+							ctx.fill();
+						}
+						if (disc1.osc[layer].active) {
+							ctx.strokeStyle = themeService.theme.discLines;
+							ctx.fillStyle = colorService.hexToRGBA(colors[i], 0.4);
+							ctx.fill();
+						}
+						else if (i == disc.clickTrack) {
+							ctx.strokeStyle = themeService.theme.discLines;
+							ctx.fillStyle = themeService.theme.discPlayLine;
+							ctx.fill();
+						}
+						else if (layer == hoverRing && hoverDisc == i) {
+							ctx.lineWidth = 2;
+							ctx.strokeStyle = themeService.theme.discLines;
+							ctx.fillStyle = themeService.theme.discHover;
+							ctx.fill();
+						}
+						else {
+							ctx.strokeStyle = colorService.hexToRGBA(themeService.theme.discLines, 0.2);
+						}
+						ctx.stroke();
+						ctx.closePath();
+						ctx.beginPath();
+						ctx.font = "16px Times New Roman";
+						ctx.fillStyle = themeService.theme.discFont;
+
+						var a = (disc1.a2 - disc1.a1) * i + (angleSize / 2);
+						var r = (disc1.osc[layer].rad + disc1.osc[layer + 1].rad) / 2;
+						var x = midX + (r) * Math.cos(a);
+						var y = midY + (r) * Math.sin(a);
+
+						ctx.fillText(disc1.osc[layer].freq, x, y);
+						ctx.closePath();
+					}
+				}
+			}
+
+			//MAIN DISC BORDER (inner and outer)
+			ctx.lineWidth = 2;
+			ctx.strokeStyle = themeService.theme.discBorder1;
+			ctx.beginPath();
+			ctx.arc(midX, midY, disc.rad + 1, 0, Math.PI * 2, false);
+			ctx.stroke();
+			ctx.closePath();
+			ctx.beginPath();
+			ctx.arc(midX, midY, disc.rad / 2 - 2, 0, Math.PI * 2, false);
+			ctx.stroke();
+			ctx.closePath();
+
+			ctx.lineWidth = 1;
+			ctx.strokeStyle = themeService.theme.discBorder2;
+			ctx.beginPath();
+			ctx.arc(midX, midY, disc.rad + 2, 0, Math.PI * 2, false);
+			ctx.stroke();
+			ctx.closePath();
+			ctx.beginPath();
+			ctx.arc(midX, midY, disc.rad / 2 - 3, 0, Math.PI * 2, false);
+			ctx.stroke();
+			ctx.closePath();
+
+
+			//CENTER PLAY BUTTON
+			ctx.beginPath();
+			ctx.fillStyle = disc.playing ? themeService.theme.centerPlay : themeService.theme.centerStop;
+			ctx.arc(midX, midY, centerButtonSize, 0, Math.PI * 2, false);
+			ctx.fill();
+			ctx.closePath();
+			ctx.beginPath();
+			ctx.arc(midX, midY, centerButtonSize + 5, 0, Math.PI * 2, false);
+			ctx.lineWidth = 0.5;
+			ctx.strokeStyle = themeService.theme.centerBorder;
+			ctx.stroke();
+			ctx.closePath();
+			ctx.beginPath();
+			ctx.font = "60px Keys";
+			ctx.fontWeight = "bold";
+			ctx.lineWidth = 50;
+			ctx.textAlign = "center";
+			ctx.textBaseline = 'middle';
+			ctx.fillStyle = themeService.theme.centerText;
+			ctx.shadowOffsetX = 1;
+			ctx.shadowOffsetY = 1;
+			ctx.shadowBlur = 3;
+			ctx.shadowColor = "#FFFFFF";
+			ctx.fillText(disc.playing ? 'STOP' : 'PLAY', midX, midY);
+			ctx.closePath();
+			ctx.shadowOffsetX = 0;
+			ctx.shadowOffsetY = 0;
+			ctx.shadowBlur = 0;
+
+		}
+
+	}
+
+})();
+
+		/*
+
 		.service("discService", function ($window, $timeout, themeService, $rootScope, SYNTHS, MENU_SIZE, mathService, colorService, localStorageService) {
 
 			var disc = this;
@@ -201,9 +394,9 @@
 			disc.windowResize();
 			timer();
 
-			/*-------------------------------------------------HANDLERS-----------------------------------------------------------*/
-			/*-------------------------------------------------HANDLERS-----------------------------------------------------------*/
-			/*-------------------------------------------------HANDLERS-----------------------------------------------------------*/
+			*//*-------------------------------------------------HANDLERS-----------------------------------------------------------*//*
+			*//*-------------------------------------------------HANDLERS-----------------------------------------------------------*//*
+			*//*-------------------------------------------------HANDLERS-----------------------------------------------------------*//*
 			disc.handleMouseDown = function (e) {
 				if (distanceFromCenter < centerButtonSize) {
 					disc.playing = !disc.playing;
@@ -290,9 +483,9 @@
 			};
 
 
-			/*-------------------------------------------------AUDIO STUFF------------------------------------------------*/
-			/*-------------------------------------------------AUDIO STUFF------------------------------------------------*/
-			/*-------------------------------------------------AUDIO STUFF------------------------------------------------*/
+			*//*-------------------------------------------------AUDIO STUFF------------------------------------------------*//*
+			*//*-------------------------------------------------AUDIO STUFF------------------------------------------------*//*
+			*//*-------------------------------------------------AUDIO STUFF------------------------------------------------*//*
 			disc.node.osc1 = audioCtx.createOscillator();
 			disc.node.osc2 = audioCtx.createOscillator();
 			disc.node.osc3 = audioCtx.createOscillator();
@@ -434,7 +627,7 @@
 			};
 			disc.loadSynth(disc.synthIndex);
 
-			/*----------------------------------------------------------------------------------------CLICK TRACK---------*/
+			*//*----------------------------------------------------------------------------------------CLICK TRACK---------*//*
 			disc.clickTrackPlayer = function () {
 				while (nextNoteTime < audioCtx.currentTime + 0.1) {
 					nextNoteTime += 1.1 - disc.spd;
@@ -452,5 +645,4 @@
 			};
 			disc.clickTrackPlayer();
 
-		});
-})();
+	*/

@@ -1,8 +1,9 @@
 (function () {
 	'use strict';
 	angular.module('visualizerServiceModule', [])
-		.service("visualizerService", function ($window, $timeout, $rootScope, themeService, eventService, discService, MENU_SIZE, mathService, colorService, localStorageService) {
+		.service("visualizerService", function ($window, $timeout, $rootScope, themeService, eventService, MENU_SIZE, mathService, colorService, localStorageService) {
 
+/*
 
 			var cnv = document.querySelectorAll('.visualizerCanvas')[0];
 			var ctx = cnv.getContext("2d");
@@ -58,10 +59,12 @@
 			visualizer.windowResize();
 			visualizer.timer();
 
-			/*--------------------------------------------------------------------------------------------------------------------*/
+			*/
+/*--------------------------------------------------------------------------------------------------------------------*//*
+
 			visualizer.getFreqArray = function (depth, removal) {
 				var theSmallArray = [];
-				var theFreqArray = new Uint8Array(discService.node.analyser.frequencyBinCount);
+				var theFreqArray = new Uint8Array(  discService.node.analyser.frequencyBinCount);
 				discService.node.analyser.getByteFrequencyData(theFreqArray);
 				var x = depth == undefined ? 1 : depth;
 				var len = theFreqArray.length - removal;
@@ -91,7 +94,9 @@
 				return values / dbArray.length;
 			};
 
-			/*--------------------------------------------------------------------------------------------------------------------*/
+			*/
+/*--------------------------------------------------------------------------------------------------------------------*//*
+
 			var whirlyParticles = [];
 
 			function createParticle(firstLoad) {
@@ -136,7 +141,9 @@
 					}
 				}
 			};
-			/*--------------------------------------------------------------------------------------------------------------------*/
+			*/
+/*--------------------------------------------------------------------------------------------------------------------*//*
+
 
 			visualizer.visScope = function () {
 				var db = visualizer.getAverageDB();
@@ -164,7 +171,9 @@
 				}
 			};
 
-			/*--------------------------------------------------------------------------------------------------------------------*/
+			*/
+/*--------------------------------------------------------------------------------------------------------------------*//*
+
 			var lines = [0];
 			visualizer.visTunnel = function () {
 				var nextIndex = false;
@@ -201,7 +210,9 @@
 				}
 			};
 
-			/*--------------------------------------------------------------------------------------------------------------------*/
+			*/
+/*--------------------------------------------------------------------------------------------------------------------*//*
+
 
 
 			visualizer.visMathMachine = function () {
@@ -233,7 +244,9 @@
 				ctx.strokeStyle = "";
 			};
 
-			/*--------------------------------------------------------------------------------------------------------------------*/
+			*/
+/*--------------------------------------------------------------------------------------------------------------------*//*
+
 			var particles = [];
 
 			function burst() {
@@ -293,6 +306,7 @@
 				}
 			};
 
+*/
 		});
 
 })();
