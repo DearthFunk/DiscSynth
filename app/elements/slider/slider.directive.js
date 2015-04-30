@@ -29,13 +29,15 @@
 		$scope.themeService = themeService;
 
 		var lastValue = -1;
-		var originalValue = $scope.sliderValue;
 		var minValue = angular.isDefined($scope.minValue) ? $scope.minValue : 0;
 		var maxValue = angular.isDefined($scope.maxValue) ? $scope.maxValue : 1;
 		if (minValue >= maxValue) {
 			minValue = 0;
 			maxValue = 1;
 		}
+		if ($scope.sliderValue < minValue) {$scope.sliderValue = minValue}
+		if ($scope.sliderValue > maxValue) {$scope.sliderValue = maxValue}
+		var originalSliderValue = $scope.sliderValue;
 
 		$scope.getWidth = getWidth;
 		$scope.getLeftAdjust = getLeftAdjust;
@@ -58,7 +60,7 @@
 			return $element[0].getBoundingClientRect().width - $scope.thumbWidth;
 		}
 		function getOriginalLeftPos() {
-			return (originalValue-minValue) / (maxValue-minValue) * $scope.getWidth();
+			return (originalSliderValue-minValue) / (maxValue-minValue) * $scope.getWidth();
 		}
 
 		function mouseUpEvent() {
@@ -74,7 +76,7 @@
 
 		function setSliderValueAndRunCallBack(reset) {
 			if (reset) {
-				$scope.sliderValue = originalValue;
+				$scope.sliderValue = originalSliderValue;
 				$scope.leftPos = $scope.getOriginalLeftPos();
 			}
 			else {
