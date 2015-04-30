@@ -17,9 +17,9 @@
 		return directive;
 	}
 
-	menuController.$inject = ['$scope', '$rootScope', '$timeout', 'themeService', 'eventService', 'visualizerService', 'SYNTHS', 'MENU_SIZE'];
+	menuController.$inject = ['$scope', '$rootScope', '$timeout', 'themeService', 'eventService', 'visualizerService', 'SYNTHS', 'MENU_SIZE', 'menuService'];
 
-	function menuController($scope, $rootScope, $timeout, themeService, eventService, visualizerService, SYNTHS, MENU_SIZE) {
+	function menuController($scope, $rootScope, $timeout, themeService, eventService, visualizerService, SYNTHS, MENU_SIZE, menuService) {
 
 		$scope.themeService = themeService;
 		$scope.eventService = eventService;
@@ -43,6 +43,8 @@
 		////////////////////////////////////////////////
 
 		function updateLen(x) {
+			$rootScope.$broadcast('discLenChange', x);
+			//console.log(x);
 			//discService.playing = false;
 			//discService.discLength = 4 + Math.floor(x * 28);
 			//discService.reCalculateDiscs();

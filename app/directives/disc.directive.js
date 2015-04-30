@@ -7,47 +7,50 @@
 	function disc() {
 		var directive = {
 			restrict: 'EA',
-			transclude: true,
 			controller: discController,
 			bindToController: true
 		};
 		return directive;
 	}
 
-	discController.$inject = ['$scope', '$element', '$timeout', '$window'];
-	function discController($scope, $element, $timeout, $window) {
-		var disc = {discs:[]};
+	discController.$inject = ['$scope', '$element', '$timeout', '$window', 'MENU_SIZE', 'themeService', 'colorService', 'menuService'];
+	function discController($scope, $element, $timeout, $window, MENU_SIZE, themeService, colorService, menuService) {
+
 		var cnv = $element[0];
 		var ctx = cnv.getContext('2d');
+		var disc = {slices:[], colors:[]};
 		var hoverRing, hoverDisc, ringSelect, discSelect, mouseDownY, startFreq, centerButtonSize = -1;
 		var midX, midY, angleSize, drawPromise, clickPromise, distanceFromCenter;
-		var colors = [];
-
 
 		for (var i = 0; i < 33; i++) { //disc setup
-			disc.discs.push({
+			disc.slices.push({
 				a1: 0,
 				a2: 0,
 				c: '',
 				osc: [
-					{x: 0, freq: 200, y: 0, rad: 0, active: false},
-					{x: 0, freq: 600, y: 0, rad: 0, active: false},
-					{x: 0, freq: 1400, y: 0, rad: 0, active: false},
-					{x: 0, freq: -1, y: 0, rad: 0, active: false}
+					{x: 0, y: 0, rad: 0, active: false, freq: 200},
+					{x: 0, y: 0, rad: 0, active: false, freq: 600},
+					{x: 0, y: 0, rad: 0, active: false, freq: 1400},
+					{x: 0, y: 0, rad: 0, active: false, freq: -1}
 				]
 			});
 		}
-
+/*
 		$scope.$on('windowResizeEvent', windowResize);
-
+		$scope.$on('discLenChange', reCalculateDiscs);
+		$scope.$on('mouseMoveEvent', mouseMoveEvent);
+		$scope.$on('mouseUpEvent', mouseUpEvent);
+		$scope.$on('mouseDownEvent', mouseDownEvent);
+		$scope.$on('keyDownEvent', keyDownevent);
+		$scope.$on('keyUpEvent', keyUpEvent);
+*/
 		windowResize();
 		timer();
 
-		console.log(disc,cnv);
 		////////////////////////////////////////////////////
 
 		function timer() {
-			//disc.drawDisc();
+			drawDisc();
 			drawPromise = $timeout(timer, 10);
 		}
 		function windowResize() {
@@ -56,19 +59,20 @@
 			cnv.style.width = w + 'px';
 			cnv.style.height = h + 'px';
 			angular.element(cnv).attr({width: w, height: h});
-			//disc.reCalculateDiscs();
-		}
-		function reCalculateDiscs() {
 			midX = (w - MENU_SIZE) / 2;
 			midY = h / 2;
 			disc.rad = (h / 2) - 10;
 			centerButtonSize = disc.rad / 3;
-			angleSize = (1 / disc.discLength) * Math.PI * 2;
-			colors = colorService.hexArray(themeService.theme.discTileStart, themeService.theme.discTileEnd, disc.discLength);
-			for (var i = 0; i < disc.discs.length; i++) {
+			reCalculateDiscs();
+			console.log(disc);
+		}
+		function reCalculateDiscs(e, discLen) {
+			angleSize = (1 / discLen) * Math.PI * 2;
+			disc.colors = colorService.hexArray(themeService.theme.discTileStart, themeService.theme.discTileEnd, discLen);
+			for (var i = 0; i < disc.slices.length; i++) {
 				var a1 = angleSize * i;
 				var a2 = angleSize * (i + 1);
-				var theDisc = disc.discs[i];
+				var theDisc = disc.slices[i];
 				theDisc.a1 = a1;
 				theDisc.a2 = a2;
 				for (var d = 0; d < 4; d++) {
@@ -78,13 +82,12 @@
 				}
 			}
 		}
-		function drawDisc() {
-			ctx.clearRect(0, 0, w, h);
-			for (var i = 0; i < disc.discs.length - 1; i++) {
-				var disc1 = disc.discs[i];
-				var disc2 = disc.discs[i + 1];
+		function drawDisc() {ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+			for (var i = 0; i < disc.slices.length - 1; i++) {
+				var disc1 = disc.slices[i];
+				var disc2 = disc.slices[i + 1];
 				for (var layer = 0; layer < disc1.osc.length - 1; layer++) {
-					if (i < disc.discLength) {
+					if (i < menuService.len) {
 						ctx.beginPath();
 						ctx.lineWidth = 1;
 						ctx.moveTo(disc1.osc[layer].x, disc1.osc[layer].y);
@@ -95,12 +98,12 @@
 
 						if (disc1.osc[layer].active && i == disc.clickTrack) {
 							ctx.strokeStyle = themeService.theme.discLines;
-							ctx.fillStyle = colorService.hexToRGBA(colors[i], 0.7);
+							ctx.fillStyle = colorService.hexToRGBA(disc.colors[i], 0.7);
 							ctx.fill();
 						}
 						if (disc1.osc[layer].active) {
 							ctx.strokeStyle = themeService.theme.discLines;
-							ctx.fillStyle = colorService.hexToRGBA(colors[i], 0.4);
+							ctx.fillStyle = colorService.hexToRGBA(disc.colors[i], 0.4);
 							ctx.fill();
 						}
 						else if (i == disc.clickTrack) {
@@ -120,7 +123,7 @@
 						ctx.stroke();
 						ctx.closePath();
 						ctx.beginPath();
-						ctx.font = "16px Times New Roman";
+						ctx.font = '16px Times New Roman';
 						ctx.fillStyle = themeService.theme.discFont;
 
 						var a = (disc1.a2 - disc1.a1) * i + (angleSize / 2);
@@ -157,7 +160,6 @@
 			ctx.stroke();
 			ctx.closePath();
 
-
 			//CENTER PLAY BUTTON
 			ctx.beginPath();
 			ctx.fillStyle = disc.playing ? themeService.theme.centerPlay : themeService.theme.centerStop;
@@ -171,22 +173,107 @@
 			ctx.stroke();
 			ctx.closePath();
 			ctx.beginPath();
-			ctx.font = "60px Keys";
-			ctx.fontWeight = "bold";
+			ctx.font = '60px Keys';
+			ctx.fontWeight = 'bold';
 			ctx.lineWidth = 50;
-			ctx.textAlign = "center";
+			ctx.textAlign = 'center';
 			ctx.textBaseline = 'middle';
 			ctx.fillStyle = themeService.theme.centerText;
 			ctx.shadowOffsetX = 1;
 			ctx.shadowOffsetY = 1;
 			ctx.shadowBlur = 3;
-			ctx.shadowColor = "#FFFFFF";
+			ctx.shadowColor = '#FFFFFF';
 			ctx.fillText(disc.playing ? 'STOP' : 'PLAY', midX, midY);
 			ctx.closePath();
 			ctx.shadowOffsetX = 0;
 			ctx.shadowOffsetY = 0;
 			ctx.shadowBlur = 0;
 
+		}
+
+		function mouseDownEvent(e) {
+			if (distanceFromCenter < centerButtonSize) {
+				disc.playing = !disc.playing;
+				disc.playing ?
+					disc.node.stopper.connect(disc.fx.moogfilter.input) :
+					disc.node.stopper.disconnect();
+			}
+			else if (distanceFromCenter < disc.rad && distanceFromCenter > disc.rad / 2) {
+				if (!ctrlKey) {
+					disc.discs[hoverDisc].osc[hoverRing].active = !disc.discs[hoverDisc].osc[hoverRing].active;
+				}
+				else {
+					ringSelect = hoverRing;
+					discSelect = hoverDisc;
+					mouseDownY = e.clientY;
+					startFreq = disc.discs[discSelect].osc[ringSelect].freq;
+				}
+			}
+		}
+
+		function mouseMoveEvent(e) {
+			distanceFromCenter = Math.sqrt(Math.pow(e.clientX - (w - MENU_SIZE) / 2, 2) + Math.pow(e.clientY - (h / 2), 2));
+			if (distanceFromCenter < disc.rad && distanceFromCenter > disc.rad / 2) {
+				for (var layer = 0; layer < disc.discs[0].osc.length - 1; layer++) {
+					var d1 = (layer + 3) / 6 * disc.rad;
+					var d2 = (layer + 4) / 6 * disc.rad;
+					if (distanceFromCenter > d1 && distanceFromCenter < d2) {
+						hoverRing = layer;
+						break;
+					}
+				}
+				var angle = Math.atan2((h / 2) - e.clientY, (w - MENU_SIZE) / 2 - e.clientX) + Math.PI;
+				for (var i = 0; i < disc.discs.length - 1; i++) {
+					if (angle > disc.discs[i].a1 && angle < disc.discs[i].a2) {
+						hoverDisc = i;
+						break;
+					}
+				}
+			}
+			else {
+				hoverRing = -1;
+				hoverDisc = -1;
+			}
+
+			if (ringSelect > -1 && discSelect > -1 && ctrlKey) {
+				var newFreq = startFreq + ((mouseDownY - e.clientY) * 2);
+				disc.discs[discSelect].osc[ringSelect].freq = newFreq < 0 ? 0 : newFreq > 15000 ? 15000 : newFreq;
+			}
+		}
+
+		function mouseUpEvent() {
+			ringSelect = -1;
+			discSelect = -1;
+		}
+		function keyUpEvent(e) {
+			ctrlKey = e.ctrlKey;
+		}
+		function keyDownevent(e) {
+			ctrlKey = e.ctrlKey;
+			switch (e.keyCode) {
+				case 32 :
+					disc.playing = !disc.playing;
+					disc.playing ? disc.node.stopper.connect(disc.fx.moogfilter.input) : disc.node.stopper.disconnect();
+					break;
+				case 65 :
+					disc.fx.bitcrusher.bypass = !disc.fx.bitcrusher.bypass;
+					break;
+				case 83 :
+					disc.fx.overdrive.bypass = !disc.fx.overdrive.bypass;
+					break;
+				case 68 :
+					disc.fx.tremolo.bypass = !disc.fx.tremolo.bypass;
+					break;
+				case 90 :
+					disc.fx.convolver.bypass = !disc.fx.convolver.bypass;
+					break;
+				case 88 :
+					disc.fx.moogfilter.bypass = !disc.fx.moogfilter.bypass;
+					break;
+				case 67 :
+					disc.fx.delay.bypass = !disc.fx.delay.bypass;
+					break;
+			}
 		}
 
 	}
@@ -215,7 +302,7 @@
 			disc.spd = angular.isObject(localStorageService.storage) ? localStorageService.storage.spd : 0.5;
 			disc.len = angular.isObject(localStorageService.storage) ? localStorageService.storage.len : 0.5;
 			disc.playing = false;
-			disc.discLength = 0;
+			disc.len = 0;
 			disc.clickTrack = 0;
 			disc.discs = [];
 			disc.node = {};
@@ -255,8 +342,8 @@
 				midY = h / 2;
 				disc.rad = (h / 2) - 10;
 				centerButtonSize = disc.rad / 3;
-				angleSize = (1 / disc.discLength) * Math.PI * 2;
-				colors = colorService.hexArray(themeService.theme.discTileStart, themeService.theme.discTileEnd, disc.discLength);
+				angleSize = (1 / disc.len) * Math.PI * 2;
+				colors = colorService.hexArray(themeService.theme.discTileStart, themeService.theme.discTileEnd, disc.len);
 				for (var i = 0; i < disc.discs.length; i++) {
 					var a1 = angleSize * i;
 					var a2 = angleSize * (i + 1);
@@ -286,7 +373,7 @@
 					var disc1 = disc.discs[i];
 					var disc2 = disc.discs[i + 1];
 					for (var layer = 0; layer < disc1.osc.length - 1; layer++) {
-						if (i < disc.discLength) {
+						if (i < disc.len) {
 							ctx.beginPath();
 							ctx.lineWidth = 1;
 							ctx.moveTo(disc1.osc[layer].x, disc1.osc[layer].y);

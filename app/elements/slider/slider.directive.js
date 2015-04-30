@@ -16,7 +16,8 @@
 				sliderValue: "=sliderValue",
 				callBack: "=callBack",
 				minValue: "=minValue",
-				maxValue: "=maxValue"
+				maxValue: "=maxValue",
+				fixedValue: "=fixedValue"
 			}
 		};
 		return directive;
@@ -29,6 +30,8 @@
 		$scope.themeService = themeService;
 
 		var lastValue = -1;
+		var runCallBack = angular.isDefined($scope.callBack);
+		var toFixedValue = angular.isDefined($scope.fixedValue);
 		var minValue = angular.isDefined($scope.minValue) ? $scope.minValue : 0;
 		var maxValue = angular.isDefined($scope.maxValue) ? $scope.maxValue : 1;
 		if (minValue >= maxValue) {
@@ -76,13 +79,14 @@
 
 		function setSliderValueAndRunCallBack(reset) {
 			if (reset) {
-				$scope.sliderValue = originalSliderValue;
+				$scope.sliderValue = toFixedValue ? originalSliderValue.toFixed($scope.fixedValue) : originalSliderValue;
 				$scope.leftPos = $scope.getOriginalLeftPos();
 			}
 			else {
-				$scope.sliderValue = ($scope.leftPos / $scope.getWidth()) * (maxValue -  minValue) + minValue;
+				var newSlider = ($scope.leftPos / $scope.getWidth()) * (maxValue -  minValue) + minValue;
+				$scope.sliderValue = toFixedValue ? newSlider.toFixed($scope.fixedValue) : newSlider;
 			}
-			if (angular.isDefined($scope.callBack)) {
+			if (runCallBack) {
 				$scope.callBack($scope.sliderValue);
 			}
 		}

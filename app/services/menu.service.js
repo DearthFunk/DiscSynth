@@ -3,17 +3,17 @@
 
 	angular
 		.module('menuServiceModule', [])
-		.factory('menu', menu);
+		.factory('menuService', menuService);
 
-	menu.$inject = [];
+	menuService.$inject = [];
 
-	function menu() {
+	function menuService() {
 
 		var service = {
 			synthTemplates: [],
 			synthIndex: 0,
 			themeIndex: 0,
-			len: 0,
+			len: 16,
 			spd: 0,
 			vol: 0
 
