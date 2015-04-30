@@ -1,9 +1,9 @@
-<div class="sliderContainer" data-ng-mousedown="movePos($event)">
+<div class="sliderContainer" data-ng-mousedown="mouseDown($event)">
     <div class="horizontalBar" >
         <div class="sliderThumbContainer"
-            data-ng-style="{width: thumbWidth + 'px', left: ( sliderValue * (width - thumbWidth)) + 'px'}"
+            data-ng-style="{width: thumbWidth + 'px', left: leftPos  + 'px'}"
             data-ng-mousedown="startMovingSlider($event)"
-            data-ng-dblclick="resetToOriginal()">
+            data-ng-dblclick="setSliderValueAndRunCallBack(true)">
             <div class="sliderThumb" data-ng-style="{backgroundColor: themeService.theme.menuHighlight}"></div>
         </div>
     </div>

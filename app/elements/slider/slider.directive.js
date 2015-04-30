@@ -14,7 +14,9 @@
 			scope: {
 				currentlyMoving: "=currentlyMoving",
 				sliderValue: "=sliderValue",
-				callBack: "=callBack"
+				callBack: "=callBack",
+				minValue: "=minValue",
+				maxValue: "=maxValue"
 			},
 			bindToController: true
 		};
@@ -24,81 +26,69 @@
 	sliderController.$inject = ['$scope', '$element', 'themeService'];
 	function sliderController($scope, $element, themeService) {
 
-		var sliding, startX, originalX, newValue;
-		var lastValue = $scope.sliderValue;
-		var originalValue = $scope.sliderValue;
-		var xMin = 0;
-
 		$scope.thumbWidth = 8;
 		$scope.themeService = themeService;
-		$scope.width = $element[0].getBoundingClientRect().width;
 
-		$scope.resetToOriginal = resetToOriginal;
+		var lastValue = -1;
+		var originalValue = $scope.sliderValue;
+		var leftAdjust = $element[0].getBoundingClientRect().left + ($scope.thumbWidth/2);
+		var width = $element[0].getBoundingClientRect().width - $scope.thumbWidth;
+		var runCallBackFunction = angular.isDefined($scope.callBack);
+		var minValue = angular.isDefined($scope.minValue) ? $scope.minValue : 0;
+		var maxValue = angular.isDefined($scope.maxValue) ? $scope.maxValue : 1;
+		if (minValue >= maxValue) {
+			minValue = 0;
+			maxValue = 1;
+		}
+
 		$scope.mouseUpEvent = mouseUpEvent;
-		$scope.startMovingSlider = startMovingSlider;
-		$scope.movePos = movePos;
+		$scope.mouseDown = mouseDown;
 		$scope.mouseMoveEvent = mouseMoveEvent;
+		$scope.setSliderValueAndRunCallBack = setSliderValueAndRunCallBack;
 		$scope.$on('mouseMoveEvent', $scope.mouseMoveEvent);
 		$scope.$on('mouseUpEvent', $scope.mouseUpEvent);
 
 		/////////////////////////////////////////////
 
-		function resetToOriginal() {
-			$scope.sliderValue = originalValue;
-			if (angular.isDefined($scope.callBack)) {
+		function setSliderValueAndRunCallBack(reset) {
+			if (reset) {
+				$scope.sliderValue = originalValue;
+				$scope.leftPos = leftAdjust / 2;
+			}
+			else {
+				$scope.sliderValue = ($scope.leftPos / width) * (maxValue -  minValue) + minValue;
+			}
+			if (runCallBackFunction) {
 				$scope.callBack($scope.sliderValue);
+			}
+			if (reset) {
+				console.log($scope.leftPos, $scope.sliderValue);
 			}
 		}
 
 		function mouseUpEvent() {
-			if (sliding) {
-				if (angular.isDefined($scope.callBack)) {
-					$scope.callBack($scope.sliderValue);
-				}
-				sliding = false;
+			if ($scope.currentlyMoving) {
+				$scope.setSliderValueAndRunCallBack();
 				$scope.currentlyMoving = false;
 			}
 		}
 
-		function startMovingSlider(event) {
+		function mouseDown(event) {
 			$scope.currentlyMoving = true;
-			sliding = true;
-			startX = event.clientX;
-			newValue = $scope.sliderValue * ($scope.width - $scope.thumbWidth);
-			originalX = newValue;
-		}
-
-		function movePos(e) {
-			if (!sliding) {
-				$scope.sliderValue = (e.clientX - $element[0].getBoundingClientRect().left) / $scope.width;
-				$scope.startMovingSlider(e);
-
-				if (angular.isDefined($scope.callBack)) {
-					$scope.callBack($scope.sliderValue);
-				}
-			}
+			$scope.leftPos = event.clientX - leftAdjust;
+			$scope.setSliderValueAndRunCallBack();
 		}
 
 		function mouseMoveEvent(event, args) {
-			if (sliding) {
-				var newLeft = originalX - startX + args.clientX;
-				if (newLeft < xMin) {
-					newLeft = xMin;
-					$scope.sliderValue = 0;
-				}
-				if (newLeft > $scope.width) {
-					newLeft = $scope.width;
-					$scope.sliderValue = 1;
-				}
-				newValue = newLeft;
-				if (lastValue != newValue) {
-					$scope.sliderValue = ((xMin - newValue) / (xMin - $scope.width));
-					if (angular.isDefined($scope.callBack)) {
-						$scope.callBack($scope.sliderValue);
-					}
-					lastValue = newValue;
+			if ($scope.currentlyMoving) {
+				var leftPos = args.clientX - leftAdjust;
+				$scope.leftPos = leftPos < 0 ? 0 : leftPos > width ? width : leftPos;
+				if ($scope.leftPos !== lastValue) {
+					lastValue = $scope.leftPos;
+					$scope.setSliderValueAndRunCallBack();
 				}
 			}
 		}
+
 	}
 })();
