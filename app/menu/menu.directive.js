@@ -17,12 +17,13 @@
 		return directive;
 	}
 
-	menuController.$inject = ['$scope', '$rootScope', '$timeout', 'themeService', 'eventService', 'visualizerService', 'SYNTHS', 'MENU_SIZE', 'menuService'];
+	menuController.$inject = ['$scope', '$rootScope', '$timeout', 'themeService', 'eventService', 'visualizerService', 'MENU_SIZE', 'audioService'];
 
-	function menuController($scope, $rootScope, $timeout, themeService, eventService, visualizerService, SYNTHS, MENU_SIZE, menuService) {
+	function menuController($scope, $rootScope, $timeout, themeService, eventService, visualizerService, MENU_SIZE, audioService) {
 
 		$scope.themeService = themeService;
 		$scope.eventService = eventService;
+		$scope.audioService = audioService;
 		$scope.visualizerService = visualizerService;
 		$scope.menuSize = MENU_SIZE;
 
@@ -37,15 +38,9 @@
 		$scope.resetSynth = resetSynth;
 		$scope.helpWindow = helpWindow;
 		$scope.updateLen = updateLen;
-		$scope.randomize = randomize;
-
-		//updateLen(discService.len);
 
 		////////////////////////////////////////////////
 
-		function randomize() {
-			$rootScope.$broadcast('randomizeDisc');
-		}
 		function updateLen(x) {
 			$rootScope.$broadcast('discLenChange', x);
 			//console.log(x);

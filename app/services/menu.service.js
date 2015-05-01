@@ -14,7 +14,7 @@
 			synthIndex: 0,
 			themeIndex: 0,
 			len: 16,
-			spd: 0,
+			spd: 0.5,
 			vol: 0
 
 		};
