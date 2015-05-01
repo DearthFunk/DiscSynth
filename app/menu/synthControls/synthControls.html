@@ -5,65 +5,65 @@
         <div class="left">
             <div drop-down
                  data-list="oscWaveTypes"
-                 data-selected="discService.node.osc1.type"></div>
+                 data-selected="audioService.node.osc1.type"></div>
             <div drop-down
                  data-list="oscWaveTypes"
-                 data-selected="discService.node.osc2.type"></div>
+                 data-selected="audioService.node.osc2.type"></div>
             <div drop-down
                  data-list="oscWaveTypes"
-                 data-selected="discService.node.osc3.type"></div>
+                 data-selected="audioService.node.osc3.type"></div>
         </div>
         <div class="right">
-            <div knob data-label="'D'" data-min-value="-2000" data-max-value="2000" data-size="40" data-knob-value="discService.node.osc1.detune.value"></div>
-            <div knob data-label="'D'" data-min-value="-2000" data-max-value="2000" data-size="40" data-knob-value="discService.node.osc2.detune.value"></div>
-            <div knob data-label="'D'" data-min-value="-2000" data-max-value="2000" data-size="40" data-knob-value="discService.node.osc3.detune.value"></div>
+            <div knob data-label="'D'" data-min-value="-2000" data-max-value="2000" data-size="40" data-knob-value="audioService.node.osc1.detune.value"></div>
+            <div knob data-label="'D'" data-min-value="-2000" data-max-value="2000" data-size="40" data-knob-value="audioService.node.osc2.detune.value"></div>
+            <div knob data-label="'D'" data-min-value="-2000" data-max-value="2000" data-size="40" data-knob-value="audioService.node.osc3.detune.value"></div>
         </div>
     </div>
 
-    <div class="section" data-ng-style="{backgroundColor: !discService.fx.bitcrusher.bypass ? themeService.theme.menuSectionalBackground : ''}">
-        <span class="title" data-ng-click="discService.fx.bitcrusher.bypass = !discService.fx.bitcrusher.bypass">Bit Crusher</span>
-        <div knob data-label="'Bit'" data-min-value="1" data-max-value="16" data-size="55" data-knob-value="discService.fx.bitcrusher.bits"></div>
-        <div knob data-label="'Siz'" data-min-value="256" data-max-value="16384" data-size="55" data-knob-value="discService.fx.bitcrusher.bufferSize"></div>
-        <div knob data-label="'Frq'" data-min-value="0.0001" data-max-value="1" data-size="55" data-knob-value="discService.fx.bitcrusher.normFreq"></div>
+    <div class="section" data-ng-style="{backgroundColor: !audioService.fx.bitcrusher.bypass ? themeService.theme.menuSectionalBackground : ''}">
+        <span class="title" data-ng-click="audioService.fx.bitcrusher.bypass = !audioService.fx.bitcrusher.bypass">Bit Crusher</span>
+        <div knob data-label="'Bit'" data-min-value="1" data-max-value="16" data-size="55" data-knob-value="audioService.fx.bitcrusher.bits"></div>
+        <div knob data-label="'Siz'" data-min-value="256" data-max-value="16384" data-size="55" data-knob-value="audioService.fx.bitcrusher.bufferSize"></div>
+        <div knob data-label="'Frq'" data-min-value="0.0001" data-max-value="1" data-size="55" data-knob-value="audioService.fx.bitcrusher.normFreq"></div>
     </div>
 
-    <div class="section" data-ng-style="{backgroundColor: !discService.fx.overdrive.bypass ? themeService.theme.menuSectionalBackground : ''}">
-        <span class="title" data-ng-click="discService.fx.overdrive.bypass = !discService.fx.overdrive.bypass">Overdrive</span>
-        <div knob data-label="'Gai'" data-size="55" data-knob-value="discService.fx.overdrive.outputGain.value"></div>
-        <div knob data-label="'Drv'" data-size="55" data-knob-value="discService.fx.overdrive.drive.value"></div>
-        <div knob data-label="'Crv'" data-size="55" data-knob-value="discService.fx.overdrive.curveAmount"></div>
+    <div class="section" data-ng-style="{backgroundColor: !audioService.fx.overdrive.bypass ? themeService.theme.menuSectionalBackground : ''}">
+        <span class="title" data-ng-click="audioService.fx.overdrive.bypass = !audioService.fx.overdrive.bypass">Overdrive</span>
+        <div knob data-label="'Gai'" data-size="55" data-knob-value="audioService.fx.overdrive.outputGain.value"></div>
+        <div knob data-label="'Drv'" data-size="55" data-knob-value="audioService.fx.overdrive.drive.value"></div>
+        <div knob data-label="'Crv'" data-size="55" data-knob-value="audioService.fx.overdrive.curveAmount"></div>
     </div>
 
-    <div class="section" data-ng-style="{backgroundColor: !discService.fx.tremolo.bypass ? themeService.theme.menuSectionalBackground : ''}">
-        <span class="title" data-ng-click="discService.fx.tremolo.bypass = !discService.fx.tremolo.bypass">Tremolo</span>
-        <div knob data-label="'Int'" data-size="55" data-knob-value="discService.fx.tremolo.intensity"></div>
-        <div knob data-label="'Rat'" data-size="55" data-min-value="0.1" data-max-value="11" data-knob-value="discService.fx.tremolo.rate"></div>
-        <div knob data-label="'Phs'" data-size="55" data-min-value="0" data-max-value="180" data-knob-value="discService.fx.tremolo.stereoPhase"></div>
+    <div class="section" data-ng-style="{backgroundColor: !audioService.fx.tremolo.bypass ? themeService.theme.menuSectionalBackground : ''}">
+        <span class="title" data-ng-click="audioService.fx.tremolo.bypass = !audioService.fx.tremolo.bypass">Tremolo</span>
+        <div knob data-label="'Int'" data-size="55" data-knob-value="audioService.fx.tremolo.intensity"></div>
+        <div knob data-label="'Rat'" data-size="55" data-min-value="0.1" data-max-value="11" data-knob-value="audioService.fx.tremolo.rate"></div>
+        <div knob data-label="'Phs'" data-size="55" data-min-value="0" data-max-value="180" data-knob-value="audioService.fx.tremolo.stereoPhase"></div>
     </div>
 
-    <div class="section" data-ng-style="{backgroundColor: !discService.fx.moogfilter.bypass ? themeService.theme.menuSectionalBackground : ''}">
-        <span class="title" data-ng-click="discService.fx.moogfilter.bypass = !discService.fx.moogfilter.bypass">Moog Filter</span>
-        <div knob data-label="'Buf'" data-min-value="256" data-max-value="16384" data-size="55" data-knob-value="discService.fx.moogfilter.bufferSize"></div>
-        <div knob data-label="'Cut'" data-min-value="0.0001" data-max-value="1" data-size="55" data-knob-value="discService.fx.moogfilter.cutoff"></div>
-        <div knob data-label="'Res'" data-min-value="0" data-max-value="4" data-size="55" data-knob-value="discService.fx.moogfilter.resonance"></div>
+    <div class="section" data-ng-style="{backgroundColor: !audioService.fx.moogfilter.bypass ? themeService.theme.menuSectionalBackground : ''}">
+        <span class="title" data-ng-click="audioService.fx.moogfilter.bypass = !audioService.fx.moogfilter.bypass">Moog Filter</span>
+        <div knob data-label="'Buf'" data-min-value="256" data-max-value="16384" data-size="55" data-knob-value="audioService.fx.moogfilter.bufferSize"></div>
+        <div knob data-label="'Cut'" data-min-value="0.0001" data-max-value="1" data-size="55" data-knob-value="audioService.fx.moogfilter.cutoff"></div>
+        <div knob data-label="'Res'" data-min-value="0" data-max-value="4" data-size="55" data-knob-value="audioService.fx.moogfilter.resonance"></div>
 
     </div>
 
-    <div class="section" data-ng-style="{backgroundColor: !discService.fx.convolver.bypass ? themeService.theme.menuSectionalBackground : ''}">
-        <span class="title" data-ng-click="discService.fx.convolver .bypass = !discService.fx.convolver .bypass">Convolver</span>
-        <div knob data-label="'Hi'" data-min-value="20" data-max-value="22050" data-size="59" data-knob-value="discService.fx.convolver.highCut.value"></div>
-        <div knob data-label="'Lo'" data-min-value="20" data-max-value="22050" data-size="59" data-knob-value="discService.fx.convolver.lowCut.value"></div>
-        <div knob data-label="'Dry'" data-min-value="0" data-max-value="5" data-size="59" data-knob-value="discService.fx.convolver.dryLevel.value"></div>
-        <div knob data-label="'Wet'" data-min-value="0" data-max-value="5" data-size="59" data-knob-value="discService.fx.convolver.wetLevel.value"></div>
+    <div class="section" data-ng-style="{backgroundColor: !audioService.fx.convolver.bypass ? themeService.theme.menuSectionalBackground : ''}">
+        <span class="title" data-ng-click="audioService.fx.convolver .bypass = !audioService.fx.convolver .bypass">Convolver</span>
+        <div knob data-label="'Hi'" data-min-value="20" data-max-value="22050" data-size="59" data-knob-value="audioService.fx.convolver.highCut.value"></div>
+        <div knob data-label="'Lo'" data-min-value="20" data-max-value="22050" data-size="59" data-knob-value="audioService.fx.convolver.lowCut.value"></div>
+        <div knob data-label="'Dry'" data-min-value="0" data-max-value="5" data-size="59" data-knob-value="audioService.fx.convolver.dryLevel.value"></div>
+        <div knob data-label="'Wet'" data-min-value="0" data-max-value="5" data-size="59" data-knob-value="audioService.fx.convolver.wetLevel.value"></div>
     </div>
 
-    <div class="section" data-ng-style="{backgroundColor: !discService.fx.delay.bypass ? themeService.theme.menuSectionalBackground : ''}">
-        <span class="title" data-ng-click="discService.fx.delay.bypass = !discService.fx.delay.bypass">Delay</span>
-        <div knob data-label="'Wet'" data-size="55" data-knob-value="discService.fx.delay.wetLevel.value"></div>
-        <div knob data-label="'Dry'" data-size="55" data-knob-value="discService.fx.delay.dryLevel.value"></div>
-        <div knob data-label="'Fbk'" data-size="55" data-knob-value="discService.fx.delay.feedback.value"></div>
-        <div knob data-label="'Dly'" data-min-value="0" data-max-value="300" data-size="55" data-knob-value="discService.fx.delay.delayTime.value"></div>
-        <div c data-label="'Cut'" data-min-value="20" data-max-value="22050" data-size="55" data-knob-value="discService.fx.delay.cutoff.value"></div>
+    <div class="section" data-ng-style="{backgroundColor: !audioService.fx.delay.bypass ? themeService.theme.menuSectionalBackground : ''}">
+        <span class="title" data-ng-click="audioService.fx.delay.bypass = !audioService.fx.delay.bypass">Delay</span>
+        <div knob data-label="'Wet'" data-size="55" data-knob-value="audioService.fx.delay.wetLevel.value"></div>
+        <div knob data-label="'Dry'" data-size="55" data-knob-value="audioService.fx.delay.dryLevel.value"></div>
+        <div knob data-label="'Fbk'" data-size="55" data-knob-value="audioService.fx.delay.feedback.value"></div>
+        <div knob data-label="'Dly'" data-min-value="0" data-max-value="300" data-size="55" data-knob-value="audioService.fx.delay.delayTime.value"></div>
+        <div c data-label="'Cut'" data-min-value="20" data-max-value="22050" data-size="55" data-knob-value="audioService.fx.delay.cutoff.value"></div>
     </div>
 
 </div>
