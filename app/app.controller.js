@@ -10,6 +10,7 @@
 			'menuServiceModule',
 			'colorServiceModule',
 			'mathServiceModule',
+			'audioServiceModule',
 
 			'localStorageServiceModule',
 			'eventServiceModule',

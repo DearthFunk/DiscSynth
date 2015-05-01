@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ca022355-7c7a-41fc-8e34-cf549097dcf6" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/services/audio.service.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.controller.js" afterPath="$PROJECT_DIR$/app/app.controller.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/directives/disc.directive.js" afterPath="$PROJECT_DIR$/app/directives/disc.directive.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/menu/menu.directive.js" afterPath="$PROJECT_DIR$/app/menu/menu.directive.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/menu/menu.html" afterPath="$PROJECT_DIR$/app/menu/menu.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="hexsynth.dearthfunk.com.iws" />
@@ -32,28 +33,18 @@
       <file leaf-file-name="disc.directive.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/directives/disc.directive.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.647059" vertical-offset="403" max-vertical-offset="12393">
-              <caret line="39" column="33" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="33" />
+            <state vertical-scroll-proportion="-10.313433" vertical-offset="1315" max-vertical-offset="6511">
+              <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="slider.directive.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/elements/slider/slider.directive.js">
+      <file leaf-file-name="audio.service.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/services/audio.service.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="970" max-vertical-offset="1904">
-              <caret line="89" column="0" selection-start-line="89" selection-start-column="0" selection-end-line="89" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="menu.service.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/services/menu.service.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="510">
-              <caret line="15" column="19" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="19" />
+            <state vertical-scroll-proportion="0.776583" vertical-offset="1050" max-vertical-offset="1887">
+              <caret line="100" column="13" selection-start-line="100" selection-start-column="13" selection-end-line="100" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -62,18 +53,38 @@
       <file leaf-file-name="menu.directive.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/menu/menu.directive.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="392" max-vertical-offset="1666">
+            <state vertical-scroll-proportion="0.0" vertical-offset="749" max-vertical-offset="1666">
               <caret line="46" column="51" selection-start-line="46" selection-start-column="51" selection-end-line="46" selection-end-column="51" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="menu.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="menu.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/menu/menu.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.06042654" vertical-offset="0" max-vertical-offset="844">
+            <state vertical-scroll-proportion="-1.9615384" vertical-offset="0" max-vertical-offset="799">
               <caret line="3" column="225" selection-start-line="3" selection-start-column="225" selection-end-line="3" selection-end-column="225" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="synthControls.directive.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/menu/synthControls/synthControls.directive.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
+              <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="synthControls.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/menu/synthControls/synthControls.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1258">
+              <caret line="0" column="34" selection-start-line="0" selection-start-column="34" selection-end-line="0" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -92,7 +103,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/directives/modal/modal.directive.js" />
         <option value="$PROJECT_DIR$/directives/modal/modal.html" />
         <option value="$PROJECT_DIR$/directives/helpWindow/helpWindow.less" />
         <option value="$PROJECT_DIR$/directives/helpWindow/helpWindow.html" />
@@ -134,15 +144,16 @@
         <option value="$PROJECT_DIR$/app/services/visualizer.service.js" />
         <option value="$PROJECT_DIR$/app/directives/html.directive.js" />
         <option value="$PROJECT_DIR$/app/modal/importExportWindow/importExportWindow.directive.js" />
-        <option value="$PROJECT_DIR$/index.html" />
-        <option value="$PROJECT_DIR$/app/app.controller.js" />
         <option value="$PROJECT_DIR$/app/menu/menu.less" />
         <option value="$PROJECT_DIR$/app/elements/slider/slider.html" />
         <option value="$PROJECT_DIR$/app/services/menu.service.js" />
         <option value="$PROJECT_DIR$/app/elements/slider/slider.directive.js" />
-        <option value="$PROJECT_DIR$/app/directives/disc.directive.js" />
         <option value="$PROJECT_DIR$/app/menu/menu.html" />
         <option value="$PROJECT_DIR$/app/menu/menu.directive.js" />
+        <option value="$PROJECT_DIR$/app/app.controller.js" />
+        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/app/directives/disc.directive.js" />
+        <option value="$PROJECT_DIR$/app/services/audio.service.js" />
       </list>
     </option>
   </component>
@@ -250,6 +261,28 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="menu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DiscSynth" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="DiscSynth" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="menu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="synthControls" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -573,7 +606,13 @@
       <option name="project" value="LOCAL" />
       <updated>1430437884445</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="disc directive update">
+      <created>1430448151549</created>
+      <option name="number" value="00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1430448151549</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -616,7 +655,6 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <MESSAGE value="theme updates" />
     <MESSAGE value="window directive updates&#10;" />
     <MESSAGE value="modal directive added" />
     <MESSAGE value="modal windows setup" />
@@ -641,7 +679,8 @@
     <MESSAGE value="slider updated to set initiale values" />
     <MESSAGE value="new slider completed" />
     <MESSAGE value="small slider fixes and disc directive updates" />
-    <option name="LAST_COMMIT_MESSAGE" value="small slider fixes and disc directive updates" />
+    <MESSAGE value="disc directive update" />
+    <option name="LAST_COMMIT_MESSAGE" value="disc directive update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -650,14 +689,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/menu/menu.directive.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="307" max-vertical-offset="1241">
-          <caret line="59" column="36" selection-start-line="59" selection-start-column="36" selection-end-line="59" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/menu/menu.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="391" max-vertical-offset="646">
@@ -834,13 +865,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/menu/synthControls/synthControls.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1258">
-          <caret line="0" column="34" selection-start-line="0" selection-start-column="34" selection-end-line="0" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/directives/ngRightClick.directive.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="476">
@@ -895,14 +919,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/menu/synthControls/synthControls.directive.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.50598294" vertical-offset="61" max-vertical-offset="646">
-          <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/services/localStorage.service.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="867">
@@ -925,13 +941,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/services/color.service.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1623932" vertical-offset="0" max-vertical-offset="1207">
-          <caret line="40" column="9" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/services/theme.service.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="1727" max-vertical-offset="2380">
@@ -947,26 +956,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/app.controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4369">
-          <caret line="246" column="26" selection-start-line="246" selection-start-column="26" selection-end-line="246" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/menu/menu.less">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-4.0" vertical-offset="0" max-vertical-offset="1343">
           <caret line="12" column="22" selection-start-line="12" selection-start-column="22" selection-end-line="12" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="1598">
-          <caret line="29" column="72" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="72" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1002,10 +995,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/directives/disc.directive.js">
+    <entry file="file://$PROJECT_DIR$/app/services/color.service.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.647059" vertical-offset="403" max-vertical-offset="12393">
-          <caret line="39" column="33" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1207">
+          <caret line="40" column="9" selection-start-line="0" selection-start-column="0" selection-end-line="65" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/app.controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4386">
+          <caret line="12" column="33" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-22.846153" vertical-offset="375" max-vertical-offset="1615">
+          <caret line="57" column="58" selection-start-line="57" selection-start-column="58" selection-end-line="57" selection-end-column="58" />
           <folding />
         </state>
       </provider>
@@ -1020,8 +1029,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/menu/menu.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.06042654" vertical-offset="0" max-vertical-offset="844">
+        <state vertical-scroll-proportion="-1.9615384" vertical-offset="0" max-vertical-offset="799">
           <caret line="3" column="225" selection-start-line="3" selection-start-column="225" selection-end-line="3" selection-end-column="225" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/menu/synthControls/synthControls.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="1258">
+          <caret line="0" column="34" selection-start-line="0" selection-start-column="34" selection-end-line="0" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/menu/synthControls/synthControls.directive.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="646">
+          <caret line="21" column="43" selection-start-line="21" selection-start-column="43" selection-end-line="21" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/directives/disc.directive.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.313433" vertical-offset="1315" max-vertical-offset="6511">
+          <caret line="118" column="0" selection-start-line="118" selection-start-column="0" selection-end-line="118" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/services/audio.service.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.776583" vertical-offset="1050" max-vertical-offset="1887">
+          <caret line="100" column="13" selection-start-line="100" selection-start-column="13" selection-end-line="100" selection-end-column="13" />
           <folding />
         </state>
       </provider>
