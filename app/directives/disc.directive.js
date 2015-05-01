@@ -31,8 +31,8 @@
 		$scope.$on('mouseMoveEvent', mouseMoveEvent);
 		$scope.$on('mouseUpEvent', mouseUpEvent);
 		$scope.$on('mouseDownEvent', mouseDownEvent);
-		$scope.$on('keyDownEvent', keyDownEvent);
-		$scope.$on('keyUpEvent', keyUpEvent);
+		$scope.$on('keyDownEvent', ctrlKeyValue);
+		$scope.$on('keyUpEvent', ctrlKeyValue);
 		windowResize();
 		timer();
 
@@ -176,6 +176,7 @@
 		}
 
 		function mouseDownEvent(e, args) {
+			console.log(ctrlKey);
 			if (distanceFromCenter < centerButtonSize) {
 				audioService.playing = !audioService.playing;
 				audioService.playing ?
@@ -220,7 +221,7 @@
 			}
 
 			if (ringSelect > -1 && discSelect > -1 && ctrlKey) {
-				var newFreq = startFreq + ((mouseDownY - e.clientY) * 2);
+				var newFreq = startFreq + ((mouseDownY - args.clientY) * 2);
 				audioService.disc.slices[discSelect].osc[ringSelect].freq = newFreq < 0 ? 0 : newFreq > 15000 ? 15000 : newFreq;
 			}
 		}
@@ -229,35 +230,8 @@
 			ringSelect = -1;
 			discSelect = -1;
 		}
-		function keyUpEvent(e, args) {
+		function ctrlKeyValue(e, args) {
 			ctrlKey = args.ctrlKey;
-		}
-		function keyDownEvent(e, args) {
-			ctrlKey = args.ctrlKey;
-			switch (args.keyCode) {
-				case 32 :
-					audioService.playing = !audioService.playing;
-					audioService.playing ? audioService.node.stopper.connect(audioService.fx.moogfilter.input) : audioService.node.stopper.disconnect();
-					break;
-				case 65 :
-					audioService.fx.bitcrusher.bypass = !audioService.fx.bitcrusher.bypass;
-					break;
-				case 83 :
-					audioService.fx.overdrive.bypass = !audioService.fx.overdrive.bypass;
-					break;
-				case 68 :
-					audioService.fx.tremolo.bypass = !audioService.fx.tremolo.bypass;
-					break;
-				case 90 :
-					audioService.fx.convolver.bypass = !audioService.fx.convolver.bypass;
-					break;
-				case 88 :
-					audioService.fx.moogfilter.bypass = !audioService.fx.moogfilter.bypass;
-					break;
-				case 67 :
-					audioService.fx.delay.bypass = !audioService.fx.delay.bypass;
-					break;
-			}
 		}
 
 	}
