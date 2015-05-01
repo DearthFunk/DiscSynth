@@ -1,7 +1,7 @@
 <div class="menuContainer verticalScrollBarLight" data-ng-style="{width: menuSize + 'px'}" id="menuContainer">
     <div class="button border" data-ng-style="{backgroundColor: hoverHelp ? themeService.theme.menuSectionalBackground : '' }" data-ng-mouseenter="hoverHelp = true" data-ng-mouseleave="hoverHelp = false" data-ng-click="helpWindow()">HELP / INFO</div>
     <div class="button border" data-ng-style="{backgroundColor: hoverImport ? themeService.theme.menuSectionalBackground : '' }" data-ng-mouseenter="hoverImport = true" data-ng-mouseleave="hoverImport = false" data-ng-click="importExportWindow()">IMPORT / EXPORT</div>
-    <div class="button border" data-ng-style="{backgroundColor: hoverRandom ? themeService.theme.menuSectionalBackground : '' }" data-ng-mouseenter="hoverRandom = true" data-ng-mouseleave="hoverRandom = false" data-ng-click="discService.randomize()">RANDOMIZE CELLS</div>
+    <div class="button border" data-ng-style="{backgroundColor: hoverRandom ? themeService.theme.menuSectionalBackground : '' }" data-ng-mouseenter="hoverRandom = true" data-ng-mouseleave="hoverRandom = false" data-ng-click="randomize()">RANDOMIZE CELLS</div>
     <table class="sliders border">
         <tr>
 	        <td class="label">{{editingVol ? discService.node.masterGain.gain.value.toFixed(1) : 'VOL'}}</td>

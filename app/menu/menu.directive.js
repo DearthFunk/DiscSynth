@@ -37,11 +37,15 @@
 		$scope.resetSynth = resetSynth;
 		$scope.helpWindow = helpWindow;
 		$scope.updateLen = updateLen;
+		$scope.randomize = randomize;
 
 		//updateLen(discService.len);
 
 		////////////////////////////////////////////////
 
+		function randomize() {
+			$rootScope.$broadcast('randomizeDisc');
+		}
 		function updateLen(x) {
 			$rootScope.$broadcast('discLenChange', x);
 			//console.log(x);

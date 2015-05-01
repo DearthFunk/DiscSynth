@@ -13,12 +13,13 @@
 		return directive;
 	}
 
-	discController.$inject = ['$scope', '$element', '$timeout', '$window', 'MENU_SIZE', 'themeService', 'colorService', 'menuService'];
-	function discController($scope, $element, $timeout, $window, MENU_SIZE, themeService, colorService, menuService) {
+	discController.$inject = ['$scope', '$element', '$timeout', '$window', 'MENU_SIZE', 'themeService', 'colorService', 'menuService', 'mathService'];
+	function discController($scope, $element, $timeout, $window, MENU_SIZE, themeService, colorService, menuService, mathService) {
 
 		var cnv = $element[0];
 		var ctx = cnv.getContext('2d');
 		var disc = {slices:[], colors:[]};
+		var ctrlKey = false;
 		var hoverRing, hoverDisc, ringSelect, discSelect, mouseDownY, startFreq, centerButtonSize = -1;
 		var midX, midY, angleSize, drawPromise, clickPromise, distanceFromCenter;
 
@@ -35,15 +36,15 @@
 				]
 			});
 		}
-/*
+
+		$scope.$on('randomizeDisc', randomize);
 		$scope.$on('windowResizeEvent', windowResize);
 		$scope.$on('discLenChange', reCalculateDiscs);
 		$scope.$on('mouseMoveEvent', mouseMoveEvent);
 		$scope.$on('mouseUpEvent', mouseUpEvent);
 		$scope.$on('mouseDownEvent', mouseDownEvent);
-		$scope.$on('keyDownEvent', keyDownevent);
+		$scope.$on('keyDownEvent', keyDownEvent);
 		$scope.$on('keyUpEvent', keyUpEvent);
-*/
 		windowResize();
 		timer();
 
@@ -63,8 +64,7 @@
 			midY = h / 2;
 			disc.rad = (h / 2) - 10;
 			centerButtonSize = disc.rad / 3;
-			reCalculateDiscs();
-			console.log(disc);
+			reCalculateDiscs({}, menuService.len);
 		}
 		function reCalculateDiscs(e, discLen) {
 			angleSize = (1 / discLen) * Math.PI * 2;
@@ -79,6 +79,14 @@
 					theDisc.osc[d].x = midX + ((d + 3) / 6 * disc.rad) * Math.cos(a1);
 					theDisc.osc[d].y = midY + ((d + 3) / 6 * disc.rad) * Math.sin(a1);
 					theDisc.osc[d].rad = (d + 3) / 6 * disc.rad;
+				}
+			}
+		}
+		function randomize() {
+			for (var discIndex = 0; discIndex < disc.slices.length - 1; discIndex++) {
+				for (var layer = 0; layer < disc.slices[discIndex].osc.length; layer++) {
+					disc.slices[discIndex].osc[layer].active = Math.random() >= 0.5;
+					disc.slices[discIndex].osc[layer].freq = mathService.randomNumber(100, 15000, 0);
 				}
 			}
 		}
@@ -137,7 +145,7 @@
 				}
 			}
 
-			//MAIN DISC BORDER (inner and outer)
+			//MAIN DISC BORDER
 			ctx.lineWidth = 2;
 			ctx.strokeStyle = themeService.theme.discBorder1;
 			ctx.beginPath();
@@ -146,17 +154,6 @@
 			ctx.closePath();
 			ctx.beginPath();
 			ctx.arc(midX, midY, disc.rad / 2 - 2, 0, Math.PI * 2, false);
-			ctx.stroke();
-			ctx.closePath();
-
-			ctx.lineWidth = 1;
-			ctx.strokeStyle = themeService.theme.discBorder2;
-			ctx.beginPath();
-			ctx.arc(midX, midY, disc.rad + 2, 0, Math.PI * 2, false);
-			ctx.stroke();
-			ctx.closePath();
-			ctx.beginPath();
-			ctx.arc(midX, midY, disc.rad / 2 - 3, 0, Math.PI * 2, false);
 			ctx.stroke();
 			ctx.closePath();
 
@@ -188,10 +185,9 @@
 			ctx.shadowOffsetX = 0;
 			ctx.shadowOffsetY = 0;
 			ctx.shadowBlur = 0;
-
 		}
 
-		function mouseDownEvent(e) {
+		function mouseDownEvent(e, args) {
 			if (distanceFromCenter < centerButtonSize) {
 				disc.playing = !disc.playing;
 				disc.playing ?
@@ -200,21 +196,21 @@
 			}
 			else if (distanceFromCenter < disc.rad && distanceFromCenter > disc.rad / 2) {
 				if (!ctrlKey) {
-					disc.discs[hoverDisc].osc[hoverRing].active = !disc.discs[hoverDisc].osc[hoverRing].active;
+					disc.slices[hoverDisc].osc[hoverRing].active = !disc.slices[hoverDisc].osc[hoverRing].active;
 				}
 				else {
 					ringSelect = hoverRing;
 					discSelect = hoverDisc;
-					mouseDownY = e.clientY;
-					startFreq = disc.discs[discSelect].osc[ringSelect].freq;
+					mouseDownY = args.clientY;
+					startFreq = disc.slices[discSelect].osc[ringSelect].freq;
 				}
 			}
 		}
 
-		function mouseMoveEvent(e) {
-			distanceFromCenter = Math.sqrt(Math.pow(e.clientX - (w - MENU_SIZE) / 2, 2) + Math.pow(e.clientY - (h / 2), 2));
+		function mouseMoveEvent(e, args) {
+			distanceFromCenter = Math.sqrt(Math.pow(args.clientX - (ctx.canvas.width - MENU_SIZE) / 2, 2) + Math.pow(args.clientY - (ctx.canvas.height / 2), 2));
 			if (distanceFromCenter < disc.rad && distanceFromCenter > disc.rad / 2) {
-				for (var layer = 0; layer < disc.discs[0].osc.length - 1; layer++) {
+				for (var layer = 0; layer < disc.slices[0].osc.length - 1; layer++) {
 					var d1 = (layer + 3) / 6 * disc.rad;
 					var d2 = (layer + 4) / 6 * disc.rad;
 					if (distanceFromCenter > d1 && distanceFromCenter < d2) {
@@ -222,9 +218,9 @@
 						break;
 					}
 				}
-				var angle = Math.atan2((h / 2) - e.clientY, (w - MENU_SIZE) / 2 - e.clientX) + Math.PI;
-				for (var i = 0; i < disc.discs.length - 1; i++) {
-					if (angle > disc.discs[i].a1 && angle < disc.discs[i].a2) {
+				var angle = Math.atan2((ctx.canvas.height / 2) - args.clientY, (ctx.canvas.width - MENU_SIZE) / 2 - args.clientX) + Math.PI;
+				for (var i = 0; i < disc.slices.length - 1; i++) {
+					if (angle > disc.slices[i].a1 && angle < disc.slices[i].a2) {
 						hoverDisc = i;
 						break;
 					}
@@ -237,7 +233,7 @@
 
 			if (ringSelect > -1 && discSelect > -1 && ctrlKey) {
 				var newFreq = startFreq + ((mouseDownY - e.clientY) * 2);
-				disc.discs[discSelect].osc[ringSelect].freq = newFreq < 0 ? 0 : newFreq > 15000 ? 15000 : newFreq;
+				disc.slices[discSelect].osc[ringSelect].freq = newFreq < 0 ? 0 : newFreq > 15000 ? 15000 : newFreq;
 			}
 		}
 
@@ -245,12 +241,12 @@
 			ringSelect = -1;
 			discSelect = -1;
 		}
-		function keyUpEvent(e) {
-			ctrlKey = e.ctrlKey;
+		function keyUpEvent(e, args) {
+			ctrlKey = args.ctrlKey;
 		}
-		function keyDownevent(e) {
-			ctrlKey = e.ctrlKey;
-			switch (e.keyCode) {
+		function keyDownEvent(e, args) {
+			ctrlKey = args.ctrlKey;
+			switch (args.keyCode) {
 				case 32 :
 					disc.playing = !disc.playing;
 					disc.playing ? disc.node.stopper.connect(disc.fx.moogfilter.input) : disc.node.stopper.disconnect();
@@ -358,14 +354,7 @@
 				}
 			};
 
-			disc.randomize = function () {
-				for (var discIndex = 0; discIndex < disc.discs.length - 1; discIndex++) {
-					for (var layer = 0; layer < disc.discs[discIndex].osc.length; layer++) {
-						disc.discs[discIndex].osc[layer].active = Math.random() >= 0.5;
-						disc.discs[discIndex].osc[layer].freq = parseInt(mathService.randomNumber(100, 15000, 0));
-					}
-				}
-			};
+
 
 			disc.drawDisc = function () {
 				ctx.clearRect(0, 0, w, h);
