@@ -29,6 +29,7 @@
     <script type="text/javascript" src="lib/tuna/tuna.js"></script>
     <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
     <script type="text/javascript" src="lib/zeroClipboard/ZeroClipboard.js"></script>
+	<script src="http://cwilso.github.io/AudioContext-MonkeyPatch/AudioContextMonkeyPatch.js"></script>
 
     <!-- MAIN -->
 	<script type="text/javascript" src="app/app.controller.js"></script>
@@ -76,15 +77,21 @@
 </head>
 
 <body data-ng-controller="discController" data-ng-style="{backgroundImage:themeService.theme.backgroundImage}">
-
     <canvas class="visualizerCanvas fullScreen"></canvas>
     <canvas disc class="fullScreen"></canvas>
+
     <div class="menu"></div>
-    <div modal data-show-modal="importExportVisible" data-ng-show="importExportVisible"><div import-export-window></div></div>
+
+	<div modal
+	     data-show-modal="importExportVisible"
+	     data-ng-show="importExportVisible">
+		<div import-export-window></div>
+	</div>
     <div modal
          data-show-modal="helpWindowVisible"
          data-ng-show="helpWindowVisible">
 	    <div help-window></div>
     </div>
+
 </body>
 </html>

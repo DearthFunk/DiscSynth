@@ -17,15 +17,17 @@
 		return directive;
 	}
 
-	menuController.$inject = ['$scope', '$rootScope', '$timeout', 'themeService', 'eventService', 'visualizerService', 'MENU_SIZE', 'audioService'];
+	menuController.$inject = ['$scope', '$rootScope', '$timeout', 'themeService', 'eventService', 'visualizerService', 'MENU_SIZE', 'MAX_SPEED', 'MIN_SPEED', 'audioService', 'localStorageService', 'menuService'];
 
-	function menuController($scope, $rootScope, $timeout, themeService, eventService, visualizerService, MENU_SIZE, audioService) {
+	function menuController($scope, $rootScope, $timeout, themeService, eventService, visualizerService, MENU_SIZE, MAX_SPEED, MIN_SPEED, audioService, localStorageService, menuService) {
 
 		$scope.themeService = themeService;
 		$scope.eventService = eventService;
 		$scope.audioService = audioService;
 		$scope.visualizerService = visualizerService;
 		$scope.menuSize = MENU_SIZE;
+		$scope.MAX_SPEED = MAX_SPEED;
+		$scope.MIN_SPEED = MIN_SPEED;
 
 		$scope.editingVol = false;
 		$scope.editingSpd = false;
@@ -62,13 +64,13 @@
 		function importExportWindow() {
 			$scope.helpWindowVisible = false;
 			$scope.importExportVisible = !$scope.importExportVisible;
-			var data = JSON.stringify(localStorageService.getStorageInfo(themeService, visualizerService));
+			var data = JSON.stringify(localStorageService.getStorageInfo(menuService, themeService, visualizerService));
 			$rootScope.$broadcast("importExport", data);
 		}
 
-		function changeTheme(item) {
+		function changeTheme(item, index) {
 			themeService.theme = item;
-			//discService.reCalculateDiscs();
+			menuService.themeIndex = index;
 			$rootScope.$broadcast("themeChangeEvent");
 
 		}
@@ -84,5 +86,6 @@
 				$scope.resetIndex = -1;
 			}, 400)
 		}
+
 	}
 })();

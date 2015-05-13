@@ -5,21 +5,18 @@
 		.module('menuServiceModule', [])
 		.factory('menuService', menuService);
 
-	menuService.$inject = [];
+	menuService.$inject = ['localStorageService'];
 
-	function menuService() {
+	function menuService(localStorageService) {
 
 		var service = {
 			synthTemplates: [],
 			synthIndex: 0,
-			themeIndex: 0,
-			len: 16,
-			spd: 0.5,
-			vol: 0
-
+			len: localStorageService.storage ? localStorageService.storage.len : 16,
+			spd: localStorageService.storage ? localStorageService.storage.spd : 1,
+			vol: localStorageService.storage ? localStorageService.storage.vol : 0.5
 		};
 
 		return service;
-
 	}
 })();

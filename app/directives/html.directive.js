@@ -14,8 +14,8 @@
 		return directive
 	}
 
-	htmlController.$inject = ['$element', '$rootScope', '$window', 'themeService', 'visualizerService', 'localStorageService'];
-	function htmlController($element, $rootScope, $window, themeService, visualizerService, localStorageService) {
+	htmlController.$inject = ['$element', '$rootScope', '$window', 'themeService', 'visualizerService', 'localStorageService', 'menuService', 'audioService'];
+	function htmlController($element, $rootScope, $window, themeService, visualizerService, localStorageService, menuService, audioService) {
 
 		$window.onblur = windowOnBlur;
 		$window.onresize = windowOnResize;
@@ -38,41 +38,34 @@
 			//visualizerService.windowResize();
 		}
 		function windowOnBeforeUnload() {
-			var discSynthLocalStorage = localStorageService.getStorageInfo(themeService, visualizerService);
-			localStorage.setItem('discSynthLocalStorage', JSON.stringify(discSynthLocalStorage));
+			localStorageService.setLocalStorage(menuService,themeService,visualizerService, audioService);
 		}
 
 		/////////////////////////////////////////////////
 		
 		function mouseWheel(event) {
-			if (event.target.localName !== 'textarea') {
-				$rootScope.$broadcast('mouseWheelEvent', event);
-			}
+			if (event.target.localName === 'textarea'){return;}
+			$rootScope.$broadcast('mouseWheelEvent', event);
 		}
 		function mouseMove(event) {
-			if (event.target.localName !== 'textarea') {
-				$rootScope.$broadcast('mouseMoveEvent', event);
-			}
+			if (event.target.localName === 'textarea'){return;}
+			$rootScope.$broadcast('mouseMoveEvent', event);
 		}
 		function mouseDown(event) {
-			if (event.target.localName !== 'textarea') {
-				$rootScope.$broadcast('mouseDownEvent', event);
-			}
+			if (event.target.localName === 'textarea'){return;}
+			$rootScope.$broadcast('mouseDownEvent', event);
 		}
 		function mouseUp(event) {
-			if (event.target.localName !== 'textarea') {
-				$rootScope.$broadcast('mouseUpEvent', event);
-			}
+			if (event.target.localName === 'textarea'){return;}
+			$rootScope.$broadcast('mouseUpEvent', event);
 		}
 		function keyDown(event) {
-			if (event.target.localName !== 'textarea') {
-				$rootScope.$broadcast('keyDownEvent', event);
-			}
+			if (event.target.localName === 'textarea'){return;}
+			$rootScope.$broadcast('keyDownEvent', event);
 		}
 		function keyUp(event) {
-			if (event.target.localName !== 'textarea') {
-				$rootScope.$broadcast('keyUpEvent', event);
-			}
+			if (event.target.localName === 'textarea'){return;}
+			$rootScope.$broadcast('keyUpEvent', event);
 		}
 	}
 

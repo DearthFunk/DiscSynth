@@ -126,7 +126,7 @@
 				}
 			]
 		};
-		service.theme = service.themes[angular.isObject(localStorageService.storage) ? localStorageService.storage.themeIndex : 0];
+		service.theme = service.themes[localStorageService.storage ? localStorageService.storage.themeIndex : 0];
 
 		return service;
 

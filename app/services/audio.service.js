@@ -12,7 +12,7 @@
 
 		var service = {
 			audioBufferSize: 1024,
-			synthTemplates: angular.isObject(localStorageService.storage) ? localStorageService.storage.synthTemplates : angular.copy(SYNTHS),
+			synthTemplates: localStorageService.storage && localStorageService.storage.synthTemplates? localStorageService.storage.synthTemplates : angular.copy(SYNTHS),
 			playing: false,
 			clickTrack: 0,
 			maxFreq: 1500,
@@ -22,6 +22,9 @@
 			randomize: randomize
 		};
 
+		console.log(service.synthTemplates);
+		console.log(localStorageService.storage.synthTemplates);
+		console.log(angular.copy(SYNTHS));
 		initAudioNodes();
 		clickTrack();
 
@@ -58,7 +61,7 @@
 			service.node.osc3 = audioCtx.createOscillator();
 			service.node.stopper = audioCtx.createGain();
 			service.node.masterGain = audioCtx.createGain();
-			service.node.masterGain.gain.value = angular.isDefined(localStorageService.storage) ? localStorageService.storage.vol : 0.5;
+			service.node.masterGain.gain.value = localStorageService.storage ? localStorageService.storage.vol : 0.5;
 			service.node.javascript = audioCtx.createScriptProcessor(service.audioBufferSize, 0, 1);
 			service.node.analyser = audioCtx.createAnalyser();
 
@@ -96,6 +99,7 @@
 
 		}
 		function clickTrack() {
+			/*
 			while (nextNoteTime < audioCtx.currentTime + 0.1) {
 				nextNoteTime += 1.1 - menuService.spd;
 				if (service.playing) {
@@ -110,7 +114,7 @@
 				service.node.osc3.frequency.value = !service.playing ? 0 : service.disc.slices[service.clickTrack].osc[2].active ? service.disc.slices[service.clickTrack].osc[2].freq : 0;
 
 			}
-			clickPromise = $timeout(clickTrack, 25);
+			clickPromise = $timeout(clickTrack, 25);*/
 		}
 
 

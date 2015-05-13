@@ -19,6 +19,9 @@
 			'menuModule'
 		])
 		.constant('MENU_SIZE', 220)
+		.constant('LOCAL_STORAGE_OBJECT_NAME', 'discSynthLocalStorage')
+		.constant('MIN_SPEED', 60)
+		.constant('MAX_SPEED', 180)
 		.constant('SYNTHS', [
 			{
 				osc1: {type: 'sine', detune: -400},

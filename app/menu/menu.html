@@ -5,11 +5,11 @@
     <table class="sliders border">
         <tr>
 	        <td class="label">{{editingVol ? discService.node.masterGain.gain.value.toFixed(1) : 'VOL'}}</td>
-	        <td><div slider data-currently-moving="editingVol" data-slider-value="discService.node.masterGain.gain.value"></div></td>
+	        <td><div slider data-currently-moving="editingVol" data-slider-value="menuService.vol"></div></td>
         </tr>
         <tr>
-	        <td class="label">{{editingSpd ? (menuService.spd * 10 + 1).toFixed(0) : 'SPD'}}</td>
-	        <td><div slider data-currently-moving="editingSpd" data-slider-value="menuService.spd"></div></td>
+	        <td class="label">{{editingSpd ? menuService.spd : 'SPD'}}</td>
+	        <td><div slider data-currently-moving="editingSpd" data-fixed-value="0" data-slider-value="menuService.spd" data-min-value="MIN_SPEED" data-max-value="MAX_SPEED"></div></td>
         </tr>
         <tr>
 	        <td class="label">{{editingLen ? menuService.len : 'LEN'}}</td>
@@ -19,8 +19,8 @@
 
     <div class="selector border">
         <span class="title">THEME</span>
-        <div class="button" data-ng-click="changeTheme(item)" data-ng-repeat="item in themeService.themes track by $index">
-            <div class="inner" data-ng-style="{backgroundColor: themeService.theme == item ? themeService.theme.menuHighlight : ''}"></div>
+        <div class="button" data-ng-click="changeTheme(item, $index)" data-ng-repeat="item in themeService.themes track by $index">
+            <div class="inner" data-ng-style="{backgroundColor: themeService.theme.index == $index ? themeService.theme.menuHighlight : ''}"></div>
         </div>
     </div>
     <div class="selector border">
@@ -31,8 +31,8 @@
     </div>
     <div class="selector border">
         <span class="title">SYNTH TEMPLATE</span>
-        <div class="button" data-ng-click="changeSynth($index)" data-ng-right-click="resetSynth($index)" data-ng-repeat="item in discService.synthTemplates track by $index">
-            <div class="inner" data-ng-style="{backgroundColor: $index == resetIndex ? '#FF0000' : $index == discService.synthIndex ? themeService.theme.menuHighlight : ''}">{{$index == resetIndex ? 'X' : ''}}</div>
+        <div class="button" data-ng-click="changeSynth($index)" data-ng-right-click="resetSynth($index)" data-ng-repeat="item in audioService.synthTemplates track by $index">
+            <div class="inner" data-ng-style="{backgroundColor: $index == resetIndex ? '#FF0000' : $index == audioService.synthIndex ? themeService.theme.menuHighlight : ''}">{{$index == resetIndex ? 'X' : ''}}</div>
         </div>
     </div>
 

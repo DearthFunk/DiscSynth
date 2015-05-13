@@ -53,6 +53,7 @@
 		}
 		function reCalculateDiscs(e, discLen) {
 			angleSize = (1 / discLen) * Math.PI * 2;
+
 			colors = colorService.hexArray(themeService.theme.discTileStart, themeService.theme.discTileEnd, discLen);
 			for (var i = 0; i < audioService.disc.slices.length; i++) {
 				var theDisc = audioService.disc.slices[i];
@@ -79,6 +80,7 @@
 				audioService.playing ?
 					audioService.node.stopper.connect(audioService.fx.moogfilter.input) :
 					audioService.node.stopper.disconnect();
+				audioService.startStop();
 			}
 			else if (distanceFromCenter < rad && distanceFromCenter > rad / 2) {
 				audioService.disc.slices[hoverDisc].osc[hoverRing].active = !audioService.disc.slices[hoverDisc].osc[hoverRing].active;
