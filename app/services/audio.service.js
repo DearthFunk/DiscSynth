@@ -4,14 +4,21 @@
 		.module('audioServiceModule', [])
 		.factory('audioService', audioService);
 
-	function audioService(localStorageService, menuService, mathService, SYNTHS, $timeout) {
+	function audioService(localStorageService, mathService, SYNTHS) {
 		var audioCtx = typeof AudioContext !== 'undefined' ? new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() : null;
+		var audioBufferSize = 1024;
+		var current16thNote = 0;
+		var nextNoteTime = 0;
+		var notesInQueue = [];
+		var tuna = new Tuna(audioCtx);
+		var timerWorker = new Worker('./lib/metronome/metronomeworker.js');
+		timerWorker.onmessage = scheduler;
+		timerWorker.postMessage({'interval':25}); //25 is the interval run value
 
 		var service = {
-			audioBufferSize: 1024,
-			tuna: new Tuna(audioCtx),
-			synthTemplates: localStorageService.storage ? localStorageService.storage.synthTemplates : angular.copy(SYNTHS),
-			speed: 120,
+			synthTemplates: angular.copy(SYNTHS), //localStorageService.storage ? localStorageService.storage.synthTemplates : angular.copy(SYNTHS),
+			tempo: localStorageService.storage ? localStorageService.storage.tempo : 120,
+			beatLength: localStorageService.storage ? localStorageService.storage.beatLength : 14,
 			playing: false,
 			clickTrack: 0,
 			maxFreq: 1500,
@@ -21,21 +28,9 @@
 			randomize: randomize,
 			startStopPlayback: startStopPlayback
 		};
-		service.synthTemplate = service.synthTemplates[localStorageService.storage ? localStorageService.storage.synthIndex : 0];
+		service.synthTemplate = service.synthTemplates[0]; //localStorageService.storage ? localStorageService.storage.synthIndex : 0];
 
 		initAudioNodes();
-
-		var current16thNote = 0;
-		var nextNoteTime = 0;     // when the next note is due.
-		var notesInQueue = [];      // the notes that have been put into the web audio,
-		var timerWorker = new Worker('./lib/metronome/metronomeworker.js');
-		timerWorker.onmessage = function(e) {
-			if (e.data === 'tick') {
-				scheduler();
-			}
-		};
-		//sets up the interval of the timer, must be run faster than tempo in order for queueing
-		timerWorker.postMessage({"interval":25});
 
 		return service;
 
@@ -51,34 +46,28 @@
 			nextNoteTime = audioCtx.currentTime;
 			timerWorker.postMessage(service.playing ? 'start' : 'stop');
 		}
-		function scheduler() {
-			while (nextNoteTime < audioCtx.currentTime + 0.1 ) {
-				notesInQueue.push({
-					note: current16thNote,
-					time: nextNoteTime
-				});
-				if (current16thNote % 4 === 0) { // quarter notes
-					console.log('play');
-				}
 
-				//setup next note
-				var secondsPerBeat = 60.0 / service.speed;
-				nextNoteTime += 0.25 * secondsPerBeat;
-				current16thNote++;
-				if (current16thNote == 16) {
-					current16thNote = 0;
+		function scheduler(e) {
+			if (e.data === 'tick') {
+				while (nextNoteTime < audioCtx.currentTime + 0.1) {
+					notesInQueue.push({
+						note: current16thNote,
+						time: nextNoteTime
+					});
+					if (current16thNote % 4 === 0) { // quarter notes
+						console.log('play');
+					}
+
+					//setup next note
+					var secondsPerBeat = 60.0 / service.tempo;
+					nextNoteTime += 0.25 * secondsPerBeat;
+					current16thNote++;
+					if (current16thNote == 16) {
+						current16thNote = 0;
+					}
 				}
 			}
 		}
-
-
-
-
-
-
-
-
-
 
 		function randomize() {
 			for (var discIndex = 0; discIndex < service.disc.slices.length - 1; discIndex++) {
@@ -109,8 +98,8 @@
 			service.node.osc3 = audioCtx.createOscillator();
 			service.node.stopper = audioCtx.createGain();
 			service.node.masterGain = audioCtx.createGain();
-			service.node.masterGain.gain.value = localStorageService.storage ? localStorageService.storage.vol : 0.5;
-			service.node.javascript = audioCtx.createScriptProcessor(service.audioBufferSize, 0, 1);
+			service.node.masterGain.gain.value = localStorageService.storage ? localStorageService.storage.volume : 0.5;
+			service.node.javascript = audioCtx.createScriptProcessor(audioBufferSize, 0, 1);
 			service.node.analyser = audioCtx.createAnalyser();
 
 			service.fx.moogfilter = new tuna.MoogFilter();
@@ -131,7 +120,7 @@
 			service.node.masterGain.connect(service.node.analyser);
 			service.node.masterGain.connect(audioCtx.destination);
 			service.node.analyser.smoothingTimeConstant = 0.3;
-			service.node.analyser.fftSize = service.audioBufferSize / 2;
+			service.node.analyser.fftSize = audioBufferSize / 2;
 			service.node.analyser.connect(service.node.javascript);
 			service.node.javascript.connect(audioCtx.destination);
 			service.node.osc1.frequency.value = 0;

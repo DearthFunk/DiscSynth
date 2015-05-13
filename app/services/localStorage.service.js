@@ -11,7 +11,7 @@
 		var service = {
 			storage: JSON.parse(localStorage.getItem(LOCAL_STORAGE_OBJECT_NAME)),
 			checkStorageObject: checkStorageObject,
-			getStorageInfo: getStorageInfo,
+			getStorageObject: getStorageObject,
 			setLocalStorage: setLocalStorage
 		};
 
@@ -21,10 +21,7 @@
 
 		/////////////////////////////////////////////////////
 
-		function setLocalStorage(menuService,themeService,visualizerService, audioService) {
-			//var discSynthLocalStorage = service.getStorageInfo(menuService, themeService, visualizerService, audioService);
-			//localStorage.setItem(LOCAL_STORAGE_OBJECT_NAME, JSON.stringify(discSynthLocalStorage));
-		}
+
 		function checkStorageObject() {
 			if (service.storage != null) {
 				if ('active' in service.storage) {
@@ -41,16 +38,21 @@
 			}
 		}
 
-		function getStorageInfo(menuService, themeService, visualizerService, audioService) {
+		function setLocalStorage(themeService,visualizerService, audioService) {
+			var discSynthLocalStorage = service.getStorageObject(themeService, visualizerService, audioService);
+			localStorage.setItem(LOCAL_STORAGE_OBJECT_NAME, JSON.stringify(discSynthLocalStorage));
+		}
+
+		function getStorageObject(themeService, visualizerService, audioService) {
 			return {
 				active: true,
-				vol: menuService.vol,
-				spd: menuService.spd,
-				len: menuService.len,
+				volume: audioService.node.masterGain.gain.value,
+				tempo: audioService.tempo,
+				beatLength: audioService.beatLength,
 				synthIndex: audioService.synthTemplate.index,
 				themeIndex: themeService.theme.index,
-				visualizerIndex: visualizerService.visualizerIndex,
-				synthTemplates: audioService.synthTemplates
+				visualizerIndex: visualizerService.visualizer.index
+				//synthTemplates: audioService.synthTemplates
 			};
 		}
 	}

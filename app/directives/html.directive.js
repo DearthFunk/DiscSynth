@@ -14,8 +14,8 @@
 		return directive
 	}
 
-	htmlController.$inject = ['$element', '$rootScope', '$window', 'themeService', 'visualizerService', 'localStorageService', 'menuService', 'audioService'];
-	function htmlController($element, $rootScope, $window, themeService, visualizerService, localStorageService, menuService, audioService) {
+	htmlController.$inject = ['$element', '$rootScope', '$window', 'themeService', 'visualizerService', 'localStorageService', 'audioService'];
+	function htmlController($element, $rootScope, $window, themeService, visualizerService, localStorageService, audioService) {
 
 		$window.onblur = windowOnBlur;
 		$window.onresize = windowOnResize;
@@ -38,7 +38,7 @@
 			//visualizerService.windowResize();
 		}
 		function windowOnBeforeUnload() {
-			localStorageService.setLocalStorage(menuService,themeService,visualizerService, audioService);
+			localStorageService.setLocalStorage(themeService,visualizerService, audioService);
 		}
 
 		/////////////////////////////////////////////////

@@ -7,7 +7,6 @@
 			'modalModule',
 			'visualizerModule',
 			'discModule',
-			'menuServiceModule',
 			'colorServiceModule',
 			'mathServiceModule',
 			'audioServiceModule',
@@ -250,11 +249,10 @@
 		])
 		.controller('discController', discController);
 
-	discController.$inject = ['$scope', 'THEMES', 'menuService'];
+	discController.$inject = ['$scope', 'THEMES'];
 
-	function discController($scope, THEMES, menuService) {
+	function discController($scope, THEMES) {
 		$scope.THEMES = THEMES;
-		$scope.menuService = menuService;
 		$scope.importExportVisible = false;
 		$scope.helpWindowVisible = false;
 	}

@@ -17,9 +17,9 @@
 		return directive;
 	}
 
-	menuController.$inject = ['$scope', '$rootScope', '$timeout', 'themeService', 'eventService', 'visualizerService', 'MENU_SIZE', 'MAX_SPEED', 'MIN_SPEED', 'audioService', 'localStorageService', 'menuService', 'SYNTHS'];
+	menuController.$inject = ['$scope', '$rootScope', '$timeout', 'themeService', 'eventService', 'visualizerService', 'MENU_SIZE', 'MAX_SPEED', 'MIN_SPEED', 'audioService', 'localStorageService', 'SYNTHS'];
 
-	function menuController($scope, $rootScope, $timeout, themeService, eventService, visualizerService, MENU_SIZE, MAX_SPEED, MIN_SPEED, audioService, localStorageService, menuService, SYNTHS) {
+	function menuController($scope, $rootScope, $timeout, themeService, eventService, visualizerService, MENU_SIZE, MAX_SPEED, MIN_SPEED, audioService, localStorageService, SYNTHS) {
 
 		$scope.themeService = themeService;
 		$scope.eventService = eventService;
@@ -61,7 +61,7 @@
 		function importExportWindow() {
 			$scope.helpWindowVisible = false;
 			$scope.importExportVisible = !$scope.importExportVisible;
-			var data = JSON.stringify(localStorageService.getStorageInfo(menuService, themeService, visualizerService));
+			var data = JSON.stringify(localStorageService.getStorageObject(themeService, visualizerService));
 			$rootScope.$broadcast('importExport', data);
 		}
 

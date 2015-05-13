@@ -13,8 +13,8 @@
 		return directive;
 	}
 
-	discController.$inject = ['$scope', '$element', '$timeout', '$window', 'MENU_SIZE', 'themeService', 'colorService', 'menuService', 'audioService'];
-	function discController($scope, $element, $timeout, $window, MENU_SIZE, themeService, colorService, menuService, audioService) {
+	discController.$inject = ['$scope', '$element', '$timeout', '$window', 'MENU_SIZE', 'themeService', 'colorService', 'audioService'];
+	function discController($scope, $element, $timeout, $window, MENU_SIZE, themeService, colorService, audioService) {
 
 		var ctx = $element[0].getContext('2d');
 		var mouseDown = false;
@@ -49,7 +49,7 @@
 			midY = h / 2;
 			rad = midY - 10;
 			centerButtonSize = rad / 3;
-			reCalculateDiscs({}, menuService.len);
+			reCalculateDiscs({}, audioService.beatLength);
 		}
 		function reCalculateDiscs(e, discLen) {
 			angleSize = (1 / discLen) * Math.PI * 2;
@@ -121,7 +121,7 @@
 				var disc1 = audioService.disc.slices[i];
 				var disc2 = audioService.disc.slices[i + 1];
 				for (var layer = 0; layer < disc1.osc.length - 1; layer++) {
-					if (i < menuService.len) {
+					if (i < audioService.beatLength) {
 						ctx.beginPath();
 						ctx.lineWidth = 1;
 						ctx.moveTo(disc1.osc[layer].x, disc1.osc[layer].y);
