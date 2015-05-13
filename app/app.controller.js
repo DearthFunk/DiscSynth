@@ -24,6 +24,7 @@
 		.constant('MAX_SPEED', 180)
 		.constant('SYNTHS', [
 			{
+				index: 0,
 				osc1: {type: 'sine', detune: -400},
 				osc2: {type: 'square', detune: 0},
 				osc3: {type: 'sawtooth', detune: 1675},
@@ -42,6 +43,7 @@
 				convolver: {bypass: true, highCut: 22050, lowCut: 20, dryLevel: 1, wetLevel: 1}
 			},
 			{
+				index: 1,
 				osc1: {type: 'square', detune: -925},
 				osc2: {type: 'square', detune: 0},
 				osc3: {type: 'sawtooth', detune: -925},
@@ -60,6 +62,7 @@
 				convolver: {bypass: false, highCut: 22050, lowCut: 20, dryLevel: 1, wetLevel: 1}
 			},
 			{
+				index: 2,
 				osc1: {type: 'square', detune: -1000},
 				osc2: {type: 'sine', detune: 200},
 				osc3: {type: 'sine', detune: 1000},
@@ -78,6 +81,7 @@
 				convolver: {bypass: true, highCut: 22050, lowCut: 20, dryLevel: 1, wetLevel: 1}
 			},
 			{
+				index: 3,
 				osc1: {type: 'square', detune: 0},
 				osc2: {type: 'square', detune: 0},
 				osc3: {type: 'sawtooth', detune: 0},
@@ -96,6 +100,7 @@
 				convolver: {bypass: false, highCut: 22050, lowCut: 20, dryLevel: 1, wetLevel: 1}
 			},
 			{
+				index: 4,
 				osc1: {type: 'sine', detune: 0},
 				osc2: {type: 'sine', detune: 600},
 				osc3: {type: 'sine', detune: 0},
@@ -114,6 +119,7 @@
 				convolver: {bypass: false, highCut: 22050, lowCut: 20, dryLevel: 1, wetLevel: 1}
 			},
 			{
+				index: 5,
 				osc1: {type: 'square', detune: -1175},
 				osc2: {type: 'sawtooth', detune: 475},
 				osc3: {type: 'triangle', detune: -475},

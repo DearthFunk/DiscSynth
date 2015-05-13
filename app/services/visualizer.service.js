@@ -1,28 +1,36 @@
 (function () {
 	'use strict';
-	angular.module('visualizerServiceModule', [])
-		.service("visualizerService", function ($window, $timeout, $rootScope, themeService, eventService, MENU_SIZE, mathService, colorService, localStorageService) {
+	angular
+		.module('visualizerServiceModule', [])
+		.service('visualizerService', visualizerService);
 
-/*
+	function visualizerService($window, $timeout, $rootScope, themeService, eventService, MENU_SIZE, mathService, colorService, localStorageService) {
 
-			var cnv = document.querySelectorAll('.visualizerCanvas')[0];
-			var ctx = cnv.getContext("2d");
-			var visualizer = this;
-			var w, h, xCenter, yCenter = 0;
-			var prom;
+		var cnv = document.querySelectorAll('.visualizerCanvas')[0];
+		var ctx = cnv.getContext('2d');
 
-			visualizer.visualizerIndex = angular.isObject(localStorageService.storage) ? localStorageService.storage.visualizerIndex : 0;
-			visualizer.visualizers = [
-				{globalCompositeOperation: "", clearCanvas: false, functionToRun: false},
-				{globalCompositeOperation: "lighter", clearCanvas: true, functionToRun: "visParticles"},
-				{globalCompositeOperation: "lighter", clearCanvas: false, functionToRun: "visScope"},
-				{globalCompositeOperation: "lighter", clearCanvas: true, functionToRun: "visTunnel"},
-				{globalCompositeOperation: "lighter", clearCanvas: true, functionToRun: "visMathMachine"},
-				{globalCompositeOperation: "lighter", clearCanvas: true, functionToRun: "visBurst"}
+		var service = {
+			visualizers: [
+				{index: 0, functionToRun: false},
+				{index: 1, functionToRun: 'visParticles'},
+				{index: 2, functionToRun: 'visScope'},
+				{index: 3, functionToRun: 'visTunnel'},
+				{index: 4, functionToRun: 'visMathMachine'},
+				{index: 5, functionToRun: 'visBurst'}
+			]
+		};
+		service.visualizer = service.visualizers[localStorageService.storage ? localStorageService.storage.visualizerIndex : 0];
 
-			];
+		return service;
+
+		///////////////////////////////////////////////////////
+
+	}
+})();
 
 
+
+			/*
 			visualizer.windowResize = function () {
 				w = $window.innerWidth;
 				h = $window.innerHeight;
@@ -152,9 +160,9 @@
 					var barWidth = w / timeArray.length;
 					ctx.beginPath();
 					ctx.lineWidth = 4;
-					ctx.lineCap = "round";
-					ctx.lineJoin = "round";
-					ctx.strokeStyle = "rgba(255,255,255,0.7)";
+					ctx.lineCap = 'round';
+					ctx.lineJoin = 'round';
+					ctx.strokeStyle = 'rgba(255,255,255,0.7)';
 
 					for (var i = 0; i < timeArray.length; i++) {
 						var percent = timeArray[i] / 256;
@@ -179,7 +187,7 @@
 				var nextIndex = false;
 				var db = visualizer.getAverageDB();
 				ctx.lineWidth = 1;
-				ctx.strokeStyle = colorService.hexToRGBA("#FFFFFF", db > 10 ? db / 200 : 0);
+				ctx.strokeStyle = colorService.hexToRGBA('#FFFFFF', db > 10 ? db / 200 : 0);
 
 				for (var index = 0; index < lines.length + 1; index++) {
 					if (lines[index] != undefined) {
@@ -233,7 +241,7 @@
 						var x2 = xCenter + (rad * (1 - angleAdjust)) * Math.cos(a2);
 						var y2 = yCenter + (rad * (1 - angleAdjust)) * Math.sin(a2);
 						ctx.beginPath();
-						ctx.strokeStyle = playAngle ? "#FFFFFF" : "rgba(255,255,255,0.7)";
+						ctx.strokeStyle = playAngle ? '#FFFFFF' : 'rgba(255,255,255,0.7)';
 						ctx.moveTo(x1, y1);
 						ctx.lineTo(x2, y2);
 						ctx.stroke();
@@ -241,7 +249,7 @@
 
 					}
 				}
-				ctx.strokeStyle = "";
+				ctx.strokeStyle = '';
 			};
 
 			*/
@@ -282,7 +290,7 @@
 						}
 
 						var gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.rad);
-						gradient.addColorStop(0, "rgba(255,255,255,0.7)");
+						gradient.addColorStop(0, 'rgba(255,255,255,0.7)');
 						gradient.addColorStop(0.5, colorService.hexToRGBA(p.color, p.o));
 						gradient.addColorStop(1, colorService.hexToRGBA(p.color, 0));
 						ctx.fillStyle = gradient;
@@ -290,7 +298,7 @@
 						ctx.arc(p.x, p.y, p.rad, Math.PI * 2, false);
 
 						if (p.drawBorder) {
-							ctx.strokeStyle = "rgba(255,255,255,0.3)";
+							ctx.strokeStyle = 'rgba(255,255,255,0.3)';
 							ctx.stroke();
 						}
 						ctx.fill();
@@ -307,6 +315,3 @@
 			};
 
 */
-		});
-
-})();

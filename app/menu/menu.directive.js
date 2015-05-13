@@ -17,9 +17,9 @@
 		return directive;
 	}
 
-	menuController.$inject = ['$scope', '$rootScope', '$timeout', 'themeService', 'eventService', 'visualizerService', 'MENU_SIZE', 'MAX_SPEED', 'MIN_SPEED', 'audioService', 'localStorageService', 'menuService'];
+	menuController.$inject = ['$scope', '$rootScope', '$timeout', 'themeService', 'eventService', 'visualizerService', 'MENU_SIZE', 'MAX_SPEED', 'MIN_SPEED', 'audioService', 'localStorageService', 'menuService', 'SYNTHS'];
 
-	function menuController($scope, $rootScope, $timeout, themeService, eventService, visualizerService, MENU_SIZE, MAX_SPEED, MIN_SPEED, audioService, localStorageService, menuService) {
+	function menuController($scope, $rootScope, $timeout, themeService, eventService, visualizerService, MENU_SIZE, MAX_SPEED, MIN_SPEED, audioService, localStorageService, menuService, SYNTHS) {
 
 		$scope.themeService = themeService;
 		$scope.eventService = eventService;
@@ -51,10 +51,7 @@
 			//discService.reCalculateDiscs();
 		}
 
-		function changeVisualizer(index) {
-			visualizerService.clearCanvas();
-			visualizerService.visualizerIndex = index;
-		}
+		
 
 		function helpWindow() {
 			$scope.importExportVisible = false;
@@ -65,22 +62,24 @@
 			$scope.helpWindowVisible = false;
 			$scope.importExportVisible = !$scope.importExportVisible;
 			var data = JSON.stringify(localStorageService.getStorageInfo(menuService, themeService, visualizerService));
-			$rootScope.$broadcast("importExport", data);
+			$rootScope.$broadcast('importExport', data);
 		}
 
-		function changeTheme(item, index) {
+		function changeTheme(item) {
 			themeService.theme = item;
-			menuService.themeIndex = index;
-			$rootScope.$broadcast("themeChangeEvent");
-
+			$rootScope.$broadcast('themeChangeEvent');
 		}
-
-		function changeSynth(index) {
-			//discService.switchSynthTemplate(index);
+		function changeSynth(item) {
+			audioService.synthTemplate = item;
+			$rootScope.$broadcast('visualizerChangeEvent');
 		}
+		function changeVisualizer(item) {
+			visualizerService.visualizer = item;
+			$rootScope.$broadcast('visualizerChangeEvent');
+		}		
 
 		function resetSynth(index) {
-			//discService.synthTemplates[index] = angular.copy(SYNTHS[index]);
+			audioService.synthTemplates[index] = angular.copy(SYNTHS[index]);
 			$scope.resetIndex = index;
 			$timeout(function () {
 				$scope.resetIndex = -1;

@@ -12,7 +12,7 @@
 
 		var service = {
 			audioBufferSize: 1024,
-			synthTemplates: localStorageService.storage && localStorageService.storage.synthTemplates? localStorageService.storage.synthTemplates : angular.copy(SYNTHS),
+			synthTemplates: localStorageService.storage ? localStorageService.storage.synthTemplates : angular.copy(SYNTHS),
 			playing: false,
 			clickTrack: 0,
 			maxFreq: 1500,
@@ -21,10 +21,8 @@
 			disc: {slices:[], colors:[]},
 			randomize: randomize
 		};
+		service.synthTemplate = service.synthTemplates[localStorageService.storage ? localStorageService.storage.synthIndex : 0];
 
-		console.log(service.synthTemplates);
-		console.log(localStorageService.storage.synthTemplates);
-		console.log(angular.copy(SYNTHS));
 		initAudioNodes();
 		clickTrack();
 

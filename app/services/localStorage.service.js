@@ -47,10 +47,10 @@
 				vol: menuService.vol,
 				spd: menuService.spd,
 				len: menuService.len,
-				synthIndex: menuService.theme.index,
+				synthIndex: audioService.synthTemplate.index,
 				themeIndex: themeService.theme.index,
 				visualizerIndex: visualizerService.visualizerIndex,
-				synthTemplates: angular.copy(audioService.synthTemplates)
+				synthTemplates: audioService.synthTemplates
 			};
 		}
 	}

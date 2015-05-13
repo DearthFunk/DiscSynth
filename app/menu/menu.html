@@ -19,20 +19,31 @@
 
     <div class="selector border">
         <span class="title">THEME</span>
-        <div class="button" data-ng-click="changeTheme(item, $index)" data-ng-repeat="item in themeService.themes track by $index">
-            <div class="inner" data-ng-style="{backgroundColor: themeService.theme.index == $index ? themeService.theme.menuHighlight : ''}"></div>
+        <div class="button"
+             data-ng-click="changeTheme(item)"
+             data-ng-repeat="item in themeService.themes track by $index">
+            <div class="inner"
+                 data-ng-style="{backgroundColor: $index === themeService.theme.index ? themeService.theme.menuHighlight : ''}">
+	        </div>
         </div>
     </div>
     <div class="selector border">
         <span class="title">VISUALISER</span>
-        <div class="button" data-ng-click="changeVisualizer($index)" data-ng-repeat="item in visualizerService.visualizers track by $index">
-            <div class="inner" data-ng-style="{backgroundColor: $index == visualizerService.visualizerIndex ? themeService.theme.menuHighlight : ''}"></div>
+        <div class="button"
+             data-ng-click="changeVisualizer(item)"
+             data-ng-repeat="item in visualizerService.visualizers track by $index">
+            <div class="inner"
+                 data-ng-style="{backgroundColor: $index === visualizerService.visualizer.index ? themeService.theme.menuHighlight : ''}">
+            </div>
         </div>
     </div>
     <div class="selector border">
         <span class="title">SYNTH TEMPLATE</span>
-        <div class="button" data-ng-click="changeSynth($index)" data-ng-right-click="resetSynth($index)" data-ng-repeat="item in audioService.synthTemplates track by $index">
-            <div class="inner" data-ng-style="{backgroundColor: $index == resetIndex ? '#FF0000' : $index == audioService.synthIndex ? themeService.theme.menuHighlight : ''}">{{$index == resetIndex ? 'X' : ''}}</div>
+        <div class="button" data-ng-click="changeSynth(item)"
+             data-ng-right-click="resetSynth($index)"
+             data-ng-repeat="item in audioService.synthTemplates track by $index">
+            <div class="inner"
+                 data-ng-style="{backgroundColor: $index == resetIndex ? '#FF0000' : $index == audioService.synthTemplate.index ? themeService.theme.menuHighlight : ''}">{{$index == resetIndex ? 'X' : ''}}</div>
         </div>
     </div>
 
