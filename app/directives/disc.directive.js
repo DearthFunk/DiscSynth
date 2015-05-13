@@ -76,11 +76,7 @@
 		function mouseDownEvent(e, args) {
 			mouseDown = true;
 			if (distanceFromCenter < centerButtonSize) {
-				audioService.playing = !audioService.playing;
-				audioService.playing ?
-					audioService.node.stopper.connect(audioService.fx.moogfilter.input) :
-					audioService.node.stopper.disconnect();
-				audioService.startStop();
+				audioService.startStopPlayback();
 			}
 			else if (distanceFromCenter < rad && distanceFromCenter > rad / 2) {
 				audioService.disc.slices[hoverDisc].osc[hoverRing].active = !audioService.disc.slices[hoverDisc].osc[hoverRing].active;
