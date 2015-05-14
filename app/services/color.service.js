@@ -8,8 +8,7 @@
 		var service = {
 			randomRGBA: randomRGBA,
 			randomHex: randomHex,
-			hexToRGBA: hexToRGBA,
-			hexArray: hexArray
+			hexToRGBA: hexToRGBA
 		};
 		return service;
 
@@ -30,37 +29,12 @@
 		}
 
 		function hexToRGBA(hex, opacity) {
-
-			//var newHex = typeof hex === 'undefined' ? "000000" :
 			var newHex = hex.replace('#', '');
-
 			var r = parseInt(newHex.substring(0, 2), 16);
 			var g = parseInt(newHex.substring(2, 4), 16);
 			var b = parseInt(newHex.substring(4, 6), 16);
-			return 'rgba(' + r + ',' + g + ',' + b + ',' + opacity + ')';
-		}
-
-		function hexArray(c1, c2, length) {
-			length -= 1;
-
-			var steps = [];
-			var newArray = [];
-			var newC1 = c1.replace('#', '').match(/.{1,2}/g);
-			var newC2 = c2.replace('#', '').match(/.{1,2}/g);
-			for (i = 0; i < 3; i++) {
-				newC1[i] = parseInt(newC1[i], 16);
-				newC2[i] = parseInt(newC2[i], 16);
-				steps.push(newC1[i] == newC2[i] ? 0 : (newC1[i] - newC2[i]) / length * -1);
-			}
-			for (var i = 0; i < length + 1; i++) {
-				newArray.push(
-					"#" +
-					("0" + parseInt(Math.floor(steps[0] * i + newC1[0])).toString(16)).slice(-2) +
-					("0" + parseInt(Math.floor(steps[1] * i + newC1[1])).toString(16)).slice(-2) +
-					("0" + parseInt(Math.floor(steps[2] * i + newC1[2])).toString(16)).slice(-2)
-				)
-			}
-			return newArray;
+			var o = angular.isDefined(opacity) ? opacity : 1;
+			return 'rgba(' + r + ',' + g + ',' + b + ',' + o + ')';
 		}
 	}
 })();

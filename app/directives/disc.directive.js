@@ -19,7 +19,6 @@
 		var ctx = $element[0].getContext('2d');
 		var mouseDown = false;
 		var rad = 0;
-		var colors = [];
 		var midX, midY, angleSize, drawPromise, distanceFromCenter, hoverRing, hoverDisc, ringSelect, discSelect, mouseDownY, startFreq, centerButtonSize;
 
 
@@ -54,7 +53,6 @@
 		function reCalculateDiscs(e, discLen) {
 			angleSize = (1 / discLen) * Math.PI * 2;
 
-			colors = colorService.hexArray(themeService.theme.discTileStart, themeService.theme.discTileEnd, discLen);
 			for (var i = 0; i < audioService.disc.slices.length; i++) {
 				var theDisc = audioService.disc.slices[i];
 				theDisc.a1 = angleSize * i;
@@ -132,12 +130,12 @@
 
 						if (disc1.osc[layer].active && i === audioService.clickTrack) {
 							ctx.strokeStyle = themeService.theme.discLines;
-							ctx.fillStyle = colorService.hexToRGBA(colors[i], 0.7);
+							ctx.fillStyle = colorService.hexToRGBA(themeService.theme.discTile, 0.7);
 							ctx.fill();
 						}
 						if (disc1.osc[layer].active) {
 							ctx.strokeStyle = themeService.theme.discLines;
-							ctx.fillStyle = colorService.hexToRGBA(colors[i], 0.4);
+							ctx.fillStyle = colorService.hexToRGBA(themeService.theme.discTile, 0.4);
 							ctx.fill();
 						}
 						else if (i === audioService.clickTrack) {

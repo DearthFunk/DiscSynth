@@ -15,7 +15,7 @@
 		/////////////////////////////////////
 
 		function randomNumber(from, to, decimals) {
-			if (decimals != undefined) {
+			if (angular.isDefined(decimals)) {
 				return (Math.random() * (Number(to) - Number(from)) + Number(from)).toFixed(decimals);
 			}
 			else {
