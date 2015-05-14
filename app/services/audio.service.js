@@ -7,7 +7,6 @@
 	function audioService(localStorageService, mathService, SYNTHS) {
 		var audioCtx = typeof AudioContext !== 'undefined' ? new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() : null;
 		var audioBufferSize = 1024;
-		var current16thNote = 0;
 		var nextNoteTime = 0;
 		var notesInQueue = [];
 		var tuna = new Tuna(audioCtx);
@@ -17,8 +16,8 @@
 
 		var service = {
 			synthTemplates: angular.copy(SYNTHS), //localStorageService.storage ? localStorageService.storage.synthTemplates : angular.copy(SYNTHS),
-			tempo: localStorageService.storage ? localStorageService.storage.tempo : 120,
-			beatLength: localStorageService.storage ? localStorageService.storage.beatLength : 14,
+			tempo: localStorageService.storage ? parseInt(localStorageService.storage.tempo,10) : 120,
+			beatLength: localStorageService.storage ? parseInt(localStorageService.storage.beatLength,10) : 14,
 			playing: false,
 			clickTrack: 0,
 			maxFreq: 1500,
@@ -42,7 +41,7 @@
 				service.node.stopper.connect(service.fx.moogfilter.input) :
 				service.node.stopper.disconnect();
 			notesInQueue = [];
-			current16thNote = 0;
+			service.clickTrack = 0;
 			nextNoteTime = audioCtx.currentTime;
 			timerWorker.postMessage(service.playing ? 'start' : 'stop');
 		}
@@ -51,19 +50,20 @@
 			if (e.data === 'tick') {
 				while (nextNoteTime < audioCtx.currentTime + 0.1) {
 					notesInQueue.push({
-						note: current16thNote,
+						note: service.clickTrack,
 						time: nextNoteTime
 					});
-					if (current16thNote % 4 === 0) { // quarter notes
-						console.log('play');
-					}
+
+					// DO STUFFFFFFf
+
+
 
 					//setup next note
 					var secondsPerBeat = 60.0 / service.tempo;
 					nextNoteTime += 0.25 * secondsPerBeat;
-					current16thNote++;
-					if (current16thNote == 16) {
-						current16thNote = 0;
+					service.clickTrack++;
+					if (service.clickTrack >= service.beatLength) {
+						service.clickTrack = 0;
 					}
 				}
 			}

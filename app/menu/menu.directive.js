@@ -45,6 +45,7 @@
 
 		function updateLen(x) {
 			$rootScope.$broadcast('discLenChange', x);
+			console.log(typeof audioService.tempo, typeof audioService.beatLength);
 			//console.log(x);
 			//discService.playing = false;
 			//discService.discLength = 4 + Math.floor(x * 28);
