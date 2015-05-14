@@ -19,8 +19,13 @@
 		])
 		.constant('MENU_SIZE', 220)
 		.constant('LOCAL_STORAGE_OBJECT_NAME', 'discSynthLocalStorage')
-		.constant('MIN_SPEED', 60)
-		.constant('MAX_SPEED', 180)
+		.constant('TEMPO_CONSTRAINTS', { MIN: 60,MAX: 180 })
+		.constant('LENGTH_CONSTRAINTS', {MIN: 4, MAX: 32})
+		.constant('TIME_WORKER_POST_MESSAGE',{
+			start : 0,
+			stop: 1,
+			tick : 2
+		})
 		.constant('SYNTHS', [
 			{
 				index: 0,
@@ -32,12 +37,12 @@
 					bypass: true,
 					wetLevel: 0.5,
 					dryLevel: 1,
-					feedback: 0.44999998807907104,
-					delayTime: 0.10000000149011612,
+					feedback: 0.5,
+					delayTime: 0.1,
 					cutoff: 20000
 				},
 				overdrive: {bypass: true, curveAmount: 0.725, drive: 1, outputGain: 1},
-				moogfilter: {bypass: false, bufferSize: 5910.4, cutoff: 0.552, resonance: 3.8},
+				moogfilter: {bypass: false, bufferSize: 5910.5, cutoff: 0.552, resonance: 3.8},
 				tremolo: {bypass: true, intensity: 0.3, rate: 5, stereoPhase: 100},
 				convolver: {bypass: true, highCut: 22050, lowCut: 20, dryLevel: 1, wetLevel: 1}
 			},
@@ -51,8 +56,8 @@
 					bypass: false,
 					wetLevel: 0.5,
 					dryLevel: 1,
-					feedback: 0.44999998807907104,
-					delayTime: 0.10000000149011612,
+					feedback: 0.5,
+					delayTime: 0.1,
 					cutoff: 20000
 				},
 				overdrive: {bypass: true, curveAmount: 0.725, drive: 1, outputGain: 1},
@@ -68,13 +73,13 @@
 				bitcrusher: {bypass: true, bits: 4, bufferSize: 4096, normFreq: 0},
 				delay: {
 					bypass: false,
-					wetLevel: 0.718999981880188,
+					wetLevel: 0.7,
 					dryLevel: 1,
-					feedback: 0.593999981880188,
-					delayTime: 121.9749984741211,
+					feedback: 0.68,
+					delayTime: 121,
 					cutoff: 20000
 				},
-				overdrive: {bypass: false, curveAmount: 0.95, drive: 0.9440000057220459, outputGain: 1},
+				overdrive: {bypass: false, curveAmount: 0.95, drive: 0.95, outputGain: 1},
 				moogfilter: {bypass: true, bufferSize: 5910.4, cutoff: 0.552, resonance: 3.8},
 				tremolo: {bypass: true, intensity: 0.831, rate: 0.594, stereoPhase: 0},
 				convolver: {bypass: true, highCut: 22050, lowCut: 20, dryLevel: 1, wetLevel: 1}
@@ -89,8 +94,8 @@
 					bypass: true,
 					wetLevel: 0.5,
 					dryLevel: 1,
-					feedback: 0.44999998807907104,
-					delayTime: 0.10000000149011612,
+					feedback: 0.4,
+					delayTime: 0.1,
 					cutoff: 20000
 				},
 				overdrive: {bypass: false, curveAmount: 0.725, drive: 1, outputGain: 1},
@@ -108,8 +113,8 @@
 					bypass: false,
 					wetLevel: 1,
 					dryLevel: 0,
-					feedback: 0.6940000057220459,
-					delayTime: 16.975000381469727,
+					feedback: 0.7,
+					delayTime: 16.9,
 					cutoff: 3752.875
 				},
 				overdrive: {bypass: true, curveAmount: 0.725, drive: 1, outputGain: 1},
@@ -127,8 +132,8 @@
 					bypass: false,
 					wetLevel: 0.5,
 					dryLevel: 1,
-					feedback: 0.44999998807907104,
-					delayTime: 0.10000000149011612,
+					feedback: 0.4,
+					delayTime: 0.1,
 					cutoff: 20000
 				},
 				overdrive: {bypass: false, curveAmount: 0.725, drive: 1, outputGain: 1},

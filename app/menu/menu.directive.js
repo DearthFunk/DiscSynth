@@ -17,17 +17,17 @@
 		return directive;
 	}
 
-	menuController.$inject = ['$scope', '$rootScope', '$timeout', 'themeService', 'eventService', 'visualizerService', 'MENU_SIZE', 'MAX_SPEED', 'MIN_SPEED', 'audioService', 'localStorageService', 'SYNTHS'];
+	menuController.$inject = ['$scope', '$rootScope', '$timeout', 'themeService', 'eventService', 'visualizerService', 'MENU_SIZE', 'audioService', 'localStorageService', 'SYNTHS', 'TEMPO_CONSTRAINTS', 'LENGTH_CONSTRAINTS'];
 
-	function menuController($scope, $rootScope, $timeout, themeService, eventService, visualizerService, MENU_SIZE, MAX_SPEED, MIN_SPEED, audioService, localStorageService, SYNTHS) {
+	function menuController($scope, $rootScope, $timeout, themeService, eventService, visualizerService, MENU_SIZE, audioService, localStorageService, SYNTHS, TEMPO_CONSTRAINTS, LENGTH_CONSTRAINTS) {
 
 		$scope.themeService = themeService;
 		$scope.eventService = eventService;
 		$scope.audioService = audioService;
 		$scope.visualizerService = visualizerService;
 		$scope.menuSize = MENU_SIZE;
-		$scope.MAX_SPEED = MAX_SPEED;
-		$scope.MIN_SPEED = MIN_SPEED;
+		$scope.TEMPO_CONSTRAINTS = TEMPO_CONSTRAINTS;
+		$scope.LENGTH_CONSTRAINTS = LENGTH_CONSTRAINTS;
 
 		$scope.editingVol = false;
 		$scope.editingSpd = false;
@@ -45,7 +45,6 @@
 
 		function updateLen(x) {
 			$rootScope.$broadcast('discLenChange', x);
-			console.log(typeof audioService.tempo, typeof audioService.beatLength);
 			//console.log(x);
 			//discService.playing = false;
 			//discService.discLength = 4 + Math.floor(x * 28);

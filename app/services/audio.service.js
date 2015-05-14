@@ -4,7 +4,7 @@
 		.module('audioServiceModule', [])
 		.factory('audioService', audioService);
 
-	function audioService(localStorageService, mathService, SYNTHS) {
+	function audioService(localStorageService, mathService, SYNTHS, TIME_WORKER_POST_MESSAGE, LENGTH_CONSTRAINTS) {
 		var audioCtx = typeof AudioContext !== 'undefined' ? new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() : null;
 		var audioBufferSize = 1024;
 		var nextNoteTime = 0;
@@ -17,7 +17,7 @@
 		var service = {
 			synthTemplates: angular.copy(SYNTHS), //localStorageService.storage ? localStorageService.storage.synthTemplates : angular.copy(SYNTHS),
 			tempo: localStorageService.storage ? parseInt(localStorageService.storage.tempo,10) : 120,
-			beatLength: localStorageService.storage ? parseInt(localStorageService.storage.beatLength,10) : 14,
+			beatLength: localStorageService.storage ? parseInt(localStorageService.storage.beatLength,10) : 12,
 			playing: false,
 			clickTrack: 0,
 			maxFreq: 1500,
@@ -25,9 +25,10 @@
 			fx: {},
 			disc: {slices:[], colors:[]},
 			randomize: randomize,
-			startStopPlayback: startStopPlayback
+			startStopPlayback: startStopPlayback,
+			playNotes: playNotes
 		};
-		service.synthTemplate = service.synthTemplates[0]; //localStorageService.storage ? localStorageService.storage.synthIndex : 0];
+		service.synthTemplate = service.synthTemplates[localStorageService.storage ? localStorageService.storage.synthIndex : 0];
 
 		initAudioNodes();
 
@@ -37,27 +38,31 @@
 
 		function startStopPlayback() {
 			service.playing = !service.playing;
-			service.playing ?
-				service.node.stopper.connect(service.fx.moogfilter.input) :
-				service.node.stopper.disconnect();
+			if (service.playing) {
+				service.node.masterGain.connect(service.node.analyser);
+				service.node.masterGain.connect(audioCtx.destination);
+			}
+			else {
+				service.node.masterGain.disconnect();
+			}
 			notesInQueue = [];
-			service.clickTrack = 0;
 			nextNoteTime = audioCtx.currentTime;
-			timerWorker.postMessage(service.playing ? 'start' : 'stop');
+			timerWorker.postMessage(service.playing ? TIME_WORKER_POST_MESSAGE.start : TIME_WORKER_POST_MESSAGE.stop);
+		}
+
+		function playNotes() {
+
 		}
 
 		function scheduler(e) {
-			if (e.data === 'tick') {
+			if (e.data === TIME_WORKER_POST_MESSAGE.tick) {
 				while (nextNoteTime < audioCtx.currentTime + 0.1) {
 					notesInQueue.push({
 						note: service.clickTrack,
 						time: nextNoteTime
 					});
-
-					// DO STUFFFFFFf
-
-
-
+					//actually play something
+					service.playNotes();
 					//setup next note
 					var secondsPerBeat = 60.0 / service.tempo;
 					nextNoteTime += 0.25 * secondsPerBeat;
@@ -79,7 +84,7 @@
 		}
 
 		function initAudioNodes() {
-			for (var i = 0; i < 33; i++) { //disc setup
+			for (var i = 0; i <= LENGTH_CONSTRAINTS.MAX; i++) {
 				service.disc.slices.push({
 					a1: 0,
 					a2: 0,
@@ -96,7 +101,6 @@
 			service.node.osc1 = audioCtx.createOscillator();
 			service.node.osc2 = audioCtx.createOscillator();
 			service.node.osc3 = audioCtx.createOscillator();
-			service.node.stopper = audioCtx.createGain();
 			service.node.masterGain = audioCtx.createGain();
 			service.node.masterGain.gain.value = localStorageService.storage ? localStorageService.storage.volume : 0.5;
 			service.node.javascript = audioCtx.createScriptProcessor(audioBufferSize, 0, 1);
@@ -110,15 +114,16 @@
 			service.fx.overdrive.algorithmIndex = 5;
 			service.fx.bitcrusher = new tuna.Bitcrusher();
 
-			service.node.stopper.connect(service.fx.moogfilter.input);
-			service.fx.moogfilter.connect(service.fx.tremolo.input);
+			service.node.osc1.connect(service.fx.moogfilter.input);
+			service.node.osc2.connect(service.fx.moogfilter.input);
+			service.node.osc3.connect(service.fx.moogfilter.input);
+			service.fx.moogfilter.connect(service.fx.overdrive.input);
+			service.fx.overdrive.connect(service.fx.bitcrusher.input);
+			service.fx.bitcrusher.connect(service.fx.tremolo.input);
 			service.fx.tremolo.connect(service.fx.convolver.input);
 			service.fx.convolver.connect(service.fx.delay.input);
-			service.fx.delay.connect(service.fx.overdrive.input);
-			service.fx.overdrive.connect(service.fx.bitcrusher.input);
-			service.fx.bitcrusher.connect(service.node.masterGain);
-			service.node.masterGain.connect(service.node.analyser);
-			service.node.masterGain.connect(audioCtx.destination);
+			service.fx.delay.connect(service.node.masterGain);
+
 			service.node.analyser.smoothingTimeConstant = 0.3;
 			service.node.analyser.fftSize = audioBufferSize / 2;
 			service.node.analyser.connect(service.node.javascript);
@@ -126,9 +131,6 @@
 			service.node.osc1.frequency.value = 0;
 			service.node.osc2.frequency.value = 0;
 			service.node.osc3.frequency.value = 0;
-			service.node.osc1.connect(service.node.stopper);
-			service.node.osc2.connect(service.node.stopper);
-			service.node.osc3.connect(service.node.stopper);
 
 			service.node.osc1.start();
 			service.node.osc2.start();
