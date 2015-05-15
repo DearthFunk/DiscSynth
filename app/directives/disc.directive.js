@@ -2,19 +2,21 @@
 	'use strict';
 	angular
 		.module('discModule', [])
-		.directive('disc', disc);
+		.directive('discDirective', disc);
 
 	function disc() {
 		var directive = {
 			restrict: 'EA',
 			controller: discController,
-			bindToController: true
+			bindToController: true,
+			replace: true,
+			template: '<canvas></canvas>'
 		};
 		return directive;
 	}
 
-	discController.$inject = ['$scope', '$element', '$timeout', '$window', 'MENU_SIZE', 'themeService', 'colorService', 'audioService'];
-	function discController($scope, $element, $timeout, $window, MENU_SIZE, themeService, colorService, audioService) {
+	discController.$inject = ['$scope', '$element', '$timeout', '$window', 'MENU_SIZE', 'themeService', 'colorService', 'discService', 'audioService'];
+	function discController($scope, $element, $timeout, $window, MENU_SIZE, themeService, colorService, discService, audioService) {
 
 		var ctx = $element[0].getContext('2d');
 		var mouseDown = false;
@@ -48,13 +50,13 @@
 			midY = h / 2;
 			rad = midY - 10;
 			centerButtonSize = rad / 3;
-			reCalculateDiscs({}, audioService.beatLength);
+			reCalculateDiscs({}, discService.discLength);
 		}
 		function reCalculateDiscs(e, discLen) {
 			angleSize = (1 / discLen) * Math.PI * 2;
 
-			for (var i = 0; i < audioService.disc.slices.length; i++) {
-				var theDisc = audioService.disc.slices[i];
+			for (var i = 0; i < discService.slice.length; i++) {
+				var theDisc = discService.slice[i];
 				theDisc.a1 = angleSize * i;
 				theDisc.a2 = angleSize * (i + 1);
 				for (var d = 0; d < 4; d++) {
@@ -74,20 +76,21 @@
 		function mouseDownEvent(e, args) {
 			mouseDown = true;
 			if (distanceFromCenter < centerButtonSize) {
-				audioService.startStopPlayback();
+				discService.playing = !discService.playing;
+				discService.startStopPlayback();
 			}
 			else if (distanceFromCenter < rad && distanceFromCenter > rad / 2) {
-				audioService.disc.slices[hoverDisc].osc[hoverRing].active = !audioService.disc.slices[hoverDisc].osc[hoverRing].active;
+				discService.slice[hoverDisc].osc[hoverRing].active = !discService.slice[hoverDisc].osc[hoverRing].active;
 				ringSelect = hoverRing;
 				discSelect = hoverDisc;
 				mouseDownY = args.clientY;
-				startFreq = audioService.disc.slices[discSelect].osc[ringSelect].freq;
+				startFreq = discService.slice[discSelect].osc[ringSelect].freq;
 			}
 		}
 		function mouseMoveEvent(e, args) {
 			distanceFromCenter = Math.sqrt(Math.pow(args.clientX - midX, 2) + Math.pow(args.clientY - midY, 2));
 			if (distanceFromCenter < rad && distanceFromCenter > rad / 2) {
-				for (var layer = 0; layer < audioService.disc.slices[0].osc.length - 1; layer++) {
+				for (var layer = 0; layer < discService.slice[0].osc.length - 1; layer++) {
 					var d1 = (layer + 3) / 6 * rad;
 					var d2 = (layer + 4) / 6 * rad;
 					if (distanceFromCenter > d1 && distanceFromCenter < d2) {
@@ -96,8 +99,8 @@
 					}
 				}
 				var angle = Math.atan2(midY - args.clientY, midX - args.clientX) + Math.PI;
-				for (var i = 0; i < audioService.disc.slices.length - 1; i++) {
-					if (angle > audioService.disc.slices[i].a1 && angle < audioService.disc.slices[i].a2) {
+				for (var i = 0; i < discService.slice.length - 1; i++) {
+					if (angle > discService.slice[i].a1 && angle < discService.slice[i].a2) {
 						hoverDisc = i;
 						break;
 					}
@@ -110,16 +113,16 @@
 
 			if (ringSelect > -1 && discSelect > -1 && mouseDown) {
 				var newFreq = startFreq + ((mouseDownY - args.clientY) * 2);
-				audioService.disc.slices[discSelect].osc[ringSelect].freq = newFreq < 0 ? 0 : newFreq > audioService.maxFreq ? audioService.maxFreq : newFreq;
+				discService.slice[discSelect].osc[ringSelect].freq = newFreq < 0 ? 0 : newFreq > discService.maxFreq ? discService.maxFreq : newFreq;
 			}
 		}
 		function drawDisc() {
 			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-			for (var i = 0; i < audioService.disc.slices.length - 1; i++) {
-				var disc1 = audioService.disc.slices[i];
-				var disc2 = audioService.disc.slices[i + 1];
+			for (var i = 0; i < discService.slice.length - 1; i++) {
+				var disc1 = discService.slice[i];
+				var disc2 = discService.slice[i + 1];
 				for (var layer = 0; layer < disc1.osc.length - 1; layer++) {
-					if (i < audioService.beatLength) {
+					if (i < discService.discLength) {
 						ctx.beginPath();
 						ctx.lineWidth = 1;
 						ctx.moveTo(disc1.osc[layer].x, disc1.osc[layer].y);
@@ -128,7 +131,7 @@
 						ctx.arc(midX, midY, disc1.osc[layer + 1].rad, disc1.a2, disc1.a1, true);
 						ctx.lineTo(disc1.osc[layer].x, disc1.osc[layer].y);
 
-						if (disc1.osc[layer].active && i === audioService.clickTrack) {
+						if (disc1.osc[layer].active && i === discService.clickTrack) {
 							ctx.strokeStyle = themeService.theme.discLines;
 							ctx.fillStyle = colorService.hexToRGBA(themeService.theme.discTile, 0.7);
 							ctx.fill();

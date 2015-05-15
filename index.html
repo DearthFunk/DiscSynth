@@ -54,6 +54,7 @@
 	<script type="text/javascript" src="app/services/math.service.js"></script>
 	<script type="text/javascript" src="app/services/localStorage.service.js"></script>
 	<script type="text/javascript" src="app/services/audio.service.js"></script>
+	<script type="text/javascript" src="app/services/disc.service.js"></script>
 
         <script type="text/javascript" src="app/services/event.service.js"></script>
         <script type="text/javascript" src="app/services/theme.service.js"></script>
@@ -75,7 +76,7 @@
 
 <body data-ng-controller="discController" data-ng-style="{backgroundImage:themeService.theme.backgroundImage}">
     <canvas class="visualizerCanvas fullScreen"></canvas>
-    <canvas disc class="fullScreen"></canvas>
+    <canvas disc-directive class="fullScreen"></canvas>
 
     <div class="menu"></div>
 

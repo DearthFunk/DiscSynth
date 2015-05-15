@@ -4,7 +4,7 @@
 		.module('audioServiceModule', [])
 		.factory('audioService', audioService);
 
-	function audioService(localStorageService, mathService, SYNTHS, TIME_WORKER_POST_MESSAGE, LENGTH_CONSTRAINTS) {
+	function audioService(localStorageService, discService, SYNTHS, TIME_WORKER_POST_MESSAGE) {
 		var audioCtx = typeof AudioContext !== 'undefined' ? new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() : null;
 		var audioBufferSize = 1024;
 		var nextNoteTime = 0;
@@ -17,14 +17,8 @@
 		var service = {
 			synthTemplates: angular.copy(SYNTHS), //localStorageService.storage ? localStorageService.storage.synthTemplates : angular.copy(SYNTHS),
 			tempo: localStorageService.storage ? parseInt(localStorageService.storage.tempo,10) : 120,
-			beatLength: localStorageService.storage ? parseInt(localStorageService.storage.beatLength,10) : 12,
-			playing: false,
-			clickTrack: 0,
-			maxFreq: 1500,
 			node : {},
 			fx: {},
-			disc: {slices:[], colors:[]},
-			randomize: randomize,
 			startStopPlayback: startStopPlayback,
 			playNotes: playNotes
 		};
@@ -37,8 +31,7 @@
 		/////////////////////////////////////
 
 		function startStopPlayback() {
-			service.playing = !service.playing;
-			if (service.playing) {
+			if (discService.playing) {
 				service.node.masterGain.connect(service.node.analyser);
 				service.node.masterGain.connect(audioCtx.destination);
 			}
@@ -67,36 +60,14 @@
 					var secondsPerBeat = 60.0 / service.tempo;
 					nextNoteTime += 0.25 * secondsPerBeat;
 					service.clickTrack++;
-					if (service.clickTrack >= service.beatLength) {
+					if (service.clickTrack >= service.discLength) {
 						service.clickTrack = 0;
 					}
 				}
 			}
 		}
 
-		function randomize() {
-			for (var discIndex = 0; discIndex < service.disc.slices.length - 1; discIndex++) {
-				for (var layer = 0; layer < service.disc.slices[discIndex].osc.length; layer++) {
-					service.disc.slices[discIndex].osc[layer].active = Math.random() >= 0.5;
-					service.disc.slices[discIndex].osc[layer].freq = mathService.randomNumber(100, service.maxFreq, 0);
-				}
-			}
-		}
-
 		function initAudioNodes() {
-			for (var i = 0; i <= LENGTH_CONSTRAINTS.MAX; i++) {
-				service.disc.slices.push({
-					a1: 0,
-					a2: 0,
-					c: '',
-					osc: [
-						{x: 0, y: 0, rad: 0, active: false, freq: 200},
-						{x: 0, y: 0, rad: 0, active: false, freq: 600},
-						{x: 0, y: 0, rad: 0, active: false, freq: 1400},
-						{x: 0, y: 0, rad: 0, active: false, freq: -1}
-					]
-				});
-			}
 
 			service.node.osc1 = audioCtx.createOscillator();
 			service.node.osc2 = audioCtx.createOscillator();

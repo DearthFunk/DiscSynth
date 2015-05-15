@@ -10,6 +10,7 @@
 			'colorServiceModule',
 			'mathServiceModule',
 			'audioServiceModule',
+			'discServiceModule',
 
 			'localStorageServiceModule',
 			'eventServiceModule',
@@ -254,10 +255,11 @@
 		])
 		.controller('discController', discController);
 
-	discController.$inject = ['$scope', 'THEMES'];
+	discController.$inject = ['$scope', 'THEMES', 'discService'];
 
-	function discController($scope, THEMES) {
+	function discController($scope, THEMES, discService) {
 		$scope.THEMES = THEMES;
+		$scope.discService = discService;
 		$scope.importExportVisible = false;
 		$scope.helpWindowVisible = false;
 	}

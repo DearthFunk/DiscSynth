@@ -38,17 +38,17 @@
 			}
 		}
 
-		function setLocalStorage(themeService,visualizerService, audioService) {
-			var discSynthLocalStorage = service.getStorageObject(themeService, visualizerService, audioService);
+		function setLocalStorage(themeService,visualizerService, audioService, discService) {
+			var discSynthLocalStorage = service.getStorageObject(themeService, visualizerService, audioService, discService);
 			localStorage.setItem(LOCAL_STORAGE_OBJECT_NAME, JSON.stringify(discSynthLocalStorage));
 		}
 
-		function getStorageObject(themeService, visualizerService, audioService) {
+		function getStorageObject(themeService, visualizerService, audioService, discService) {
 			return {
 				active: true,
 				volume: audioService.node.masterGain.gain.value,
 				tempo: audioService.tempo,
-				beatLength: audioService.beatLength,
+				discLength: discService.discLength,
 				synthIndex: audioService.synthTemplate.index,
 				themeIndex: themeService.theme.index,
 				visualizerIndex: visualizerService.visualizer.index
