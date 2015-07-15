@@ -2,71 +2,76 @@
 <html data-ng-app="discSynth" xmlns="http://www.w3.org/1999/html">
 
 <head>
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="icon" href="/favicon.ico" type="image/x-icon">
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta content="utf-8" http-equiv="encoding">
-    <meta name="description" content="Dearth Funk, music and web applications.">
-    <meta name="keywords" content="Dearth, Funk, DearthFunk, Djangular, D'Jangular, Colonies, Hexsynth, Hex Synth, Hex">
-    <meta name="author" content="Dearth Funk aka. Tylor Spence">
-
-
     <title>Disc Synth!</title>
-    <!-- _____          ___           ___           ___                       ___                    ___         ___           ___           ___
-    /  /::\        /  /\         /  /\         /  /\          ___        /__/\                  /  /\       /__/\         /__/\         /__/|
-   /  /:/\:\      /  /:/_       /  /::\       /  /::\        /  /\       \  \:\                /  /:/_      \  \:\        \  \:\       |  |:|
-  /  /:/  \:\    /  /:/ /\     /  /:/\:\     /  /:/\:\      /  /:/        \__\:\              /  /:/ /\      \  \:\        \  \:\      |  |:|
- /__/:/ \__\:|  /  /:/ /:/_   /  /:/~/::\   /  /:/~/:/     /  /:/     ___ /  /::\            /  /:/ /:/  ___  \  \:\   _____\__\:\   __|  |:|
- \  \:\ /  /:/ /__/:/ /:/ /\ /__/:/ /:/\:\ /__/:/ /:/___  /  /::\    /__/\  /:/\:\          /__/:/ /:/  /__/\  \__\:\ /__/::::::::\ /__/\_|:|____
-  \  \:\  /:/  \  \:\/:/ /:/ \  \:\/:/__\/ \  \:\/:::::/ /__/:/\:\   \  \:\/:/__\/          \  \:\/:/   \  \:\ /  /:/ \  \:\~~\~~\/ \  \:\/:::::/
-   \  \:\/:/    \  \::/ /:/   \  \::/       \  \::/~~~~  \__\/  \:\   \  \::/                \  \::/     \  \:\  /:/   \  \:\  ~~~   \  \::/~~~~
-    \  \::/      \  \:\/:/     \  \:\        \  \:\           \  \:\   \  \:\                 \  \:\      \  \:\/:/     \  \:\        \  \:\
-     \__\/        \  \::/       \  \:\        \  \:\           \__\/    \  \:\                 \  \:\      \  \::/       \  \:\        \  \:\
-                   \__\/         \__\/         \__\/                     \__\/                  \__\/       \__\/         \__\/         \__\/  -->
 
-    <!--LIBRARIES------------------------------------------------------------------------------------------------------>
-        <script type="text/javascript" src="lib/angular/angular.js"></script>
-        <script type="text/javascript" src="lib/tuna/tuna.js"></script>
-        <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.css">
-        <script type="text/javascript" src="lib/zeroClipboard/ZeroClipboard.js"></script>
+    <!-- LIBRARIES -->
+	<script type="text/javascript" src="lib/angular.js"></script>
+	<script type="text/javascript" src="lib/ngStorage.js"></script>
+    <script type="text/javascript" src="lib/tuna.js"></script>
+    <script type="text/javascript" src="lib/zeroClipboard/ZeroClipboard.js"></script>
 
-    <!--MAIN----------------------------------------------------------------------------------------------------------->
-        <link rel="stylesheet" href="css/main.css">
-        <script type="text/javascript" src="js/controller.js"></script>
-        <script type="text/javascript" src="js/functions.js"></script>
-        <script type="text/javascript" src="js/variables.js"></script>
+    <!-- MAIN -->
+	<script type="text/javascript" src="app/app.controller.js"></script>
 
-    <!--ELEMENTS------------------------------------------------------------------------------------------------------->
-        <script type="text/javascript" src="elements/knob/knob.js"></script>
-        <script type="text/javascript" src="elements/dropDown/dropDown.js"></script>
-        <link rel="stylesheet" href="elements/dropDown/dropDown.css">
-        <script type="text/javascript" src="elements/sliderHorizontal/sliderHorizontal.js"></script>
-        <link rel="stylesheet" href="elements/sliderHorizontal/sliderHorizontal.css">
+    <!-- ELEMENTS -->
+	<script type="text/javascript" src="app/elements/dropDown/dropDown.directive.js"></script>
+	<script type="text/javascript" src="app/elements/knob/knob.directive.js"></script>
+    <script type="text/javascript" src="app/elements/slider/slider.directive.js"></script>
 
-    <!--DIRECTIVES----------------------------------------------------------------------------------------------------->
-        <script type="text/javascript" src="directives/menu/menu.js"></script>
-        <link rel="stylesheet" href="directives/menu/menu.css">
-        <script type="text/javascript" src="directives/synthControls/synthControls.js"></script>
-        <link rel="stylesheet" href="directives/synthControls/synthControls.css">
-        <script type="text/javascript" src="directives/helpWindow/helpWindow.js"></script>
-        <link rel="stylesheet" href="directives/helpWindow/helpWindow.css">
-        <script type="text/javascript" src="directives/importExportWindow/importExportWindow.js"></script>
-        <link rel="stylesheet" href="directives/importExportWindow/importExportWindow.css">
+    <!-- DIRECTIVES -->
+	<script type="text/javascript" src="app/directives/html.directive.js"></script>
+	<script type="text/javascript" src="app/directives/ngRightClick.directive.js"></script>
+	<script type="text/javascript" src="app/directives/visualizer.directive.js"></script>
+	<script type="text/javascript" src="app/directives/disc.directive.js"></script>
 
-    <!--SERVICES------------------------------------------------------------------------------------------------------->
-        <script type="text/javascript" src="js/services/event.js"></script>
-        <script type="text/javascript" src="js/services/disc.js"></script>
-        <script type="text/javascript" src="js/services/theme.js"></script>
-        <script type="text/javascript" src="js/services/visualizer.js"></script>
+	<script type="text/javascript" src="app/menu/menu.directive.js"></script>
+        <script type="text/javascript" src="app/menu/synthControls/synthControls.directive.js"></script>
+		<script type="text/javascript" src="app/modal/modal.directive.js"></script>
+        <script type="text/javascript" src="app/modal/helpWindow/helpWindow.directive.js"></script>
+        <script type="text/javascript" src="app/modal/importExportWindow/importExportWindow.directive.js"></script>
+
+    <!-- SERVICES -->
+	<script type="text/javascript" src="app/services/color.service.js"></script>
+	<script type="text/javascript" src="app/services/math.service.js"></script>
+	<script type="text/javascript" src="app/services/localStorage.service.js"></script>
+	<script type="text/javascript" src="app/services/audio.service.js"></script>
+	<script type="text/javascript" src="app/services/disc.service.js"></script>
+
+        <script type="text/javascript" src="app/services/event.service.js"></script>
+        <script type="text/javascript" src="app/services/theme.service.js"></script>
+        <script type="text/javascript" src="app/services/visualizer.service.js"></script>
+
+			<script type="text/javascript" src="app/services/visualizers/visBubbles.service.js"></script>
+			<script type="text/javascript" src="app/services/visualizers/visBurst.service.js"></script>
+			<script type="text/javascript" src="app/services/visualizers/visMathMachine.service.js"></script>
+			<script type="text/javascript" src="app/services/visualizers/visParticles.service.js"></script>
+			<script type="text/javascript" src="app/services/visualizers/visScope.service.js"></script>
+			<script type="text/javascript" src="app/services/visualizers/visTunnel.service.js"></script>
+
+
+	<!-- STYLES -->
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="stylesheet/less" href="app/app.less">
+	<script type="text/javascript" src="lib/less.js"></script>
 
 </head>
 
 <body data-ng-controller="discController" data-ng-style="{backgroundImage:themeService.theme.backgroundImage}">
-
     <canvas class="visualizerCanvas fullScreen"></canvas>
-    <canvas class="discCanvas fullScreen"></canvas>
+    <canvas disc-directive class="fullScreen"></canvas>
+
     <div class="menu"></div>
-    <div class="importExportWindow" data-ng-show="importExportVisible"></div>
-    <div class="helpWindow" data-ng-show="helpWindowVisible"></div>
+
+	<div modal
+	     data-show-modal="importExportVisible"
+	     data-ng-show="importExportVisible">
+		<div import-export-window></div>
+	</div>
+    <div modal
+         data-show-modal="helpWindowVisible"
+         data-ng-show="helpWindowVisible">
+	    <div help-window></div>
+    </div>
+
 </body>
 </html>
