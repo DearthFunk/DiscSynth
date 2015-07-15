@@ -50,7 +50,7 @@
 			midY = h / 2;
 			rad = midY - 10;
 			centerButtonSize = rad / 3;
-			reCalculateDiscs({}, discService.discLength);
+			reCalculateDiscs({}, discService.storage.discLength);
 		}
 		function reCalculateDiscs(e, discLen) {
 			angleSize = (1 / discLen) * Math.PI * 2;
@@ -122,7 +122,7 @@
 				var disc1 = discService.slice[i];
 				var disc2 = discService.slice[i + 1];
 				for (var layer = 0; layer < disc1.osc.length - 1; layer++) {
-					if (i < discService.discLength) {
+					if (i < discService.storage.discLength) {
 						ctx.beginPath();
 						ctx.lineWidth = 1;
 						ctx.moveTo(disc1.osc[layer].x, disc1.osc[layer].y);

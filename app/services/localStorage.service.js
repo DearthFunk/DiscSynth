@@ -4,9 +4,9 @@
 		.module('localStorageServiceModule', [])
 		.factory('localStorageService', localStorageService);
 
-	localStorageService.$inject = ['LOCAL_STORAGE_OBJECT_NAME'];
+	localStorageService.$inject = ['LOCAL_STORAGE_OBJECT_NAME', '$localStorage'];
 
-	function localStorageService(LOCAL_STORAGE_OBJECT_NAME) {
+	function localStorageService(LOCAL_STORAGE_OBJECT_NAME, $localStorage) {
 
 		var service = {
 			storage: JSON.parse(localStorage.getItem(LOCAL_STORAGE_OBJECT_NAME)),
@@ -40,7 +40,8 @@
 
 		function setLocalStorage(themeService,visualizerService, audioService, discService) {
 			var discSynthLocalStorage = service.getStorageObject(themeService, visualizerService, audioService, discService);
-			localStorage.setItem(LOCAL_STORAGE_OBJECT_NAME, JSON.stringify(discSynthLocalStorage));
+			//localStorage.setItem(LOCAL_STORAGE_OBJECT_NAME, JSON.stringify(discSynthLocalStorage));
+		//	$localStorage.testValue = discService.testValue;
 		}
 
 		function getStorageObject(themeService, visualizerService, audioService, discService) {

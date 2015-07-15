@@ -15,12 +15,10 @@
 		/////////////////////////////////////
 
 		function randomNumber(from, to, decimals) {
-			if (angular.isDefined(decimals)) {
-				return (Math.random() * (Number(to) - Number(from)) + Number(from)).toFixed(decimals);
-			}
-			else {
-				return Math.random() * (to - from) + from;
-			}
+			var returnVal = angular.isDefined(decimals) ?
+				(Math.random() * (Number(to) - Number(from)) + Number(from)).toFixed(decimals) :
+				Math.random() * (to - from) + from;
+			return parseInt(returnVal, 10);
 		}
 
 		function roundedNumber(value, precision) {

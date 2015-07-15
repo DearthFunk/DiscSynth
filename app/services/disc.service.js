@@ -4,11 +4,12 @@
 		.module('discServiceModule', [])
 		.factory('discService', discService);
 
-	discService.$inject = ['localStorageService', 'mathService', 'LENGTH_CONSTRAINTS'];
+	discService.$inject = ['$localStorage', 'mathService', 'LENGTH_CONSTRAINTS'];
 
-	function discService(localStorageService, mathService, LENGTH_CONSTRAINTS) {
+	function discService($localStorage, mathService, LENGTH_CONSTRAINTS) {
+		$localStorage.$default({ discLength: 12 });
 		var service = {
-			discLength: localStorageService.storage ? parseInt(localStorageService.storage.discLength,10) : 12,
+			storage: $localStorage,
 			slice: [], 
 			playing: false,
 			clickTrack: 0,
@@ -30,7 +31,6 @@
 			});
 		}
 
-		console.log(service, localStorageService.storage);
 		return service;
 
 		/////////////////////////////////////
@@ -38,8 +38,8 @@
 		function randomize() {
 			for (var discIndex = 0; discIndex < service.slice.length - 1; discIndex++) {
 				for (var layer = 0; layer < service.slice[discIndex].osc.length; layer++) {
-					service.slice[discIndex].osc[layer].active = Math.random() >= 0.5;
-					service.slice[discIndex].osc[layer].freq = mathService.randomNumber(100, service.maxFreq, 0);
+					service.slice[discIndex].osc[layer].active = mathService.randomNumber(1,3,0) === 1;
+					service.slice[discIndex].osc[layer].freq = mathService.randomNumber(20, service.maxFreq, 0);
 				}
 			}
 		}

@@ -4,6 +4,7 @@
 	angular
 		.module('discSynth', [
 
+			'ngStorage',
 			'modalModule',
 			'visualizerModule',
 			'discModule',

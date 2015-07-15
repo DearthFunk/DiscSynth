@@ -4,7 +4,9 @@
 		.module('audioServiceModule', [])
 		.factory('audioService', audioService);
 
-	function audioService(localStorageService, discService, SYNTHS, TIME_WORKER_POST_MESSAGE) {
+	audioService.$inject =['$localStorage', 'discService', 'SYNTHS', 'TIME_WORKER_POST_MESSAGE'];
+
+	function audioService($localStorage, discService, SYNTHS, TIME_WORKER_POST_MESSAGE) {
 		var audioCtx = typeof AudioContext !== 'undefined' ? new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() : null;
 		var audioBufferSize = 1024;
 		var nextNoteTime = 0;
@@ -14,15 +16,19 @@
 		timerWorker.onmessage = scheduler;
 		timerWorker.postMessage({'interval':25}); //25 is the interval run value
 
+		$localStorage.$default({
+			tempo: 120,
+			synthIndex: 0
+		})
 		var service = {
+			storage: $localStorage,
 			synthTemplates: angular.copy(SYNTHS), //localStorageService.storage ? localStorageService.storage.synthTemplates : angular.copy(SYNTHS),
-			tempo: localStorageService.storage ? parseInt(localStorageService.storage.tempo,10) : 120,
 			node : {},
 			fx: {},
 			startStopPlayback: startStopPlayback,
 			playNotes: playNotes
 		};
-		service.synthTemplate = service.synthTemplates[localStorageService.storage ? localStorageService.storage.synthIndex : 0];
+		service.synthTemplate = service.synthTemplates[0];//localStorageService.storage ? localStorageService.storage.synthIndex : 0];
 
 		initAudioNodes();
 
@@ -57,10 +63,10 @@
 					//actually play something
 					service.playNotes();
 					//setup next note
-					var secondsPerBeat = 60.0 / service.tempo;
+					var secondsPerBeat = 60.0 / service.storage.tempo;
 					nextNoteTime += 0.25 * secondsPerBeat;
 					service.clickTrack++;
-					if (service.clickTrack >= service.discLength) {
+					if (service.clickTrack >= service.storage.discLength) {
 						service.clickTrack = 0;
 					}
 				}
@@ -73,7 +79,7 @@
 			service.node.osc2 = audioCtx.createOscillator();
 			service.node.osc3 = audioCtx.createOscillator();
 			service.node.masterGain = audioCtx.createGain();
-			service.node.masterGain.gain.value = localStorageService.storage ? localStorageService.storage.volume : 0.5;
+		//	service.node.masterGain.gain.value = localStorageService.storage ? localStorageService.storage.volume : 0.5;
 			service.node.javascript = audioCtx.createScriptProcessor(audioBufferSize, 0, 1);
 			service.node.analyser = audioCtx.createAnalyser();
 
