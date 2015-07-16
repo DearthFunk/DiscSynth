@@ -12,7 +12,7 @@
 		var nextNoteTime = 0;
 		var notesInQueue = [];
 		var tuna = new Tuna(audioCtx);
-		var timerWorker = new Worker('./lib/metronome/metronomeworker.js');
+		var timerWorker = new Worker('./app/services/metronomeworker.js');
 		timerWorker.onmessage = scheduler;
 		timerWorker.postMessage({'interval':25}); //25 is the interval run value
 
