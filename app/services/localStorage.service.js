@@ -52,7 +52,7 @@
 				discLength: discService.discLength,
 				synthIndex: audioService.synthTemplate.index,
 				themeIndex: themeService.theme.index,
-				visualizerIndex: visualizerService.visualizer.index
+				visualizerIndex: visualizerService.animation.index
 				//synthTemplates: audioService.synthTemplates
 			};
 		}

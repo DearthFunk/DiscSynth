@@ -16,8 +16,47 @@
 		return directive;
 	}
 
-	function animationController() {
+	animationController.$inject = ['$scope', '$element', '$window', 'animationService'];
+	function animationController($scope, $element, $window, animationService) {
 
+		var cnv = $element[0];
+		var ctx = cnv.getContext('2d');
+		var state = {
+			w: 0,
+			h: 0,
+			xCenter: 0,
+			yCenter: 0
+		};
+
+		$scope.windowResize = windowResize;
+		$scope.clearCanvas = clearCanvas;
+		$window.onresize = windowResize;
+
+		$scope.windowResize();
+		animate();
+
+		/////////////////////////////////////////////
+
+		function windowResize() {
+			state.w = $window.innerWidth;
+			state.h = $window.innerHeight;
+			cnv.style.width = state.w +'px';
+			cnv.style.height = state.h + 'px';
+			state.xCenter = state.w /2;
+			state.yCenter = state.h /2;
+			angular.element(cnv).attr({width: state.w, height: state.h });
+		}
+
+		function clearCanvas() {
+			ctx.clearRect(0, 0, state.w, state.h);
+		}
+
+		function animate() {
+			requestAnimationFrame(animate);
+			if (animationService.animation) {
+				clearCanvas();
+				animationService.animation.draw();
+			}
+		}
 	}
-
 })();

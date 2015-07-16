@@ -19,7 +19,8 @@
 		$localStorage.$default({
 			tempo: 120,
 			synthIndex: 0
-		})
+		});
+
 		var service = {
 			storage: $localStorage,
 			synthTemplates: angular.copy(SYNTHS), //localStorageService.storage ? localStorageService.storage.synthTemplates : angular.copy(SYNTHS),
@@ -37,6 +38,40 @@
 		return service;
 
 		/////////////////////////////////////
+
+		function getFreqArray (depth, removal) {
+			var theSmallArray = [];
+			var theFreqArray = new Uint8Array(  discService.node.analyser.frequencyBinCount);
+			discService.node.analyser.getByteFrequencyData(theFreqArray);
+			var x = depth == undefined ? 1 : depth;
+			var len = theFreqArray.length - removal;
+			for (var i = 0; i < len; i += x) {
+				theSmallArray.push(theFreqArray[i]);
+			}
+			return theSmallArray;
+		}
+
+		function getTimeArray (depth, removal) {
+			var theSmallArray = [];
+			var theTimeArray = new Uint8Array(discService.node.analyser.frequencyBinCount);
+			discService.node.analyser.getByteTimeDomainData(theTimeArray);
+			var x = depth == undefined ? 1 : depth;
+			var len = theTimeArray.length - removal;
+			for (var i = 0; i < len; i += x) {
+				theSmallArray.push(theTimeArray[i]);
+			}
+			return theSmallArray;
+		}
+
+		function getAverageDB() {
+			var dbArray = new Uint8Array(discService.node.analyser.frequencyBinCount);
+			discService.node.analyser.getByteFrequencyData(dbArray);
+			var values = 0;
+			for (var i = 0; i < dbArray.length; i++) {
+				values += dbArray[i];
+			}
+			return values / dbArray.length;
+		}
 
 		function keyDownEvent(e, args) {
 			switch (args.keyCode) {

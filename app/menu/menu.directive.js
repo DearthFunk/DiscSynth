@@ -75,7 +75,7 @@
 			$rootScope.$broadcast('visualizerChangeEvent');
 		}
 		function changeVisualizer(item) {
-			visualizerService.visualizer = item;
+			visualizerService.animation = item;
 			$rootScope.$broadcast('visualizerChangeEvent');
 		}		
 

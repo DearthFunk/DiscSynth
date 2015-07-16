@@ -31,9 +31,9 @@
         <span class="title">VISUALISER</span>
         <div class="button"
              data-ng-click="changeVisualizer(item)"
-             data-ng-repeat="item in visualizerService.visualizers track by $index">
+             data-ng-repeat="item in visualizerService.animations track by $index">
             <div class="inner"
-                 data-ng-style="{backgroundColor: $index === visualizerService.visualizer.index ? themeService.theme.menuHighlight : ''}">
+                 data-ng-style="{backgroundColor: $index === visualizerService.animation.index ? themeService.theme.menuHighlight : ''}">
             </div>
         </div>
     </div>
