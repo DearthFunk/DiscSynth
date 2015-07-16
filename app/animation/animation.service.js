@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 	angular
-		.module('visualizerServiceModule', [])
+		.module('animationModule',[])
 		.service('visualizerService', visualizerService);
 
 	function visualizerService($window, $timeout, $rootScope, themeService, eventService, MENU_SIZE, mathService, colorService, localStorageService) {
@@ -15,8 +15,8 @@
 				{index: 1, functionToRun: 'visParticles'},
 				{index: 2, functionToRun: 'visScope'},
 				{index: 3, functionToRun: 'visTunnel'},
-				{index: 4, functionToRun: 'visMathMachine'},
-				{index: 5, functionToRun: 'visBurst'}
+				{index: 4, functionToRun: 'MathMachine'},
+				{index: 5, functionToRun: 'Burst'}
 			]
 		};
 		service.visualizer = service.visualizers[localStorageService.storage ? localStorageService.storage.visualizerIndex : 0];

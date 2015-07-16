@@ -2,7 +2,7 @@
 	'use strict';
 
 	angular
-		.module('mathServiceModule', [])
+		.module('discSynth')
 		.factory('mathService', mathService);
 
 	function mathService() {

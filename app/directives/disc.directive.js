@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 	angular
-		.module('discModule', [])
+		.module('discSynth')
 		.directive('discDirective', disc);
 
 	function disc() {

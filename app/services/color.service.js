@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 	angular
-		.module('colorServiceModule', [])
+		.module('discSynth')
 		.factory('colorService', colorService);
 
 	function colorService() {

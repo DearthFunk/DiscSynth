@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 	angular
-		.module('discServiceModule', [])
+		.module('discSynth')
 		.factory('discService', discService);
 
 	discService.$inject = ['$localStorage', 'mathService', 'LENGTH_CONSTRAINTS'];

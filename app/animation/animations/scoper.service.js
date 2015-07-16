@@ -1,12 +1,12 @@
 (function () {
 	'use strict';
 	angular
-		.module('visualizerModule')
-		.factory('VisTunnel', visTunnelFactory);
+		.module('animationModule')
+		.factory('scoper', scoperFactory);
 
-	visTunnelFactory.$inject = [];
+	scoperFactory.$inject = [];
 
-	function visTunnelFactory() {
+	function scoperFactory() {
 
 		var VisTunnel = function () {
 			this.audioData = [];

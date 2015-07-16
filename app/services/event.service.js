@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 	angular
-		.module('eventServiceModule', [])
+		.module('discSynth')
 		.factory("eventService", eventService);
 
 	eventService.$inject = [];

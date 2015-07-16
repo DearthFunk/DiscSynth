@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 	angular
-		.module('localStorageServiceModule', [])
+		.module('discSynth')
 		.factory('localStorageService', localStorageService);
 
 	localStorageService.$inject = ['LOCAL_STORAGE_OBJECT_NAME', '$localStorage'];

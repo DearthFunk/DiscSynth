@@ -1,23 +1,23 @@
 (function () {
 	'use strict';
 	angular
-		.module('visualizerModule')
-		.factory('VisBubbles', visBubblesFactory);
+		.module('animationModule')
+		.factory('bubbles', bubblesFactory);
 
-	visBubblesFactory.$inject = ['mathService', 'colorService', 'browserService'];
+	bubblesFactory.$inject = ['mathService', 'colorService', 'browserService'];
 
-	function visBubblesFactory(mathService, colorService, browserService) {
+	function bubblesFactory(mathService, colorService, browserService) {
 
 		var balls = [];
 		var totalBalls = browserService.isChrome ? 1000 : 100;
 
-		var VisBubbles = function (ctx) {
+		var Bubbles = function (ctx) {
 			this.ctx = ctx;
 			this.audioDB = 0;
 			this.balls = [];
 		};
 
-		VisBubbles.prototype.draw = function () {
+		Bubbles.prototype.draw = function () {
 			if (this.ctx) {
 				var db = this.audioDB;
 				for (var i = 0; i < totalBalls; i++) {
@@ -40,7 +40,7 @@
 				}
 			}
 		};
-		VisBubbles.prototype.newBall = function () {
+		Bubbles.prototype.newBall = function () {
 			return {
 				x: mathService.randomNumber(0, this.ctx.canvas.width),
 				y: this.ctx.canvas.height + 15,
@@ -51,7 +51,7 @@
 			};
 		};
 
-		return VisBubbles;
+		return Bubbles;
 
 	}
 })();

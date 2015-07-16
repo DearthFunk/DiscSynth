@@ -6,17 +6,7 @@
 
 			'ngStorage',
 			'modalModule',
-			'visualizerModule',
-			'discModule',
-			'colorServiceModule',
-			'mathServiceModule',
-			'audioServiceModule',
-			'discServiceModule',
-
-			'localStorageServiceModule',
-			'eventServiceModule',
-			'themeServiceModule',
-			'visualizerServiceModule',
+			'animationModule',
 			'menuModule'
 		])
 		.constant('MENU_SIZE', 220)

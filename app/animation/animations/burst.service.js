@@ -1,12 +1,12 @@
 (function () {
 	'use strict';
 	angular
-		.module('visualizerModule')
-		.factory('VisBurst', visBurstFactory);
+		.module('animationModule')
+		.factory('burst', burstFactory);
 
-	visBurstFactory.$inject = [];
+	burstFactory.$inject = [];
 
-	function visBurstFactory() {
+	function burstFactory() {
 
 		var VisBurst = function (ctx) {
 			this.ctx = ctx;

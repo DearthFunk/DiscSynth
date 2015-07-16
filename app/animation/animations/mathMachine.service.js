@@ -1,12 +1,12 @@
 (function () {
 	'use strict';
 	angular
-		.module('visualizerModule')
-		.factory('VisMathMachine', visMathMachineFactory);
+		.module('animationModule')
+		.factory('mathMachine', mathMachineFactory);
 
-	visMathMachineFactory.$inject = [];
+	mathMachineFactory.$inject = [];
 
-	function visMathMachineFactory() {
+	function mathMachineFactory() {
 
 		var VisMathMachine = function (ctx) {
 			this.ctx = ctx;

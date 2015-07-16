@@ -1,8 +1,8 @@
 (function () {
 	'use strict';
 
-	angular.module('themeServiceModule', [])
-
+	angular
+		.module('discSynth')
 		.factory('themeService', themeService);
 
 	themeService.$inject = ['localStorageService'];

@@ -1,7 +1,7 @@
 (function () {
 	'use strict';
 	angular
-		.module('audioServiceModule', [])
+		.module('discSynth')
 		.factory('audioService', audioService);
 
 	audioService.$inject =['$localStorage', 'discService', 'SYNTHS', 'TIME_WORKER_POST_MESSAGE'];
