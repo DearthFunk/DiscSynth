@@ -4,9 +4,9 @@
 		.module('animationModule')
 		.factory('tunnel', tunnelFactory);
 
-	tunnelFactory.$inject = ['mathService', 'colorService', 'browserService'];
+	tunnelFactory.$inject = ['mathService', 'genColors', 'browserService'];
 
-	function tunnelFactory(mathService, colorService, browserService) {
+	function tunnelFactory(mathService, genColors, browserService) {
 		var service = {
 
 		}

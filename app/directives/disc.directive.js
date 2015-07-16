@@ -15,8 +15,8 @@
 		return directive;
 	}
 
-	discController.$inject = ['$scope', '$element', '$timeout', '$window', 'MENU_SIZE', 'themeService', 'colorService', 'discService', 'audioService'];
-	function discController($scope, $element, $timeout, $window, MENU_SIZE, themeService, colorService, discService, audioService) {
+	discController.$inject = ['$scope', '$element', '$timeout', '$window', 'MENU_SIZE', 'themeService', 'genColors', 'discService', 'audioService'];
+	function discController($scope, $element, $timeout, $window, MENU_SIZE, themeService, genColors, discService, audioService) {
 
 		var ctx = $element[0].getContext('2d');
 		var mouseDown = false;
@@ -133,12 +133,12 @@
 
 						if (disc1.osc[layer].active && i === discService.clickTrack) {
 							ctx.strokeStyle = themeService.theme.discLines;
-							ctx.fillStyle = colorService.hexToRGBA(themeService.theme.discTile, 0.7);
+							ctx.fillStyle = genColors.hexToRGBA(themeService.theme.discTile, 0.7);
 							ctx.fill();
 						}
 						if (disc1.osc[layer].active) {
 							ctx.strokeStyle = themeService.theme.discLines;
-							ctx.fillStyle = colorService.hexToRGBA(themeService.theme.discTile, 0.4);
+							ctx.fillStyle = genColors.hexToRGBA(themeService.theme.discTile, 0.4);
 							ctx.fill();
 						}
 						else if (i === audioService.clickTrack) {
@@ -154,7 +154,7 @@
 							ctx.lineWidth = 1;
 						}
 						else {
-							ctx.strokeStyle = colorService.hexToRGBA(themeService.theme.discLines, 0.2);
+							ctx.strokeStyle = genColors.hexToRGBA(themeService.theme.discLines, 0.2);
 						}
 						ctx.stroke();
 						ctx.closePath();

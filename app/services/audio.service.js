@@ -4,9 +4,9 @@
 		.module('discSynth')
 		.factory('audioService', audioService);
 
-	audioService.$inject =['$localStorage', 'discService', 'SYNTHS', 'TIME_WORKER_POST_MESSAGE'];
+	audioService.$inject =['$localStorage', 'discService', 'SYNTHS', 'TIME_WORKER_POST_MESSAGE', '$window'];
 
-	function audioService($localStorage, discService, SYNTHS, TIME_WORKER_POST_MESSAGE) {
+	function audioService($localStorage, discService, SYNTHS, TIME_WORKER_POST_MESSAGE, $window) {
 		var audioCtx = typeof AudioContext !== 'undefined' ? new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() : null;
 		var audioBufferSize = 1024;
 		var nextNoteTime = 0;
@@ -30,12 +30,28 @@
 		};
 		service.synthTemplate = service.synthTemplates[0];//localStorageService.storage ? localStorageService.storage.synthIndex : 0];
 
+		angular.element($window).bind('keydown', keyDownEvent);
+
 		initAudioNodes();
 
 		return service;
 
 		/////////////////////////////////////
 
+		function keyDownEvent(e, args) {
+			switch (args.keyCode) {
+				case 32 :
+					service.playing = !service.playing;
+					service.playing ? service.node.stopper.connect(service.fx.moogfilter.input) : service.node.stopper.disconnect();
+					break;
+				case 65 : service.fx.bitcrusher.bypass = !service.fx.bitcrusher.bypass; break;
+				case 83 : service.fx.overdrive.bypass = !service.fx.overdrive.bypass;	break;
+				case 68 : service.fx.tremolo.bypass = !service.fx.tremolo.bypass;		break;
+				case 90 : service.fx.convolver.bypass = !service.fx.convolver.bypass;	break;
+				case 88 : service.fx.moogfilter.bypass = !service.fx.moogfilter.bypass;	break;
+				case 67 : service.fx.delay.bypass = !service.fx.delay.bypass;			break;
+			}
+		}
 		function startStopPlayback() {
 			if (discService.playing) {
 				service.node.masterGain.connect(service.node.analyser);

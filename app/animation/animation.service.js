@@ -4,7 +4,7 @@
 		.module('animationModule',[])
 		.service('visualizerService', visualizerService);
 
-	function visualizerService($window, $timeout, $rootScope, themeService, eventService, MENU_SIZE, mathService, colorService, localStorageService) {
+	function visualizerService($window, $timeout, $rootScope, themeService, eventService, MENU_SIZE, mathService, genColors, localStorageService) {
 
 		var cnv = document.querySelectorAll('.visualizerCanvas')[0];
 		var ctx = cnv.getContext('2d');
@@ -111,7 +111,7 @@
 				return {
 					position: {x: xCenter, y: yCenter},
 					size: firstLoad ? 0 : mathService.randomNumber(10, 20),
-					fillColor: colorService.randomRGBA(0.4),
+					fillColor: genColors.randomRGBA(0.4),
 					xMod: mathService.randomNumber(-4, 4),
 					yMod: mathService.randomNumber(-4, 4),
 					angle: 0,
@@ -187,7 +187,7 @@
 				var nextIndex = false;
 				var db = visualizer.getAverageDB();
 				ctx.lineWidth = 1;
-				ctx.strokeStyle = colorService.hexToRGBA('#FFFFFF', db > 10 ? db / 200 : 0);
+				ctx.strokeStyle = genColors.hexToRGBA('#FFFFFF', db > 10 ? db / 200 : 0);
 
 				for (var index = 0; index < lines.length + 1; index++) {
 					if (lines[index] != undefined) {
@@ -264,7 +264,7 @@
 				this.xD = mathService.randomNumber(-1, 1);
 				this.yD = mathService.randomNumber(-1, 1);
 				this.rad = 10 + Math.random() * 150;
-				this.color = colorService.randomHex();
+				this.color = genColors.randomHex();
 				this.o = 1;
 				this.drawBorder = Math.random() >= 0.8;
 			}
@@ -291,8 +291,8 @@
 
 						var gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.rad);
 						gradient.addColorStop(0, 'rgba(255,255,255,0.7)');
-						gradient.addColorStop(0.5, colorService.hexToRGBA(p.color, p.o));
-						gradient.addColorStop(1, colorService.hexToRGBA(p.color, 0));
+						gradient.addColorStop(0.5, genColors.hexToRGBA(p.color, p.o));
+						gradient.addColorStop(1, genColors.hexToRGBA(p.color, 0));
 						ctx.fillStyle = gradient;
 
 						ctx.arc(p.x, p.y, p.rad, Math.PI * 2, false);

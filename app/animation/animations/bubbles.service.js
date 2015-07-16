@@ -4,9 +4,9 @@
 		.module('animationModule')
 		.factory('bubbles', bubblesFactory);
 
-	bubblesFactory.$inject = ['mathService', 'colorService', 'browserService'];
+	bubblesFactory.$inject = ['mathService', 'genColors', 'browserService'];
 
-	function bubblesFactory(mathService, colorService, browserService) {
+	function bubblesFactory(mathService, genColors, browserService) {
 
 		var balls = [];
 		var totalBalls = browserService.isChrome ? 1000 : 100;
@@ -47,7 +47,7 @@
 				r: 15,
 				yX: mathService.randomNumber(1, 5),
 				rX: mathService.randomNumber(0.1, 2),
-				color: colorService.randomRGB()
+				color: genColors.randomRGB()
 			};
 		};
 

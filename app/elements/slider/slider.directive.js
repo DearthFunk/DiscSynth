@@ -23,25 +23,30 @@
 		return directive;
 	}
 
-	sliderController.$inject = ['$scope', '$element', 'themeService'];
-	function sliderController($scope, $element, themeService) {
-
-		$scope.thumbWidth = 8;
-		$scope.themeService = themeService;
+	sliderController.$inject = ['$scope', '$element', '$window', 'themeService'];
+	function sliderController($scope, $element, $window, themeService) {
 
 		var lastValue = -1;
 		var runCallBack = angular.isDefined($scope.callBack);
 		var toFixedValue = angular.isDefined($scope.fixedValue);
 		var minValue = angular.isDefined($scope.minValue) ? $scope.minValue : 0;
 		var maxValue = angular.isDefined($scope.maxValue) ? $scope.maxValue : 1;
-		if (minValue >= maxValue) {
+		if (minValue === maxValue) {
 			minValue = 0;
 			maxValue = 1;
+		}
+		var minIsBigger = minValue > maxValue;
+		if (minIsBigger) {
+			var x = maxValue;
+			maxValue = minValue;
+			minValue = x;
 		}
 		if ($scope.sliderValue < minValue) {$scope.sliderValue = minValue}
 		if ($scope.sliderValue > maxValue) {$scope.sliderValue = maxValue}
 		var originalSliderValue = $scope.sliderValue;
 
+		$scope.thumbWidth = 8;
+		$scope.themeService = themeService;
 		$scope.getWidth = getWidth;
 		$scope.getLeftAdjust = getLeftAdjust;
 		$scope.getOriginalLeftPos = getOriginalLeftPos;
@@ -49,8 +54,6 @@
 		$scope.mouseUpEvent = mouseUpEvent;
 		$scope.mouseMoveEvent = mouseMoveEvent;
 		$scope.setSliderValueAndRunCallBack = setSliderValueAndRunCallBack;
-		$scope.$on('mouseMoveEvent', $scope.mouseMoveEvent);
-		$scope.$on('mouseUpEvent', $scope.mouseUpEvent);
 
 		$scope.leftPos = $scope.getOriginalLeftPos();
 
@@ -59,22 +62,27 @@
 		function getLeftAdjust() {
 			return $element[0].getBoundingClientRect().left + ($scope.thumbWidth/2)
 		}
+
 		function getWidth() {
 			return $element[0].getBoundingClientRect().width - $scope.thumbWidth;
 		}
+
 		function getOriginalLeftPos() {
 			return (originalSliderValue-minValue) / (maxValue-minValue) * $scope.getWidth();
 		}
 
 		function mouseUpEvent() {
-			if ($scope.currentlyMoving) {
-				$scope.currentlyMoving = false;
-			}
+			angular.element($window).unbind('mouseup', mouseUpEvent);
+			angular.element($window).unbind('mousemove', mouseMoveEvent);
+			$scope.currentlyMoving = false;
 		}
 		function mouseDown(event) {
+			$scope.currentlyMoving = true;
 			$scope.leftPos = event.clientX - $scope.getLeftAdjust();
 			$scope.setSliderValueAndRunCallBack();
-			$scope.currentlyMoving = true;
+			angular.element($window).bind('mouseup', mouseUpEvent);
+			angular.element($window).bind('mousemove', mouseMoveEvent);
+
 		}
 
 		function setSliderValueAndRunCallBack(reset) {
@@ -83,7 +91,9 @@
 				$scope.leftPos = $scope.getOriginalLeftPos();
 			}
 			else {
-				var newSlider = ($scope.leftPos / $scope.getWidth()) * (maxValue -  minValue) + minValue;
+				var newSlider = minIsBigger ?
+				($scope.leftPos / $scope.getWidth()) * (minValue -  maxValue) + maxValue :
+				($scope.leftPos / $scope.getWidth()) * (maxValue -  minValue) + minValue;
 				$scope.sliderValue = toFixedValue ? newSlider.toFixed($scope.fixedValue) : newSlider;
 			}
 			if (runCallBack) {
@@ -91,15 +101,13 @@
 			}
 		}
 
-		function mouseMoveEvent(event, args) {
-			if ($scope.currentlyMoving) {
-				var width = $scope.getWidth();
-				var leftPos = args.clientX - $scope.getLeftAdjust();
-				$scope.leftPos = leftPos < 0 ? 0 : leftPos > width ? width : leftPos;
-				if ($scope.leftPos !== lastValue) {
-					lastValue = $scope.leftPos;
-					$scope.setSliderValueAndRunCallBack();
-				}
+		function mouseMoveEvent(event) {
+			var width = $scope.getWidth();
+			var leftPos = event.clientX - $scope.getLeftAdjust();
+			$scope.leftPos = leftPos < 0 ? 0 : leftPos > width ? width : leftPos;
+			if ($scope.leftPos !== lastValue) {
+				lastValue = $scope.leftPos;
+				$scope.setSliderValueAndRunCallBack();
 			}
 		}
 
