@@ -10,34 +10,100 @@
 			controller: discController,
 			bindToController: true,
 			replace: true,
-			template: '<canvas></canvas>'
+			template: '<canvas data-ng-mousedown="mouseDownEvent($event)"></canvas>'
 		};
 		return directive;
 	}
 
-	discController.$inject = ['$scope', '$element', '$timeout', '$window', 'MENU_SIZE', 'themeService', 'genColors', 'discService', 'audioService'];
-	function discController($scope, $element, $timeout, $window, MENU_SIZE, themeService, genColors, discService, audioService) {
+	discController.$inject = ['$scope', '$element', '$window', 'MENU_SIZE', 'themeService', 'genColors', 'audioService'];
+	function discController($scope, $element, $window, MENU_SIZE, themeService, genColors, audioService) {
 
-		var ctx = $element[0].getContext('2d');
-		var mouseDown = false;
 		var rad = 0;
-		var midX, midY, angleSize, drawPromise, distanceFromCenter, hoverRing, hoverDisc, ringSelect, discSelect, mouseDownY, startFreq, centerButtonSize;
+		var ctx = $element[0].getContext('2d');
+		var midX, midY, angleSize, distanceFromCenter, hoverRing, hoverDisc, ringSelect, discSelect, mouseDownY, startFreq, centerButtonSize;
 
-
-		$scope.$on('windowResizeEvent', windowResize);
-		$scope.$on('discLenChange', reCalculateDiscs);
-		$scope.$on('mouseMoveEvent', mouseMoveEvent);
-		$scope.$on('mouseUpEvent', mouseUpEvent);
-		$scope.$on('mouseDownEvent', mouseDownEvent);
+		$scope.mouseDownEvent = mouseDownEvent;
+		$scope.$watch('audioService.storage.discLength', reCalculateDiscs);
+		$window.onresize(windowResize);
 
 		windowResize();
-		timer();
+		draw();
 
 		////////////////////////////////////////////////////
 
-		function timer() {
-			drawDisc();
-			drawPromise = $timeout(timer, 10);
+		function reCalculateDiscs(e, discLen) {
+			console.log(e, discLen);
+			angleSize = (1 / discLen) * Math.PI * 2;
+
+			for (var i = 0; i < audioService.slice.length; i++) {
+				var theDisc = audioService.slice[i];
+				theDisc.a1 = angleSize * i;
+				theDisc.a2 = angleSize * (i + 1);
+				for (var d = 0; d < 4; d++) {
+					var sliceRad = (d + 3) / 6 * rad;
+					theDisc.osc[d].x = midX + sliceRad * Math.cos(theDisc.a1);
+					theDisc.osc[d].y = midY + sliceRad * Math.sin(theDisc.a1);
+					theDisc.osc[d].rad = sliceRad;
+				}
+			}
+		}
+		function calculateStateData(e) {
+			distanceFromCenter = Math.sqrt(Math.pow(e.clientX - midX, 2) + Math.pow(e.clientY - midY, 2));
+			if (distanceFromCenter < rad && distanceFromCenter > rad / 2) {
+				for (var layer = 0; layer < audioService.slice[0].osc.length - 1; layer++) {
+					var d1 = (layer + 3) / 6 * rad;
+					var d2 = (layer + 4) / 6 * rad;
+					if (distanceFromCenter > d1 && distanceFromCenter < d2) {
+						hoverRing = layer;
+						break;
+					}
+				}
+				var angle = Math.atan2(midY - e.clientY, midX - e.clientX) + Math.PI;
+				for (var i = 0; i < audioService.slice.length - 1; i++) {
+					if (angle > audioService.slice[i].a1 && angle < audioService.slice[i].a2) {
+						hoverDisc = i;
+						break;
+					}
+				}
+			}
+			else {
+				hoverRing = -1;
+				hoverDisc = -1;
+			}
+		}
+
+		////////////////////////////////////////////////////
+
+		function mouseUpEvent() {
+			angular.element($window).unbind('mousemove', mouseMoveEvent);
+			angular.element($window).unbind('mouseup', mouseUpEvent);
+			ringSelect = -1;
+			discSelect = -1;
+		}
+		function mouseMoveEvent(e) {
+			console.log(1);
+			calculateStateData(e);
+			if (ringSelect > -1 && discSelect > -1) {
+				var newFreq = startFreq + ((mouseDownY - e.clientY) * 2);
+				audioService.slice[discSelect].osc[ringSelect].freq = newFreq < 0 ? 0 : newFreq > audioService.maxFreq ? audioService.maxFreq : newFreq;
+			}
+		}
+		function mouseDownEvent(e) {
+			angular.element($window).bind('mousemove', mouseMoveEvent);
+			angular.element($window).bind('mouseup', mouseUpEvent);
+			calculateStateData(e);
+			if (distanceFromCenter < centerButtonSize) {
+				audioService.startStopPlayback();
+			}
+			else if (distanceFromCenter < rad && distanceFromCenter > rad / 2) {
+				console.log(hoverDisc, hoverRing);
+				var cell = audioService.slice[hoverDisc].osc[hoverRing];
+				cell.active = !cell.active;
+				ringSelect = hoverRing;
+				discSelect = hoverDisc;
+				mouseDownY = e.clientY;
+				startFreq = cell.freq;
+			}
 		}
 		function windowResize() {
 			var w = $window.innerWidth - MENU_SIZE;
@@ -50,79 +116,19 @@
 			midY = h / 2;
 			rad = midY - 10;
 			centerButtonSize = rad / 3;
-			reCalculateDiscs({}, discService.storage.discLength);
-		}
-		function reCalculateDiscs(e, discLen) {
-			angleSize = (1 / discLen) * Math.PI * 2;
-
-			for (var i = 0; i < discService.slice.length; i++) {
-				var theDisc = discService.slice[i];
-				theDisc.a1 = angleSize * i;
-				theDisc.a2 = angleSize * (i + 1);
-				for (var d = 0; d < 4; d++) {
-					var sliceRad = (d + 3) / 6 * rad;
-					theDisc.osc[d].x = midX + sliceRad * Math.cos(theDisc.a1);
-					theDisc.osc[d].y = midY + sliceRad * Math.sin(theDisc.a1);
-					theDisc.osc[d].rad = sliceRad;
-				}
-			}
+			reCalculateDiscs({}, audioService.storage.discLength);
 		}
 
-		function mouseUpEvent() {
-			mouseDown = false;
-			ringSelect = -1;
-			discSelect = -1;
-		}
-		function mouseDownEvent(e, args) {
-			mouseDown = true;
-			if (distanceFromCenter < centerButtonSize) {
-				discService.playing = !discService.playing;
-				discService.startStopPlayback();
-			}
-			else if (distanceFromCenter < rad && distanceFromCenter > rad / 2) {
-				discService.slice[hoverDisc].osc[hoverRing].active = !discService.slice[hoverDisc].osc[hoverRing].active;
-				ringSelect = hoverRing;
-				discSelect = hoverDisc;
-				mouseDownY = args.clientY;
-				startFreq = discService.slice[discSelect].osc[ringSelect].freq;
-			}
-		}
-		function mouseMoveEvent(e, args) {
-			distanceFromCenter = Math.sqrt(Math.pow(args.clientX - midX, 2) + Math.pow(args.clientY - midY, 2));
-			if (distanceFromCenter < rad && distanceFromCenter > rad / 2) {
-				for (var layer = 0; layer < discService.slice[0].osc.length - 1; layer++) {
-					var d1 = (layer + 3) / 6 * rad;
-					var d2 = (layer + 4) / 6 * rad;
-					if (distanceFromCenter > d1 && distanceFromCenter < d2) {
-						hoverRing = layer;
-						break;
-					}
-				}
-				var angle = Math.atan2(midY - args.clientY, midX - args.clientX) + Math.PI;
-				for (var i = 0; i < discService.slice.length - 1; i++) {
-					if (angle > discService.slice[i].a1 && angle < discService.slice[i].a2) {
-						hoverDisc = i;
-						break;
-					}
-				}
-			}
-			else {
-				hoverRing = -1;
-				hoverDisc = -1;
-			}
+		/////////////////////////////////////////////////////////////////
 
-			if (ringSelect > -1 && discSelect > -1 && mouseDown) {
-				var newFreq = startFreq + ((mouseDownY - args.clientY) * 2);
-				discService.slice[discSelect].osc[ringSelect].freq = newFreq < 0 ? 0 : newFreq > discService.maxFreq ? discService.maxFreq : newFreq;
-			}
-		}
-		function drawDisc() {
+		function draw() {
+			requestAnimationFrame(draw);
 			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-			for (var i = 0; i < discService.slice.length - 1; i++) {
-				var disc1 = discService.slice[i];
-				var disc2 = discService.slice[i + 1];
+			for (var i = 0; i < audioService.slice.length - 1; i++) {
+				var disc1 = audioService.slice[i];
+				var disc2 = audioService.slice[i + 1];
 				for (var layer = 0; layer < disc1.osc.length - 1; layer++) {
-					if (i < discService.storage.discLength) {
+					if (i < audioService.storage.discLength) {
 						ctx.beginPath();
 						ctx.lineWidth = 1;
 						ctx.moveTo(disc1.osc[layer].x, disc1.osc[layer].y);
@@ -131,14 +137,14 @@
 						ctx.arc(midX, midY, disc1.osc[layer + 1].rad, disc1.a2, disc1.a1, true);
 						ctx.lineTo(disc1.osc[layer].x, disc1.osc[layer].y);
 
-						if (disc1.osc[layer].active && i === discService.clickTrack) {
+						if (disc1.osc[layer].active && i === audioService.clickTrack) {
 							ctx.strokeStyle = themeService.theme.discLines;
-							ctx.fillStyle = genColors.hexToRGBA(themeService.theme.discTile, 0.7);
+							ctx.fillStyle = genColors.convert.rgba(themeService.theme.discTile, 0.7);
 							ctx.fill();
 						}
 						if (disc1.osc[layer].active) {
 							ctx.strokeStyle = themeService.theme.discLines;
-							ctx.fillStyle = genColors.hexToRGBA(themeService.theme.discTile, 0.4);
+							ctx.fillStyle = genColors.convert.rgba(themeService.theme.discTile, 0.4);
 							ctx.fill();
 						}
 						else if (i === audioService.clickTrack) {
@@ -154,7 +160,7 @@
 							ctx.lineWidth = 1;
 						}
 						else {
-							ctx.strokeStyle = genColors.hexToRGBA(themeService.theme.discLines, 0.2);
+							ctx.strokeStyle = genColors.convert.rgba(themeService.theme.discLines, 0.2);
 						}
 						ctx.stroke();
 						ctx.closePath();

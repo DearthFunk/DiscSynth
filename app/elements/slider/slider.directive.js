@@ -109,7 +109,7 @@
 				lastValue = $scope.leftPos;
 				$scope.setSliderValueAndRunCallBack();
 			}
+			$scope.$apply();
 		}
-
 	}
 })();

@@ -38,18 +38,18 @@
 			}
 		}
 
-		function setLocalStorage(themeService,visualizerService, audioService, discService) {
-			var discSynthLocalStorage = service.getStorageObject(themeService, visualizerService, audioService, discService);
+		function setLocalStorage(themeService,visualizerService, audioService) {
+			var discSynthLocalStorage = service.getStorageObject(themeService, visualizerService, audioService);
 			//localStorage.setItem(LOCAL_STORAGE_OBJECT_NAME, JSON.stringify(discSynthLocalStorage));
 		//	$localStorage.testValue = discService.testValue;
 		}
 
-		function getStorageObject(themeService, visualizerService, audioService, discService) {
+		function getStorageObject(themeService, visualizerService, audioService) {
 			return {
 				active: true,
 				volume: audioService.node.masterGain.gain.value,
 				tempo: audioService.tempo,
-				discLength: discService.discLength,
+				discLength: audioService.storage.discLength,
 				synthIndex: audioService.synthTemplate.index,
 				themeIndex: themeService.theme.index,
 				visualizerIndex: visualizerService.animation.index

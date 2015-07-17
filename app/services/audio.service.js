@@ -4,9 +4,9 @@
 		.module('discSynth')
 		.factory('audioService', audioService);
 
-	audioService.$inject =['$localStorage', 'discService', 'SYNTHS', 'TIME_WORKER_POST_MESSAGE', '$window'];
+	audioService.$inject =['$localStorage', 'SYNTHS', 'TIME_WORKER_POST_MESSAGE', '$window', 'LENGTH_CONSTRAINTS'];
 
-	function audioService($localStorage, discService, SYNTHS, TIME_WORKER_POST_MESSAGE, $window) {
+	function audioService($localStorage, SYNTHS, TIME_WORKER_POST_MESSAGE, $window, LENGTH_CONSTRAINTS) {
 		var audioCtx = typeof AudioContext !== 'undefined' ? new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() : null;
 		var audioBufferSize = 1024;
 		var nextNoteTime = 0;
@@ -18,18 +18,39 @@
 
 		$localStorage.$default({
 			tempo: 120,
-			synthIndex: 0
+			synthIndex: 0,
+			discLength: 12
 		});
 
+
 		var service = {
+			playing: false,
 			storage: $localStorage,
 			synthTemplates: angular.copy(SYNTHS), //localStorageService.storage ? localStorageService.storage.synthTemplates : angular.copy(SYNTHS),
 			node : {},
 			fx: {},
+			clickTrack: 0,
 			startStopPlayback: startStopPlayback,
-			playNotes: playNotes
+			playNotes: playNotes,
+			slice: [],
+			maxFreq: 1500,
+			randomize: randomize
 		};
+		console.log(service.storage);
 		service.synthTemplate = service.synthTemplates[0];//localStorageService.storage ? localStorageService.storage.synthIndex : 0];
+		for (var i = 0; i <= LENGTH_CONSTRAINTS.MAX; i++) {
+			service.slice.push({
+				a1: 0,
+				a2: 0,
+				c: '',
+				osc: [
+					{x: 0, y: 0, rad: 0, active: false, freq: 200},
+					{x: 0, y: 0, rad: 0, active: false, freq: 600},
+					{x: 0, y: 0, rad: 0, active: false, freq: 1400},
+					{x: 0, y: 0, rad: 0, active: false, freq: -1}
+				]
+			});
+		}
 
 		angular.element($window).bind('keydown', keyDownEvent);
 
@@ -39,10 +60,19 @@
 
 		/////////////////////////////////////
 
+		function randomize() {
+			for (var discIndex = 0; discIndex < service.slice.length - 1; discIndex++) {
+				for (var layer = 0; layer < service.slice[discIndex].osc.length; layer++) {
+					service.slice[discIndex].osc[layer].active = mathService.randomNumber(1,3,0) === 1;
+					service.slice[discIndex].osc[layer].freq = mathService.randomNumber(20, service.maxFreq, 0);
+				}
+			}
+		}
+
 		function getFreqArray (depth, removal) {
 			var theSmallArray = [];
-			var theFreqArray = new Uint8Array(  discService.node.analyser.frequencyBinCount);
-			discService.node.analyser.getByteFrequencyData(theFreqArray);
+			var theFreqArray = new Uint8Array(  service.node.analyser.frequencyBinCount);
+			service.node.analyser.getByteFrequencyData(theFreqArray);
 			var x = depth == undefined ? 1 : depth;
 			var len = theFreqArray.length - removal;
 			for (var i = 0; i < len; i += x) {
@@ -53,8 +83,8 @@
 
 		function getTimeArray (depth, removal) {
 			var theSmallArray = [];
-			var theTimeArray = new Uint8Array(discService.node.analyser.frequencyBinCount);
-			discService.node.analyser.getByteTimeDomainData(theTimeArray);
+			var theTimeArray = new Uint8Array(service.node.analyser.frequencyBinCount);
+			service.node.analyser.getByteTimeDomainData(theTimeArray);
 			var x = depth == undefined ? 1 : depth;
 			var len = theTimeArray.length - removal;
 			for (var i = 0; i < len; i += x) {
@@ -64,8 +94,8 @@
 		}
 
 		function getAverageDB() {
-			var dbArray = new Uint8Array(discService.node.analyser.frequencyBinCount);
-			discService.node.analyser.getByteFrequencyData(dbArray);
+			var dbArray = new Uint8Array(service.node.analyser.frequencyBinCount);
+			service.node.analyser.getByteFrequencyData(dbArray);
 			var values = 0;
 			for (var i = 0; i < dbArray.length; i++) {
 				values += dbArray[i];
@@ -88,7 +118,8 @@
 			}
 		}
 		function startStopPlayback() {
-			if (discService.playing) {
+			service.playing = !service.playing;
+			if (service.playing) {
 				service.node.masterGain.connect(service.node.analyser);
 				service.node.masterGain.connect(audioCtx.destination);
 			}
