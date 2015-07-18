@@ -1,13 +1,13 @@
 (function () {
 	'use strict';
 	angular
-		.module('modalModule')
+		.module('menuModule')
 		.directive('helpWindow', helpWindow);
 
 	function helpWindow() {
 		var directive = {
 			restrict: 'EA',
-			templateUrl: 'app/modal/helpWindow/helpWindow.html',
+			templateUrl: 'app/menu/helpWindow/helpWindow.html',
 			replace: true,
 			controller: helpWindowController,
 			bindToController: true

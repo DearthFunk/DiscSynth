@@ -1,7 +1,24 @@
 <div class="menuContainer verticalScrollBarLight" data-ng-style="{width: menuSize + 'px'}" id="menuContainer">
-    <div class="button border" data-ng-style="{backgroundColor: hoverHelp ? themeService.theme.menuSectionalBackground : '' }" data-ng-mouseenter="hoverHelp = true" data-ng-mouseleave="hoverHelp = false" data-ng-click="helpWindow()">HELP / INFO</div>
-    <div class="button border" data-ng-style="{backgroundColor: hoverImport ? themeService.theme.menuSectionalBackground : '' }" data-ng-mouseenter="hoverImport = true" data-ng-mouseleave="hoverImport = false" data-ng-click="importExportWindow()">IMPORT / EXPORT</div>
-    <div class="button border" data-ng-style="{backgroundColor: hoverRandom ? themeService.theme.menuSectionalBackground : '' }" data-ng-mouseenter="hoverRandom = true" data-ng-mouseleave="hoverRandom = false" data-ng-click="audioService.randomize()">RANDOMIZE CELLS</div>
+    <div class="button border"
+         data-ng-style="{backgroundColor: hoverHelp ? themeService.theme.menuSectionalBackground : '' }"
+         data-ng-mouseenter="hoverHelp = true"
+         data-ng-mouseleave="hoverHelp = false"
+         data-ng-click="showHelpWindow = !showHelpWindow">HELP / INFO</div>
+	<div class="infoBox" help-window data-ng-show="showHelpWindow"></div>
+
+    <div class="button border"
+         data-ng-style="{backgroundColor: hoverImport ? themeService.theme.menuSectionalBackground : '' }"
+         data-ng-mouseenter="hoverImport = true"
+         data-ng-mouseleave="hoverImport = false"
+         data-ng-click="showImportExportWindow = !showImportExportWindow">IMPORT / EXPORT</div>
+	<div class="infoBox" import-export-window data-ng-show="showImportExportWindow"></div>
+
+    <div class="button border"
+         data-ng-style="{backgroundColor: hoverRandom ? themeService.theme.menuSectionalBackground : '' }"
+         data-ng-mouseenter="hoverRandom = true"
+         data-ng-mouseleave="hoverRandom = false"
+         data-ng-click="audioService.randomize()">RANDOMIZE CELLS</div>
+
     <table class="sliders border">
         <tr>
 	        <td class="label">{{editingVol ? audioService.node.masterGain.gain.value.toFixed(1)*10 : 'VOL'}}</td>
@@ -20,7 +37,7 @@
     <div class="selector border">
         <span class="title">THEME</span>
         <div class="button"
-             data-ng-click="changeTheme(item)"
+             data-ng-click="themeService.theme = item"
              data-ng-repeat="item in themeService.themes track by $index">
             <div class="inner"
                  data-ng-style="{backgroundColor: $index === themeService.theme.index ? themeService.theme.menuHighlight : ''}">
@@ -30,7 +47,7 @@
     <div class="selector border">
         <span class="title">ANIMATION</span>
         <div class="button"
-             data-ng-click="chnageAnimation(item)"
+             data-ng-click="animationService.animation = item"
              data-ng-repeat="item in animationService.animations track by $index">
             <div class="inner"
                  data-ng-style="{backgroundColor: $index === animationService.animation.index ? themeService.theme.menuHighlight : ''}">
@@ -39,7 +56,7 @@
     </div>
     <div class="selector border">
         <span class="title">SYNTH TEMPLATE</span>
-        <div class="button" data-ng-click="changeSynth(item)"
+        <div class="button" data-ng-click="audioService.synthTemplate = item"
              data-ng-right-click="resetSynth($index)"
              data-ng-repeat="item in audioService.synthTemplates track by $index">
             <div class="inner"

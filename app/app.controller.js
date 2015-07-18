@@ -3,9 +3,7 @@
 
 	angular
 		.module('discSynth', [
-
 			'ngStorage',
-			'modalModule',
 			'animationModule',
 			'menuModule'
 		])

@@ -1,13 +1,13 @@
 (function () {
 	'use strict';
 	angular
-		.module('modalModule')
+		.module('menuModule')
 		.directive('importExportWindow', importExportWindow);
 
 	function importExportWindow() {
 		var directive = {
 			restrict: 'EA',
-			templateUrl: 'app/modal/importExportWindow/importExportWindow.html',
+			templateUrl: 'app/menu/importExportWindow/importExportWindow.html',
 			replace: true,
 			controller: importExportController,
 			bindToController: true

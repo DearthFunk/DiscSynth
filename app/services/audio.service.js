@@ -36,7 +36,6 @@
 			maxFreq: 1500,
 			randomize: randomize
 		};
-		console.log(service.storage);
 		service.synthTemplate = service.synthTemplates[0];//localStorageService.storage ? localStorageService.storage.synthIndex : 0];
 		for (var i = 0; i <= LENGTH_CONSTRAINTS.MAX; i++) {
 			service.slice.push({
