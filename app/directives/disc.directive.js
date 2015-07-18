@@ -157,13 +157,6 @@
 							ctx.fillStyle = themeService.theme.discPlayLine;
 							ctx.fill();
 						}
-						else if (layer === hoverRing && hoverDisc === i) {
-							ctx.lineWidth = 2;
-							ctx.strokeStyle = themeService.theme.discLines;
-							ctx.fillStyle = themeService.theme.discHover;
-							ctx.fill();
-							ctx.lineWidth = 1;
-						}
 						else {
 							ctx.strokeStyle = genColors.convert.rgba(themeService.theme.discLines, 0.2);
 						}
