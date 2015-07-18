@@ -6,9 +6,6 @@
 
 	function visualizerService(localStorageService) {
 
-		var cnv = document.querySelectorAll('.visualizerCanvas')[0];
-		var ctx = cnv.getContext('2d');
-
 		var service = {
 			animations: [
 				{index: 0, functionToRun: false},

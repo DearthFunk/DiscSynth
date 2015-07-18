@@ -22,18 +22,24 @@
 		var ctx = $element[0].getContext('2d');
 		var midX, midY, angleSize, distanceFromCenter, hoverRing, hoverDisc, ringSelect, discSelect, mouseDownY, startFreq, centerButtonSize;
 
+		$scope.reCalculateDiscs = reCalculateDiscs;
+		$scope.calculateStateData = calculateStateData;
+		$scope.mouseUpEvent = mouseUpEvent;
+		$scope.mouseMoveEvent = mouseMoveEvent;
 		$scope.mouseDownEvent = mouseDownEvent;
-		$scope.$watch('audioService.storage.discLength', reCalculateDiscs);
-		angular.element($window).bind("resize",windowResize);
+		$scope.windowResize = windowResize;
+		$scope.draw = draw;
 
-		windowResize();
-		draw();
+		$scope.$watch('audioService.storage.discLength', $scope.reCalculateDiscs);
+		angular.element($window).bind("resize",$scope.windowResize);
+
+		$scope.windowResize();
+		$scope.draw();
 
 		////////////////////////////////////////////////////
 
-		function reCalculateDiscs(discLen) {
-			angleSize = (1 / discLen) * Math.PI * 2;
-
+		function reCalculateDiscs() {
+			angleSize = (1 / audioService.storage.discLength) * Math.PI * 2;
 			for (var i = 0; i < audioService.slice.length; i++) {
 				var theDisc = audioService.slice[i];
 				theDisc.a1 = angleSize * i;
@@ -74,13 +80,12 @@
 		////////////////////////////////////////////////////
 
 		function mouseUpEvent() {
-			angular.element($window).unbind('mousemove', mouseMoveEvent);
-			angular.element($window).unbind('mouseup', mouseUpEvent);
+			angular.element($window).unbind('mousemove', $scope.mouseMoveEvent);
+			angular.element($window).unbind('mouseup', $scope.mouseUpEvent);
 			ringSelect = -1;
 			discSelect = -1;
 		}
 		function mouseMoveEvent(e) {
-			console.log(1);
 			calculateStateData(e);
 			if (ringSelect > -1 && discSelect > -1) {
 				var newFreq = startFreq + ((mouseDownY - e.clientY) * 2);
@@ -88,14 +93,13 @@
 			}
 		}
 		function mouseDownEvent(e) {
-			angular.element($window).bind('mousemove', mouseMoveEvent);
-			angular.element($window).bind('mouseup', mouseUpEvent);
-			calculateStateData(e);
+			angular.element($window).bind('mousemove', $scope.mouseMoveEvent);
+			angular.element($window).bind('mouseup',$scope.mouseUpEvent);
+			$scope.calculateStateData(e);
 			if (distanceFromCenter < centerButtonSize) {
 				audioService.startStopPlayback();
 			}
 			else if (distanceFromCenter < rad && distanceFromCenter > rad / 2) {
-				console.log(hoverDisc, hoverRing);
 				var cell = audioService.slice[hoverDisc].osc[hoverRing];
 				cell.active = !cell.active;
 				ringSelect = hoverRing;
@@ -105,7 +109,6 @@
 			}
 		}
 		function windowResize() {
-			console.log(1);
 			var w = $window.innerWidth - MENU_SIZE;
 			var h = $window.innerHeight;
 			ctx.canvas.style.width = w + 'px';
@@ -116,13 +119,13 @@
 			midY = h / 2;
 			rad = midY - 10;
 			centerButtonSize = rad / 3;
-			reCalculateDiscs({}, audioService.storage.discLength);
+			$scope.reCalculateDiscs();
 		}
 
 		/////////////////////////////////////////////////////////////////
 
 		function draw() {
-			requestAnimationFrame(draw);
+			requestAnimationFrame($scope.draw);
 			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 			for (var i = 0; i < audioService.slice.length - 1; i++) {
 				var disc1 = audioService.slice[i];
