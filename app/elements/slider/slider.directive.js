@@ -75,6 +75,7 @@
 			angular.element($window).unbind('mouseup', mouseUpEvent);
 			angular.element($window).unbind('mousemove', mouseMoveEvent);
 			$scope.currentlyMoving = false;
+			$scope.$apply();
 		}
 		function mouseDown(event) {
 			$scope.currentlyMoving = true;

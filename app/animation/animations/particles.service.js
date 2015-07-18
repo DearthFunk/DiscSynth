@@ -22,7 +22,7 @@
 		function newParticle(state) {
 			return {
 				position: {x: state.xCenter, y: state.yCenter},
-				size: mathService.randomNumber(10, 20),
+				size: genColors.get.randomNumber(10, 20),
 				fillColor: genColors.random.rgba(0.4),
 				xMod: genColors.get.randomNumber(-4, 4),
 				yMod: genColors.get.randomNumber(-4, 4),

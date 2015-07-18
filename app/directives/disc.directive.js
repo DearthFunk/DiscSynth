@@ -24,15 +24,14 @@
 
 		$scope.mouseDownEvent = mouseDownEvent;
 		$scope.$watch('audioService.storage.discLength', reCalculateDiscs);
-		$window.onresize(windowResize);
+		angular.element($window).bind("resize",windowResize);
 
 		windowResize();
 		draw();
 
 		////////////////////////////////////////////////////
 
-		function reCalculateDiscs(e, discLen) {
-			console.log(e, discLen);
+		function reCalculateDiscs(discLen) {
 			angleSize = (1 / discLen) * Math.PI * 2;
 
 			for (var i = 0; i < audioService.slice.length; i++) {
@@ -106,6 +105,7 @@
 			}
 		}
 		function windowResize() {
+			console.log(1);
 			var w = $window.innerWidth - MENU_SIZE;
 			var h = $window.innerHeight;
 			ctx.canvas.style.width = w + 'px';

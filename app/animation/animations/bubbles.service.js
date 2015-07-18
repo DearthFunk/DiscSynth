@@ -4,9 +4,9 @@
 		.module('animationModule')
 		.factory('bubbles', bubblesFactory);
 
-	bubblesFactory.$inject = ['mathService', 'genColors', 'browserService'];
+	bubblesFactory.$inject = ['genColors', 'browserService'];
 
-	function bubblesFactory(mathService, genColors, browserService) {
+	function bubblesFactory(genColors, browserService) {
 
 		var balls = [];
 		var totalBalls = browserService.isChrome ? 1000 : 100;
@@ -21,11 +21,11 @@
 
 		function newBall (state) {
 			return {
-				x: mathService.randomNumber(0, state.width),
+				x: genColors.get.randomNumber(0, state.width),
 				y: this.ctx.canvas.height + 15,
 				r: 15,
-				yX: mathService.randomNumber(1, 5),
-				rX: mathService.randomNumber(0.1, 2),
+				yX: genColors.get.randomNumber(1, 5),
+				rX: genColors.get.randomNumber(0.1, 2),
 				color: genColors.random.rgb()
 			};
 		}

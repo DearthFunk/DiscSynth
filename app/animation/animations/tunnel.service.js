@@ -4,9 +4,9 @@
 		.module('animationModule')
 		.factory('tunnel', tunnelFactory);
 
-	tunnelFactory.$inject = ['mathService', 'genColors', 'browserService'];
+	tunnelFactory.$inject = ['genColors'];
 
-	function tunnelFactory(mathService, genColors, browserService) {
+	function tunnelFactory(genColors) {
 		var lines = [];
 		var maxLines = 40;
 

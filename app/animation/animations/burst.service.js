@@ -20,7 +20,7 @@
 
 		function newBurst(state) {
 			return {
-				speed: mathService.randomNumber(3, 10),
+				speed: genColors.get.randomNumber(3, 10),
 				x: state.w / 2,
 				y: state.h / 2,
 				xD: genColors.get.randomNumber(-1, 1),

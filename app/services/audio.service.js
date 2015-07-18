@@ -4,9 +4,9 @@
 		.module('discSynth')
 		.factory('audioService', audioService);
 
-	audioService.$inject =['$localStorage', 'SYNTHS', 'TIME_WORKER_POST_MESSAGE', '$window', 'LENGTH_CONSTRAINTS'];
+	audioService.$inject =['$localStorage', 'SYNTHS', 'TIME_WORKER_POST_MESSAGE', '$window', 'LENGTH_CONSTRAINTS', 'genColors'];
 
-	function audioService($localStorage, SYNTHS, TIME_WORKER_POST_MESSAGE, $window, LENGTH_CONSTRAINTS) {
+	function audioService($localStorage, SYNTHS, TIME_WORKER_POST_MESSAGE, $window, LENGTH_CONSTRAINTS, genColors) {
 		var audioCtx = typeof AudioContext !== 'undefined' ? new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() : null;
 		var audioBufferSize = 1024;
 		var nextNoteTime = 0;
@@ -63,8 +63,11 @@
 		function randomize() {
 			for (var discIndex = 0; discIndex < service.slice.length - 1; discIndex++) {
 				for (var layer = 0; layer < service.slice[discIndex].osc.length; layer++) {
-					service.slice[discIndex].osc[layer].active = mathService.randomNumber(1,3,0) === 1;
-					service.slice[discIndex].osc[layer].freq = mathService.randomNumber(20, service.maxFreq, 0);
+					var cell = service.slice[discIndex].osc[layer];
+					cell.active = genColors.get.randomNumber(1,3,0) === 1;
+					if (cell.active) {
+						cell.freq = genColors.get.randomNumber(20, service.maxFreq, 0);
+					}
 				}
 			}
 		}
@@ -103,8 +106,9 @@
 			return values / dbArray.length;
 		}
 
-		function keyDownEvent(e, args) {
-			switch (args.keyCode) {
+		function keyDownEvent(e) {
+			// NEEDS AN APPLY
+			switch (e.keyCode) {
 				case 32 :
 					service.playing = !service.playing;
 					service.playing ? service.node.stopper.connect(service.fx.moogfilter.input) : service.node.stopper.disconnect();
