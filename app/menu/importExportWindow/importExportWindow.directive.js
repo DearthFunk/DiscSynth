@@ -15,14 +15,13 @@
 		return directive;
 	}
 
-	importExportController.$inject = ['$scope', 'animationService', 'themeService'];
-	function importExportController($scope, animationService, themeService) {
+	importExportController.$inject = ['$scope', 'animationService', 'themeService', 'audioService', '$localStorage'];
+	function importExportController($scope, animationService, themeService, audioService, $localStorage) {
 
 		var client = new ZeroClipboard(document.getElementById('copyButton'));
 		$scope.textAreaData = '';
 		$scope.importData = importData;
 		$scope.importExport = importExport;
-		$scope.$on('importExport', $scope.importExport);
 
 		////////////////////////////////////////////
 
@@ -32,18 +31,19 @@
 
 		function importData() {
 			var parsedData = JSON.parse($scope.textAreaData);
-			if (parsedData != null) {
-/*
-				menuService.len = parsedData.len;
-				menuService.spd = parsedData.spd;
-				menuService.vol = parsedData.vol;
-				menuService.synthIndex = parsedData.synthIndex;
-				menuService .synthTemplates = angular.copy(parsedData.synthTemplates);
-*/
-				themeService.themeIndex = parsedData.themeIndex;
-				animationService.animationInde = parsedData.animationInde;
+			if (angular.isDefined(parsedData)) {
+				$localStorage.themeIndex = parsedData.themeIndex;
+				$localStorage.synthIndex = parsedData.synthIndex;
+				$localStorage.animationIndex = parsedData.animationIndex;
+				$localStorage.discLength = parsedData.discLength;
+				$localStorage.volume = parsedData.volume;
+				$localStorage.tempo = parsedData.tempo;
+
+				animationService.setAnimation();
+				themeService.setTheme();
+				audioService.setSynthTemplate();
+
 			}
-			$scope.importExportVisible = !$scope.importExportVisible;
 		}
 	}
 })();

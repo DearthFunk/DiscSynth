@@ -36,11 +36,11 @@
 		function draw(ctx, state, averageDb) {
 			averageDb = averageDb < 10 ? 0 : averageDb;
 			for (var i = 0; i < maxParticles; i++) {
-				if (angular.isUndefined(particles[i])) {
+				if (angular.isUndefined(particles[i]) && averageDb > 0) {
 					particles.push(service.newBurst(state));
 				}
 				var p = particles[i];
-				if (p.rad > 0) {
+				if (p && p.rad > 0) {
 					ctx.beginPath();
 					p.o -= 0.02;
 					if (p.o < 0) {
@@ -66,7 +66,7 @@
 					p.y += (p.yD * p.speed);
 				}
 
-				if (p.rad < 0 && averageDb > 0) {
+				if (p && p.rad < 0 && averageDb > 0) {
 					particles[i] = service.newBurst(state);
 				}
 			}

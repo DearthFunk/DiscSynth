@@ -16,8 +16,8 @@
 		return directive;
 	}
 
-	animationController.$inject = ['$scope', '$element', '$window', 'animationService', 'audioService'];
-	function animationController($scope, $element, $window, animationService, audioService) {
+	animationController.$inject = ['$scope', '$element', '$window', 'animationService', 'audioService', 'MENU_SIZE'];
+	function animationController($scope, $element, $window, animationService, audioService, MENU_SIZE) {
 
 		var cnv = $element[0];
 		var ctx = cnv.getContext('2d');
@@ -39,12 +39,12 @@
 		/////////////////////////////////////////////
 
 		function windowResize() {
-			state.w = $window.innerWidth;
+			state.w = $window.innerWidth - MENU_SIZE;
 			state.h = $window.innerHeight;
+			state.xCenter = state.w/2;
+			state.yCenter = state.h/2;
 			cnv.style.width = state.w +'px';
 			cnv.style.height = state.h + 'px';
-			state.xCenter = state.w /2;
-			state.yCenter = state.h /2;
 			angular.element(cnv).attr({width: state.w, height: state.h });
 		}
 

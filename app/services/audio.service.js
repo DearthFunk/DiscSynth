@@ -83,13 +83,7 @@
 		}
 		function startStop() {
 			service.playing = !service.playing;
-			if (service.playing) {
-				service.node.masterGain.connect(service.node.analyser);
-				service.node.masterGain.connect(audioCtx.destination);
-			}
-			else {
-				service.node.masterGain.disconnect();
-			}
+			service.node.stopperGain.gain.value = service.playing ? 1 : 0;
 			notesInQueue = [];
 			nextNoteTime = audioCtx.currentTime;
 			timerWorker.postMessage(service.playing ? TIME_WORKER_POST_MESSAGE.start : TIME_WORKER_POST_MESSAGE.stop);
@@ -144,7 +138,10 @@
 			service.node.osc2 = audioCtx.createOscillator();
 			service.node.osc3 = audioCtx.createOscillator();
 			service.node.masterGain = audioCtx.createGain();
+			service.node.stopperGain = audioCtx.createGain();
 			service.node.masterGain.gain.value = 0.5; //localStorageService.storage ? localStorageService.storage.volume : 0.5;
+			service.node.stopperGain.gain.value = 1; //localStorageService.storage ? localStorageService.storage.volume : 0.5;
+
 			service.node.javascript = audioCtx.createScriptProcessor(audioBufferSize, 0, 1);
 			service.node.analyser = audioCtx.createAnalyser();
 
@@ -165,6 +162,10 @@
 			service.fx.tremolo.connect(service.fx.convolver.input);
 			service.fx.convolver.connect(service.fx.delay.input);
 			service.fx.delay.connect(service.node.masterGain);
+
+			service.node.masterGain.connect(service.node.stopperGain);
+			service.node.stopperGain.connect(service.node.analyser);
+			service.node.stopperGain.connect(audioCtx.destination);
 
 			service.node.analyser.smoothingTimeConstant = 0.3;
 			service.node.analyser.fftSize = audioBufferSize / 2;

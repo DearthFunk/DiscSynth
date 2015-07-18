@@ -249,7 +249,6 @@
 	function discController($scope, $localStorage, themeService) {
 		$scope.themeService = themeService;
 
-		console.log('SETTING');
 		$localStorage.$default({
 			themeIndex: 4,
 			synthIndex: 0,
