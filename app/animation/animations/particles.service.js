@@ -47,8 +47,8 @@
 					var orbit = particle.orbit;
 					particle.position.x += Math.cos(i + particle.angle) * orbit;
 					particle.position.y += Math.sin(i + particle.angle) * orbit;
-					if (particle.position.x < 0 || particle.position.x > w ||
-						particle.position.y < 0 || particle.position.y > h ||
+					if (particle.position.x < 0 || particle.position.x > state.w ||
+						particle.position.y < 0 || particle.position.y > state.h ||
 						particle.size < 0) {
 						particles[i] = service.newParticle(state);
 					}

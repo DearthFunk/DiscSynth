@@ -4,9 +4,9 @@
 		.module('discSynth')
 		.factory('audioService', audioService);
 
-	audioService.$inject =['SYNTHS', '$localStorage', 'TIME_WORKER_POST_MESSAGE', '$window', 'LENGTH_CONSTRAINTS', 'genColors'];
+	audioService.$inject =['$localStorage', '$window', 'genColors', 'SYNTHS', 'LENGTH_CONSTRAINTS', 'TIME_WORKER_POST_MESSAGE'];
 
-	function audioService(SYNTHS, $localStorage, TIME_WORKER_POST_MESSAGE, $window, LENGTH_CONSTRAINTS, genColors) {
+	function audioService($localStorage, $window, genColors, SYNTHS, LENGTH_CONSTRAINTS, TIME_WORKER_POST_MESSAGE) {
 		var audioCtx = typeof AudioContext !== 'undefined' ? new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() : null;
 		var audioBufferSize = 1024;
 		var nextNoteTime = 0;
@@ -15,8 +15,6 @@
 		var timerWorker = new Worker('./app/services/metronomeworker.js');
 		timerWorker.onmessage = scheduler;
 		timerWorker.postMessage({'interval':25}); //25 is the interval run value
-
-		/*$localStorage.$default();*/
 
 		var service = {
 			playing: false,
@@ -29,8 +27,6 @@
 			randomize: randomize,
 			startStop: startStop,
 			playNotes: playNotes,
-			getFreqArray: getFreqArray,
-			getTimeArray: getTimeArray,
 			getAverageDB: getAverageDB,
 			setSynthTemplate: setSynthTemplate
 		};
@@ -58,30 +54,6 @@
 					}
 				}
 			}
-		}
-
-		function getFreqArray (depth, removal) {
-			var theSmallArray = [];
-			var theFreqArray = new Uint8Array(  service.node.analyser.frequencyBinCount);
-			service.node.analyser.getByteFrequencyData(theFreqArray);
-			var x = depth == undefined ? 1 : depth;
-			var len = theFreqArray.length - removal;
-			for (var i = 0; i < len; i += x) {
-				theSmallArray.push(theFreqArray[i]);
-			}
-			return theSmallArray;
-		}
-
-		function getTimeArray (depth, removal) {
-			var theSmallArray = [];
-			var theTimeArray = new Uint8Array(service.node.analyser.frequencyBinCount);
-			service.node.analyser.getByteTimeDomainData(theTimeArray);
-			var x = depth == undefined ? 1 : depth;
-			var len = theTimeArray.length - removal;
-			for (var i = 0; i < len; i += x) {
-				theSmallArray.push(theTimeArray[i]);
-			}
-			return theSmallArray;
 		}
 
 		function getAverageDB() {

@@ -57,7 +57,6 @@
 			if (animationService.animation) {
 				$scope.clearCanvas();
 				if (animationService.animation.service) {
-					console.log(state);
 					animationService.animation.service.draw(ctx, state, audioService.getAverageDB());
 				}
 
