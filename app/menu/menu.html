@@ -11,7 +11,7 @@
          data-ng-mouseenter="hoverImport = true"
          data-ng-mouseleave="hoverImport = false"
          data-ng-click="showImportExportWindow = !showImportExportWindow">IMPORT / EXPORT</div>
-	<div class="infoBox" import-export-window data-ng-show="showImportExportWindow"></div>
+	<div class="infoBox" import-export-window data-ng-show="showImportExportWindow" data-panel-open="showImportExportWindow"></div>
 
     <div class="button border"
          data-ng-style="{backgroundColor: hoverRandom ? themeService.theme.menuSectionalBackground : '' }"

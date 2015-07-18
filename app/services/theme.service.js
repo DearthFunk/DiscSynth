@@ -13,7 +13,7 @@
 			themes: [
 				{
 					index: 0,
-					backgroundImage: "url('img/1.jpg')",
+					backgroundImage: "url('img/1.png')",
 					discBorder1: '#EECBAD',
 					discBorder2: 'rgba(255,255,100,0.5)',
 					discTile: '#FFFF00',
@@ -21,12 +21,11 @@
 					discHover: 'rgba(255,255,0,0.1)',
 					discFont: '#FFFFFF',
 					discPlayLine: 'rgba(0,0,0,0.6)',
-					menuHighlight: '#00FF00',
+					menuHighlight: '#FFFF00',
 					menuSectionalBackground: 'rgba(100,100,255,0.4)',
 					centerBorder: 'rgba(0,0,0,0.7)',
-					centerFill: 'rgba(255,255,255,0.3)',
-					centerPlay: 'rgba(255,0,0,0.2)',
-					centerStop: 'rgba(0,255,0,0.2)',
+					centerPlay: 'rgba(255,0,0,0.4)',
+					centerStop: 'rgba(0,255,0,0.4)',
 					centerText: '#000000'
 				},
 				{
@@ -42,7 +41,6 @@
 					menuHighlight: '#FFFF00',
 					menuSectionalBackground: 'rgba(255,255,0,0.1)',
 					centerBorder: 'rgba(255,255,255,0.7)',
-					centerFill: 'rgba(255,255,255,0.3)',
 					centerPlay: 'rgba(255,0,0,0.2)',
 					centerStop: 'rgba(0,255,0,0.2)',
 					centerText: '#000000'
@@ -60,7 +58,6 @@
 					menuHighlight: '#FFA500',
 					menuSectionalBackground: 'rgba(255,0,0,0.1)',
 					centerBorder: 'rgba(255,255,255,0.7)',
-					centerFill: 'rgba(255,255,255,0.3)',
 					centerPlay: 'rgba(255,0,0,0.2)',
 					centerStop: 'rgba(0,255,0,0.2)',
 					centerText: '#000000'
@@ -78,14 +75,13 @@
 					menuHighlight: '#FFFFFF',
 					menuSectionalBackground: 'rgba(255,255,255,0.1)',
 					centerBorder: 'rgba(255,255,255,0.7)',
-					centerFill: 'rgba(255,255,255,0.3)',
 					centerPlay: 'rgba(255,0,0,0.2)',
 					centerStop: 'rgba(0,255,0,0.2)',
 					centerText: '#000000'
 				},
 				{
 					index: 4,
-					backgroundImage: "url('img/5.png')",
+					backgroundImage: "url('img/5.jpg')",
 					discBorder1: 'rgba(255,100,100,1)',
 					discBorder2: 'rgba(255,255,100,0.5)',
 					discTile: '#FFFF00',
@@ -96,7 +92,6 @@
 					menuHighlight: '#cdcdcd',
 					menuSectionalBackground: 'rgba(255,255,0,0.4)',
 					centerBorder: 'rgba(255,255,255,0.7)',
-					centerFill: 'rgba(255,255,255,0.3)',
 					centerPlay: 'rgba(255,0,0,0.2)',
 					centerStop: 'rgba(0,255,0,0.2)',
 					centerText: '#000000'
@@ -114,7 +109,6 @@
 					menuHighlight: '#FFFFFF',
 					menuSectionalBackground: 'rgba(255,255,255,0.1)',
 					centerBorder: 'rgba(255,255,255,0.7)',
-					centerFill: 'rgba(255,255,255,0.3)',
 					centerPlay: 'rgba(255,0,0,0.2)',
 					centerStop: 'rgba(0,255,0,0.2)',
 					centerText: '#000000'

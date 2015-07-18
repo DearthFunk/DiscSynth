@@ -10,7 +10,10 @@
 			templateUrl: 'app/menu/importExportWindow/importExportWindow.html',
 			replace: true,
 			controller: importExportController,
-			bindToController: true
+			bindToController: true,
+			scope: {
+				panelOpen: '=panelOpen'
+			}
 		};
 		return directive;
 	}
@@ -21,12 +24,21 @@
 		var client = new ZeroClipboard(document.getElementById('copyButton'));
 		$scope.textAreaData = '';
 		$scope.importData = importData;
-		$scope.importExport = importExport;
+		$scope.getTextAreaData = getTextAreaData;
+
+		$scope.$watch('panelOpen', $scope.getTextAreaData);
 
 		////////////////////////////////////////////
 
-		function importExport(e, data) {
-			$scope.textAreaData = data;
+		function getTextAreaData() {
+			$scope.textAreaData = JSON.stringify({
+				themeIndex: $localStorage.themeIndex,
+				synthIndex: $localStorage.synthIndex,
+				animationIndex: $localStorage.animationIndex,
+				discLength: $localStorage.discLength,
+				volume: $localStorage.volume,
+				tempo: $localStorage.tempo
+			});
 		}
 
 		function importData() {
