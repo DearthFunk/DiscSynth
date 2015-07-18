@@ -17,7 +17,7 @@
 				maxValue: '=maxValue',
 				knobValue: '=knobValue'
 			},
-			template: '<canvas data-ng-dblclick="resetToOriginal()" data-ng-mousedown="startMovingKnob($event)"></canvas>',
+			template: '<canvas data-ng-dblclick="resetToOriginal()" data-ng-mousedown="mouseDownEvent($event)"></canvas>',
 			replace: true,
 			controller: knobController,
 			bindToController: true
@@ -25,10 +25,9 @@
 		return directive;
 	}
 
-	knobController.$inject = ['$scope', '$element'];
+	knobController.$inject = ['$scope', '$element', '$window', 'themeService'];
 
-	function knobController($scope, $element) {
-
+	function knobController($scope, $element, $window, themeService) {
 
 		if (angular.isUndefined($scope.knobValue)) {
 			$scope.knobValue = 0;
@@ -46,7 +45,6 @@
 		var maxValue = angular.isUndefined($scope.maxValue) ? 1 : $scope.maxValue;
 
 		var startY, originalMouseRotation;
-		var rotating = false;
 		var panAngleLimit = 160;
 		var decimalPercision = 1000;
 		var resetValue = Math.round($scope.knobValue * decimalPercision) / decimalPercision;
@@ -63,16 +61,13 @@
 		$scope.eraseAndDrawCanvas = eraseAndDrawCanvas;
 		$scope.knobValueUpdate = knobValueUpdate;
 		$scope.resetToOriginal = resetToOriginal;
-		$scope.startMovingKnob = startMovingKnob;
+		$scope.mouseDownEvent = mouseDownEvent;
 		$scope.mouseUpEvent = mouseUpEvent;
 		$scope.mouseMoveEvent = mouseMoveEvent;
 
 		$scope.eraseAndDrawCanvas();
 
 		$scope.$watch('knobValue', $scope.knobValueUpdate);
-		$scope.$on('mouseUpEvent', $scope.mouseUpEvent);
-		$scope.$on('mouseMoveEvent', mouseMoveEvent);
-
 
 		////////////////////////////////////////////////////////////////
 
@@ -98,7 +93,7 @@
 			ctx.closePath();
 
 			ctx.beginPath();
-			ctx.strokeStyle = '#FFFF00';
+			ctx.strokeStyle = themeService.theme.menuHighlight;
 			ctx.lineWidth = 7;
 			ctx.lineCap = 'butt';
 			ctx.arc($scope.size / 2, $scope.size / 2, $scope.size / 2 - 10, 0, Math.PI * 2 * (rotationValue), false);
@@ -111,58 +106,38 @@
 				return false;
 			}
 			rotationValue = ($scope.knobValue - minValue) / (maxValue - minValue);
-			if ($scope.callBack) {
-				$scope.callBack();
-			}
 			$scope.eraseAndDrawCanvas();
 		}
 
 		function resetToOriginal() {
 			$scope.knobValue = resetValue;
-			if ($scope.callBack) {
-				$scope.callBack();
-			}
 			$scope.eraseAndDrawCanvas();
 		}
 
-		function startMovingKnob(e) {
-			rotating = true;
+		///////////////////////////////////////////////
+
+		function mouseDownEvent(e) {
+			angular.element($window).bind('mouseup', $scope.mouseUpEvent);
+			angular.element($window).bind('mousemove', $scope.mouseMoveEvent);
 			startY = e.clientY;
 			originalMouseRotation = rotationValue * panAngleLimit;
 		}
-
 		function mouseUpEvent() {
-			if (!rotating) {
-				return false;
-			}
-			rotating = false;
-			var newKnob = getKnobValue();
-			if ($scope.knobValue != newKnob) {
-				$scope.knobValue = getKnobValue();
-				if ($scope.callBack) {
-					$scope.callBack();
-				}
+			angular.element($window).unbind('mouseup', $scope.mouseUpEvent);
+			angular.element($window).unbind('mousemove', $scope.mouseMoveEvent);
+			var newKnob = $scope.getKnobValue();
+			if ($scope.knobValue !== newKnob) {
+				$scope.knobValue = $scope.getKnobValue();
 			}
 			$scope.eraseAndDrawCanvas();
 		}
-
-		function mouseMoveEvent(e, args) {
-			if (!rotating) {
-				return false;
-			}
-			var mouseRotation = originalMouseRotation + startY - args.clientY;
-			if (mouseRotation < 0) {
-				mouseRotation = 0;
-			}
-			if (mouseRotation > panAngleLimit) {
-				mouseRotation = panAngleLimit;
-			}
+		function mouseMoveEvent(e) {
+			var mouseRotation = originalMouseRotation + startY - e.clientY;
+			if (mouseRotation < 0) { mouseRotation = 0; }
+			if (mouseRotation > panAngleLimit) { mouseRotation = panAngleLimit;	}
 			rotationValue = (mouseRotation / panAngleLimit);
-			if (lastValue != rotationValue) {
-				$scope.knobValue = getKnobValue();
-				if ($scope.callBack) {
-					$scope.callBack();
-				}
+			if (lastValue !== rotationValue) {
+				$scope.knobValue = $scope.getKnobValue();
 				$scope.eraseAndDrawCanvas();
 				lastValue = mouseRotation;
 			}
