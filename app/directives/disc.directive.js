@@ -15,8 +15,8 @@
 		return directive;
 	}
 
-	discController.$inject = ['$scope', '$element', '$window', 'MENU_SIZE', 'themeService', 'genColors', 'audioService'];
-	function discController($scope, $element, $window, MENU_SIZE, themeService, genColors, audioService) {
+	discController.$inject = ['$scope', '$element', '$window', '$localStorage', 'MENU_SIZE', 'themeService', 'genColors', 'audioService'];
+	function discController($scope, $element, $window, $localStorage, MENU_SIZE, themeService, genColors, audioService) {
 
 		var rad = 0;
 		var ctx = $element[0].getContext('2d');
@@ -29,8 +29,9 @@
 		$scope.mouseDownEvent = mouseDownEvent;
 		$scope.windowResize = windowResize;
 		$scope.draw = draw;
+		$scope.$localStorage = $localStorage;
 
-		$scope.$watch('audioService.storage.discLength', $scope.reCalculateDiscs);
+		$scope.$watch('$localStorage.discLength', $scope.reCalculateDiscs);
 		angular.element($window).bind("resize",$scope.windowResize);
 
 		$scope.windowResize();
@@ -39,7 +40,7 @@
 		////////////////////////////////////////////////////
 
 		function reCalculateDiscs() {
-			angleSize = (1 / audioService.storage.discLength) * Math.PI * 2;
+			angleSize = (1 / $localStorage.discLength) * Math.PI * 2;
 			for (var i = 0; i < audioService.slice.length; i++) {
 				var theDisc = audioService.slice[i];
 				theDisc.a1 = angleSize * i;
@@ -132,7 +133,7 @@
 				var disc1 = audioService.slice[i];
 				var disc2 = audioService.slice[i + 1];
 				for (var layer = 0; layer < disc1.osc.length - 1; layer++) {
-					if (i < audioService.storage.discLength) {
+					if (i < $localStorage.discLength) {
 						ctx.beginPath();
 						ctx.lineWidth = 1;
 						ctx.moveTo(disc1.osc[layer].x, disc1.osc[layer].y);

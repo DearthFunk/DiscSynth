@@ -129,9 +129,8 @@
 		////////////////////////////////
 
 		function setTheme() {
-			console.log(1);
 			service.theme = service.themes[$localStorage.themeIndex];
 		}
-	}
 
+	}
 })();

@@ -28,6 +28,8 @@
 		$scope.TEMPO_CONSTRAINTS = TEMPO_CONSTRAINTS;
 		$scope.LENGTH_CONSTRAINTS = LENGTH_CONSTRAINTS;
 		$scope.changeTheme = changeTheme;
+		$scope.changeAnimaton = changeAnimaton;
+		$scope.$localStorage = $localStorage;
 
 		$scope.editingVol = false;
 		$scope.editingSpd = false;
@@ -42,6 +44,11 @@
 		function changeTheme(index) {
 			$localStorage.themeIndex = index;
 			themeService.setTheme();
+		}
+
+		function changeAnimaton(index) {
+			$localStorage.animationIndex = index;
+			animationService.setAnimation();
 		}
 
 		function resetSynth(index) {

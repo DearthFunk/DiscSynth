@@ -4,9 +4,12 @@
 		.module('animationModule',[])
 		.service('animationService', animationService);
 
-	function animationService() {
+	animationService.$inject = ['$localStorage'];
+
+	function animationService($localStorage) {
 
 		var service = {
+			setAnimation: setAnimation,
 			animations: [
 				{index: 0, functionToRun: false},
 				{index: 1, functionToRun: 'visParticles'},
@@ -16,9 +19,17 @@
 				{index: 5, functionToRun: 'Burst'}
 			]
 		};
-		service.animation = service.animations[0]; //service.animations[localStorageService.storage ? localStorageService.storage.animationIndex : 0];
+
+		console.log($localStorage.animationIndex);
+		service.setAnimation();
 
 		return service;
+
+		/////////////////////////////////
+
+		function setAnimation() {
+			service.animation = service.animations[$localStorage.animationIndex];
+		}
 
 	}
 })();

@@ -4,9 +4,9 @@
 		.module('discSynth')
 		.factory('audioService', audioService);
 
-	audioService.$inject =['SYNTHS', 'TIME_WORKER_POST_MESSAGE', '$window', 'LENGTH_CONSTRAINTS', 'genColors'];
+	audioService.$inject =['SYNTHS', '$localStorage', 'TIME_WORKER_POST_MESSAGE', '$window', 'LENGTH_CONSTRAINTS', 'genColors'];
 
-	function audioService(SYNTHS, TIME_WORKER_POST_MESSAGE, $window, LENGTH_CONSTRAINTS, genColors) {
+	function audioService(SYNTHS, $localStorage, TIME_WORKER_POST_MESSAGE, $window, LENGTH_CONSTRAINTS, genColors) {
 		var audioCtx = typeof AudioContext !== 'undefined' ? new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() : null;
 		var audioBufferSize = 1024;
 		var nextNoteTime = 0;
@@ -20,11 +20,7 @@
 
 		var service = {
 			playing: false,
-			storage: {
-				tempo: 120,
-				synthIndex: 0,
-				discLength: 12
-			},
+			synthIndex: 0,
 			synthTemplates: angular.copy(SYNTHS), //localStorageService.storage ? localStorageService.storage.synthTemplates : angular.copy(SYNTHS),
 			node : {},
 			fx: {},
@@ -142,10 +138,10 @@
 					//actually play something
 					service.playNotes();
 					//setup next note
-					var secondsPerBeat = 60.0 / service.storage.tempo;
+					var secondsPerBeat = 60.0 / $localStorage.tempo;
 					nextNoteTime += 0.25 * secondsPerBeat;
 					service.clickTrack++;
-					if (service.clickTrack >= service.storage.discLength) {
+					if (service.clickTrack >= $localStorage.discLength) {
 						service.clickTrack = 0;
 					}
 				}

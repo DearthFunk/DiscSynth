@@ -25,12 +25,12 @@
 	        <td><div slider data-currently-moving="editingVol" data-slider-value="audioService.node.masterGain.gain.value"></div></td>
         </tr>
         <tr>
-	        <td class="label">{{editingTempo ? audioService.storage.tempo : 'SPD'}}</td>
-	        <td><div slider data-currently-moving="editingTempo" data-fixed-value="0" data-slider-value="audioService.storage.tempo" data-min-value="TEMPO_CONSTRAINTS.MIN" data-max-value="TEMPO_CONSTRAINTS.MAX"></div></td>
+	        <td class="label">{{editingTempo ? $localStorage.tempo : 'SPD'}}</td>
+	        <td><div slider data-currently-moving="editingTempo" data-fixed-value="0" data-slider-value="$localStorage.tempo" data-min-value="TEMPO_CONSTRAINTS.MIN" data-max-value="TEMPO_CONSTRAINTS.MAX"></div></td>
         </tr>
         <tr>
-	        <td class="label">{{editingLen ? audioService.storage.discLength : 'LEN'}}</td>
-	        <td><div slider data-currently-moving="editingLen" data-fixed-value="0" data-slider-value="audioService.storage.discLength" data-min-value="LENGTH_CONSTRAINTS.MIN" data-max-value="LENGTH_CONSTRAINTS.MAX"></div></td>
+	        <td class="label">{{editingLen ? $localStorage.discLength : 'LEN'}}</td>
+	        <td><div slider data-currently-moving="editingLen" data-fixed-value="0" data-slider-value="$localStorage.discLength" data-min-value="LENGTH_CONSTRAINTS.MIN" data-max-value="LENGTH_CONSTRAINTS.MAX"></div></td>
         </tr>
     </table>
 
@@ -47,7 +47,7 @@
     <div class="selector border">
         <span class="title">ANIMATION</span>
         <div class="button"
-             data-ng-click="animationService.animation = item"
+             data-ng-click="changeAnimaton($index)"
              data-ng-repeat="item in animationService.animations track by $index">
             <div class="inner"
                  data-ng-style="{backgroundColor: $index === animationService.animation.index ? themeService.theme.menuHighlight : ''}">

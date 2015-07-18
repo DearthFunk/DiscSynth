@@ -247,9 +247,16 @@
 	discController.$inject = ['$scope', '$localStorage', 'themeService'];
 
 	function discController($scope, $localStorage, themeService) {
-		$scope.$localStorage = $localStorage;
 		$scope.themeService = themeService;
 
+		console.log('SETTING');
+		$localStorage.$default({
+			themeIndex: 4,
+			animationIndex: 2,
+			discLength: 16,
+			volume: 0.5,
+			tempo: 120
+		});
 
 	}
 
