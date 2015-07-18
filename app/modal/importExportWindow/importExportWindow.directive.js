@@ -15,8 +15,8 @@
 		return directive;
 	}
 
-	importExportController.$inject = ['$scope', 'visualizerService', 'themeService'];
-	function importExportController($scope, visualizerService, themeService) {
+	importExportController.$inject = ['$scope', 'animationService', 'themeService'];
+	function importExportController($scope, animationService, themeService) {
 
 		var client = new ZeroClipboard(document.getElementById('copyButton'));
 		$scope.textAreaData = '';
@@ -41,7 +41,7 @@
 				menuService .synthTemplates = angular.copy(parsedData.synthTemplates);
 */
 				themeService.themeIndex = parsedData.themeIndex;
-				visualizerService.visualizerIndex = parsedData.visualizerIndex;
+				animationService.animationInde = parsedData.animationInde;
 			}
 			$scope.importExportVisible = !$scope.importExportVisible;
 		}

@@ -28,12 +28,12 @@
         </div>
     </div>
     <div class="selector border">
-        <span class="title">VISUALISER</span>
+        <span class="title">ANIMATION</span>
         <div class="button"
-             data-ng-click="changeVisualizer(item)"
-             data-ng-repeat="item in visualizerService.animations track by $index">
+             data-ng-click="chnageAnimation(item)"
+             data-ng-repeat="item in animationService.animations track by $index">
             <div class="inner"
-                 data-ng-style="{backgroundColor: $index === visualizerService.animation.index ? themeService.theme.menuHighlight : ''}">
+                 data-ng-style="{backgroundColor: $index === animationService.animation.index ? themeService.theme.menuHighlight : ''}">
             </div>
         </div>
     </div>

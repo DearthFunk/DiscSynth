@@ -246,12 +246,10 @@
 		])
 		.controller('discController', discController);
 
-	discController.$inject = ['$scope', 'THEMES'];
+	discController.$inject = ['$scope', 'themeService'];
 
-	function discController($scope, THEMES) {
-		$scope.THEMES = THEMES;
-		$scope.importExportVisible = false;
-		$scope.helpWindowVisible = false;
+	function discController($scope, themeService) {
+		$scope.themeService = themeService;
 	}
 
 })();

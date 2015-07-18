@@ -86,7 +86,7 @@
 			discSelect = -1;
 		}
 		function mouseMoveEvent(e) {
-			calculateStateData(e);
+			$scope.calculateStateData(e);
 			if (ringSelect > -1 && discSelect > -1) {
 				var newFreq = startFreq + ((mouseDownY - e.clientY) * 2);
 				audioService.slice[discSelect].osc[ringSelect].freq = newFreq < 0 ? 0 : newFreq > audioService.maxFreq ? audioService.maxFreq : newFreq;

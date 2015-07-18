@@ -3,7 +3,7 @@
 
 	angular
 		.module('discSynth')
-		.directive('animation', animation);
+		.directive('animationDirective', animation);
 
 	function animation() {
 		var directive = {
@@ -30,10 +30,11 @@
 
 		$scope.windowResize = windowResize;
 		$scope.clearCanvas = clearCanvas;
-		$window.onresize = windowResize;
+		$scope.animate = animate;
+		angular.element($window).bind('resize', $scope.windowResize);
 
 		$scope.windowResize();
-		animate();
+		$scope.animate();
 
 		/////////////////////////////////////////////
 
@@ -54,8 +55,11 @@
 		function animate() {
 			requestAnimationFrame(animate);
 			if (animationService.animation) {
-				clearCanvas();
-				animationService.animation.draw();
+				$scope.clearCanvas();
+				if (animationService.animation.draw) {
+					animationService.animation.draw();
+				}
+
 			}
 		}
 	}

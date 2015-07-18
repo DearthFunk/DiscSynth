@@ -31,7 +31,7 @@
 	<script type="text/javascript" src="app/services/localStorage.service.js"></script>
 	<script type="text/javascript" src="app/services/audio.service.js"></script>
     <script type="text/javascript" src="app/services/theme.service.js"></script>
-	<!-- VISUALIZERS -->
+	<!-- ANIMATIONS -->
 	<script type="text/javascript" src="app/animation/animation.directive.js"></script>
     <script type="text/javascript" src="app/animation/animation.service.js"></script>
 	<script type="text/javascript" src="app/animation/animations/bubbles.service.js"></script>
@@ -49,21 +49,8 @@
 </head>
 
 <body data-ng-controller="discController" data-ng-style="{backgroundImage:themeService.theme.backgroundImage}">
-    <canvas class="visualizerCanvas fullScreen"></canvas>
-    <canvas disc-directive class="fullScreen"></canvas>
-
-    <div class="menu"></div>
-
-	<div modal
-	     data-show-modal="importExportVisible"
-	     data-ng-show="importExportVisible">
-		<div import-export-window></div>
-	</div>
-    <div modal
-         data-show-modal="helpWindowVisible"
-         data-ng-show="helpWindowVisible">
-	    <div help-window></div>
-    </div>
-
+	<div class="menu"></div>
+    <canvas class="fullScreen" animation-directive></canvas>
+    <canvas class="fullScreen" disc-directive></canvas>
 </body>
 </html>

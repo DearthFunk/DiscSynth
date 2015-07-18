@@ -2,9 +2,9 @@
 	'use strict';
 	angular
 		.module('animationModule',[])
-		.service('visualizerService', visualizerService);
+		.service('animationService', animationService);
 
-	function visualizerService(localStorageService) {
+	function animationService(localStorageService) {
 
 		var service = {
 			animations: [
@@ -16,7 +16,7 @@
 				{index: 5, functionToRun: 'Burst'}
 			]
 		};
-		service.animation = service.animations[localStorageService.storage ? localStorageService.storage.visualizerIndex : 0];
+		service.animation = service.animations[localStorageService.storage ? localStorageService.storage.animationIndex : 0];
 
 		return service;
 

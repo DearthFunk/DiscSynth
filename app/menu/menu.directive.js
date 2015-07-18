@@ -17,13 +17,13 @@
 		return directive;
 	}
 
-	menuController.$inject = ['$scope', '$rootScope', '$timeout', 'themeService', 'visualizerService', 'MENU_SIZE', 'audioService', 'localStorageService', 'SYNTHS', 'TEMPO_CONSTRAINTS', 'LENGTH_CONSTRAINTS'];
+	menuController.$inject = ['$scope', '$rootScope', '$timeout', 'themeService', 'animationService', 'MENU_SIZE', 'audioService', 'localStorageService', 'SYNTHS', 'TEMPO_CONSTRAINTS', 'LENGTH_CONSTRAINTS'];
 
-	function menuController($scope, $rootScope, $timeout, themeService, visualizerService, MENU_SIZE, audioService, localStorageService, SYNTHS, TEMPO_CONSTRAINTS, LENGTH_CONSTRAINTS) {
+	function menuController($scope, $rootScope, $timeout, themeService, animationService, MENU_SIZE, audioService, localStorageService, SYNTHS, TEMPO_CONSTRAINTS, LENGTH_CONSTRAINTS) {
 
 		$scope.themeService = themeService;
 		$scope.audioService = audioService;
-		$scope.visualizerService = visualizerService;
+		$scope.animationService = animationService;
 		$scope.menuSize = MENU_SIZE;
 		$scope.TEMPO_CONSTRAINTS = TEMPO_CONSTRAINTS;
 		$scope.LENGTH_CONSTRAINTS = LENGTH_CONSTRAINTS;
@@ -33,7 +33,7 @@
 		$scope.editingLen = false;
 
 		$scope.importExportWindow = importExportWindow;
-		$scope.changeVisualizer = changeVisualizer;
+		$scope.chnageAnimation = chnageAnimation;
 		$scope.changeTheme = changeTheme;
 		$scope.changeSynth = changeSynth;
 		$scope.resetSynth = resetSynth;
@@ -49,7 +49,7 @@
 		function importExportWindow() {
 			$scope.helpWindowVisible = false;
 			$scope.importExportVisible = !$scope.importExportVisible;
-			var data = JSON.stringify(localStorageService.getStorageObject(themeService, visualizerService));
+			var data = JSON.stringify(localStorageService.getStorageObject(themeService, animationService));
 			$rootScope.$broadcast('importExport', data);
 		}
 
@@ -59,12 +59,10 @@
 		}
 		function changeSynth(item) {
 			audioService.synthTemplate = item;
-			$rootScope.$broadcast('visualizerChangeEvent');
 		}
-		function changeVisualizer(item) {
-			visualizerService.animation = item;
-			$rootScope.$broadcast('visualizerChangeEvent');
-		}		
+		function chnageAnimation(item) {
+			animationService.animation = item;
+		}
 
 		function resetSynth(index) {
 			audioService.synthTemplates[index] = angular.copy(SYNTHS[index]);

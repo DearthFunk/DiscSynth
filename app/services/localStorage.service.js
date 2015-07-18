@@ -38,13 +38,13 @@
 			}
 		}
 
-		function setLocalStorage(themeService,visualizerService, audioService) {
-			var discSynthLocalStorage = service.getStorageObject(themeService, visualizerService, audioService);
+		function setLocalStorage(themeService,animationService, audioService) {
+			var discSynthLocalStorage = service.getStorageObject(themeService, animationService, audioService);
 			//localStorage.setItem(LOCAL_STORAGE_OBJECT_NAME, JSON.stringify(discSynthLocalStorage));
 		//	$localStorage.testValue = discService.testValue;
 		}
 
-		function getStorageObject(themeService, visualizerService, audioService) {
+		function getStorageObject(themeService, animationService, audioService) {
 			return {
 				active: true,
 				volume: audioService.node.masterGain.gain.value,
@@ -52,7 +52,7 @@
 				discLength: audioService.storage.discLength,
 				synthIndex: audioService.synthTemplate.index,
 				themeIndex: themeService.theme.index,
-				visualizerIndex: visualizerService.animation.index
+				animationIndex: animationService.animation.index
 				//synthTemplates: audioService.synthTemplates
 			};
 		}
