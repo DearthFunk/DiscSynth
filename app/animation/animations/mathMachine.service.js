@@ -11,13 +11,14 @@
 		var service = {
 			draw: draw
 		};
+		var maxLines = 100;
 		return service;
 
 		///////////////////////////////
 
 		function draw(ctx, state) {
 			for (var i = 0; i < state.discLength; i++) {
-				var angleSize = (1 / totalLines) * Math.PI * 2;
+				var angleSize = (1 / maxLines) * Math.PI * 2;
 				var db = state.average();
 				var a1 = angleSize * i;
 				var a2 = angleSize * (i + 1);

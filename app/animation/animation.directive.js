@@ -16,8 +16,8 @@
 		return directive;
 	}
 
-	animationController.$inject = ['$scope', '$element', '$window', 'animationService'];
-	function animationController($scope, $element, $window, animationService) {
+	animationController.$inject = ['$scope', '$element', '$window', 'animationService', 'audioService'];
+	function animationController($scope, $element, $window, animationService, audioService) {
 
 		var cnv = $element[0];
 		var ctx = cnv.getContext('2d');
@@ -56,8 +56,9 @@
 			requestAnimationFrame(animate);
 			if (animationService.animation) {
 				$scope.clearCanvas();
-				if (animationService.animation.draw) {
-					animationService.animation.draw();
+				if (animationService.animation.service) {
+					console.log(state);
+					animationService.animation.service.draw(ctx, state, audioService.getAverageDB());
 				}
 
 			}

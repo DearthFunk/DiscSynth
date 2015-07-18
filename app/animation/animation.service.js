@@ -4,23 +4,22 @@
 		.module('animationModule',[])
 		.service('animationService', animationService);
 
-	animationService.$inject = ['$localStorage'];
+	animationService.$inject = ['$localStorage', 'bubbles', 'burst', 'mathMachine', 'particles', 'scoper', 'tunnel'];
 
-	function animationService($localStorage) {
+	function animationService($localStorage, bubbles, burst, mathMachine, particles, scoper, tunnel) {
 
 		var service = {
 			setAnimation: setAnimation,
 			animations: [
-				{index: 0, functionToRun: false},
-				{index: 1, functionToRun: 'visParticles'},
-				{index: 2, functionToRun: 'visScope'},
-				{index: 3, functionToRun: 'visTunnel'},
-				{index: 4, functionToRun: 'MathMachine'},
-				{index: 5, functionToRun: 'Burst'}
+				{index: 0, service: false},
+				{index: 1, service: bubbles},
+				{index: 2, service: burst},
+				{index: 3, service: mathMachine},
+				{index: 4, service: particles},
+				{index: 5, service: scoper}
 			]
 		};
 
-		console.log($localStorage.animationIndex);
 		service.setAnimation();
 
 		return service;

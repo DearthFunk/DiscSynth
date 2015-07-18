@@ -12,7 +12,8 @@
 		var maxParticles = 40;
 
 		var service = {
-			draw: draw
+			draw: draw,
+			newBurst: newBurst
 		};
 		return service;
 
@@ -32,12 +33,11 @@
 			}
 		}
 
-		function draw(ctx, state) {
-			var db = state.averageDB;
-			db = db < 10 ? 0 : db;
+		function draw(ctx, state, averageDb) {
+			averageDb = averageDb < 10 ? 0 : averageDb;
 			for (var i = 0; i < maxParticles; i++) {
 				if (angular.isUndefined(particles[i])) {
-					particles.push(newBurst(state));
+					particles.push(service.newBurst(state));
 				}
 				var p = particles[i];
 				if (p.rad > 0) {
@@ -49,7 +49,7 @@
 
 					var gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.rad);
 					gradient.addColorStop(0, 'rgba(255,255,255,0.7)');
-					gradient.addColorStop(0.5, genColors.covert.rgba(p.color, p.o));
+					gradient.addColorStop(0.5, genColors.convert.rgba(p.color, p.o));
 					gradient.addColorStop(1, genColors.convert.rgba(p.color, 0));
 					ctx.fillStyle = gradient;
 
@@ -61,13 +61,13 @@
 					}
 					ctx.fill();
 
-					p.rad -= (db > 120 ? 6 : 3) - (db / 100);
+					p.rad -= (averageDb > 120 ? 6 : 3) - (averageDb / 100);
 					p.x += (p.xD * p.speed);
 					p.y += (p.yD * p.speed);
 				}
 
-				if (p.rad < 0 && db > 0) {
-					particles[i] = newBurst(state);
+				if (p.rad < 0 && averageDb > 0) {
+					particles[i] = service.newBurst(state);
 				}
 			}
 		}

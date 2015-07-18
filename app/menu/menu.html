@@ -56,7 +56,8 @@
     </div>
     <div class="selector border">
         <span class="title">SYNTH TEMPLATE</span>
-        <div class="button" data-ng-click="audioService.synthTemplate = item"
+        <div class="button"
+             data-ng-click="changeSynth($index)"
              data-ng-right-click="resetSynth($index)"
              data-ng-repeat="item in audioService.synthTemplates track by $index">
             <div class="inner"

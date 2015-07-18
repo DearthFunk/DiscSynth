@@ -18,20 +18,19 @@
 
 		///////////////////////////////////////
 
-		function draw(ctx, state) {
+		function draw(ctx, state, averageDb) {
 			var nextIndex = false;
-			var db = state.averageDb;
 			ctx.lineWidth = 1;
-			ctx.strokeStyle = genColors.convert.rgba('#FFFFFF', db > 10 ? db / 200 : 0);
+			ctx.strokeStyle = genColors.convert.rgba('#FFFFFF', averageDb > 10 ? averageDb / 200 : 0);
 			for (var index = 0; index < maxLines + 1; index++) {
-				if (angular.isUndefined(lines[index]) && db > 0) {
+				if (angular.isUndefined(lines[index]) && averageDb > 0) {
 					nextIndex = true;
 					if (lines[index - 1] > 8 && lines.length < 300) {
 						lines.push(1);
 					}
 				}
 				else {
-					lines[index] += 1 + (db / 5);
+					lines[index] += 1 + (averageDb / 5);
 					ctx.beginPath();
 					ctx.arc(
 						state.xCenter,

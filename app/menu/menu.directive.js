@@ -27,9 +27,11 @@
 		$scope.menuSize = MENU_SIZE;
 		$scope.TEMPO_CONSTRAINTS = TEMPO_CONSTRAINTS;
 		$scope.LENGTH_CONSTRAINTS = LENGTH_CONSTRAINTS;
-		$scope.changeTheme = changeTheme;
-		$scope.changeAnimaton = changeAnimaton;
 		$scope.$localStorage = $localStorage;
+
+		$scope.changeTheme = changeTheme;
+		$scope.changeSynth = changeSynth;
+		$scope.changeAnimaton = changeAnimaton;
 
 		$scope.editingVol = false;
 		$scope.editingSpd = false;
@@ -49,6 +51,11 @@
 		function changeAnimaton(index) {
 			$localStorage.animationIndex = index;
 			animationService.setAnimation();
+		}
+
+		function changeSynth(index) {
+			$localStorage.synthIndex = index;
+			audioService.setSynthTemplate();
 		}
 
 		function resetSynth(index) {

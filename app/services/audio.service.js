@@ -20,7 +20,6 @@
 
 		var service = {
 			playing: false,
-			synthIndex: 0,
 			synthTemplates: angular.copy(SYNTHS), //localStorageService.storage ? localStorageService.storage.synthTemplates : angular.copy(SYNTHS),
 			node : {},
 			fx: {},
@@ -32,17 +31,22 @@
 			playNotes: playNotes,
 			getFreqArray: getFreqArray,
 			getTimeArray: getTimeArray,
-			getAverageDB: getAverageDB
+			getAverageDB: getAverageDB,
+			setSynthTemplate: setSynthTemplate
 		};
-		service.synthTemplate = 0; //localStorageService.synthIndex;
 
 		angular.element($window).bind('keydown', keyDownEvent);
 
 		setupAudioNodesAndDiscSlices();
+		service.setSynthTemplate();
 
 		return service;
 
 		/////////////////////////////////////
+
+		function setSynthTemplate() {
+			service.synthTemplate = service.synthTemplates[$localStorage.synthIndex];
+		}
 
 		function randomize() {
 			for (var discIndex = 0; discIndex < service.slice.length - 1; discIndex++) {

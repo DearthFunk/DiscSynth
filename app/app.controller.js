@@ -252,6 +252,7 @@
 		console.log('SETTING');
 		$localStorage.$default({
 			themeIndex: 4,
+			synthIndex: 0,
 			animationIndex: 2,
 			discLength: 16,
 			volume: 0.5,

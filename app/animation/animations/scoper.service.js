@@ -16,9 +16,8 @@
 
 		///////////////////////////////
 
-		function draw(ctx, state) {
-			var db = state.averageDb;
-			if (db > 10) {
+		function draw(ctx, state, averageDb) {
+			if (averageDb > 10) {
 				var timeArray = state.timeArray;
 				var barWidth = state.w / timeArray.length;
 				ctx.beginPath();

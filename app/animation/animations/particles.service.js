@@ -12,7 +12,8 @@
 		var maxParticles = 1000;
 
 		var service = {
-			draw: draw
+			draw: draw,
+			newParticle: newParticle
 		};
 
 		return service;
@@ -32,11 +33,11 @@
 			}
 		}
 
-		function draw(ctx, state) {
-			var db = state.averageDb / 10;
+		function draw(ctx, state, averageDb) {
+			var db = averageDb / 10;
 			for (var i = 0; i < maxParticles; i++) {
 				if (angular.isUndefined(particles[i])) {
-					particles.push(newParticle(state));
+					particles.push(service.newParticle(state));
 				}
 				var particle = particles[i];
 				particle.position.x += particle.xMod;
@@ -49,7 +50,7 @@
 					if (particle.position.x < 0 || particle.position.x > w ||
 						particle.position.y < 0 || particle.position.y > h ||
 						particle.size < 0) {
-						particles[i] = newParticle(state);
+						particles[i] = service.newParticle(state);
 					}
 				}
 				particle.size -= 0.3;
