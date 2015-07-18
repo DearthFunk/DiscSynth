@@ -244,10 +244,13 @@
 		])
 		.controller('discController', discController);
 
-	discController.$inject = ['$scope', 'themeService'];
+	discController.$inject = ['$scope', '$localStorage', 'themeService'];
 
-	function discController($scope, themeService) {
+	function discController($scope, $localStorage, themeService) {
+		$scope.$localStorage = $localStorage;
 		$scope.themeService = themeService;
+
+
 	}
 
 })();

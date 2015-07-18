@@ -37,7 +37,7 @@
     <div class="selector border">
         <span class="title">THEME</span>
         <div class="button"
-             data-ng-click="themeService.theme = item"
+             data-ng-click="changeTheme($index)"
              data-ng-repeat="item in themeService.themes track by $index">
             <div class="inner"
                  data-ng-style="{backgroundColor: $index === themeService.theme.index ? themeService.theme.menuHighlight : ''}">

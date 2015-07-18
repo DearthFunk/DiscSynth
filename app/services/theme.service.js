@@ -5,10 +5,11 @@
 		.module('discSynth')
 		.factory('themeService', themeService);
 
-	themeService.$inject = ['localStorageService'];
-	function themeService(localStorageService) {
+	themeService.$inject = ['$localStorage'];
+	function themeService($localStorage) {
 
 		var service = {
+			setTheme: setTheme,
 			themes: [
 				{
 					index: 0,
@@ -120,10 +121,17 @@
 				}
 			]
 		};
-		service.theme = service.themes[localStorageService.storage ? localStorageService.storage.themeIndex : 0];
+
+		service.setTheme();
 
 		return service;
 
+		////////////////////////////////
+
+		function setTheme() {
+			console.log(1);
+			service.theme = service.themes[$localStorage.themeIndex];
+		}
 	}
 
 })();

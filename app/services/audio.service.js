@@ -4,9 +4,9 @@
 		.module('discSynth')
 		.factory('audioService', audioService);
 
-	audioService.$inject =['$localStorage', 'SYNTHS', 'TIME_WORKER_POST_MESSAGE', '$window', 'LENGTH_CONSTRAINTS', 'genColors'];
+	audioService.$inject =['SYNTHS', 'TIME_WORKER_POST_MESSAGE', '$window', 'LENGTH_CONSTRAINTS', 'genColors'];
 
-	function audioService($localStorage, SYNTHS, TIME_WORKER_POST_MESSAGE, $window, LENGTH_CONSTRAINTS, genColors) {
+	function audioService(SYNTHS, TIME_WORKER_POST_MESSAGE, $window, LENGTH_CONSTRAINTS, genColors) {
 		var audioCtx = typeof AudioContext !== 'undefined' ? new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() : null;
 		var audioBufferSize = 1024;
 		var nextNoteTime = 0;
@@ -16,44 +16,33 @@
 		timerWorker.onmessage = scheduler;
 		timerWorker.postMessage({'interval':25}); //25 is the interval run value
 
-		$localStorage.$default({
-			tempo: 120,
-			synthIndex: 0,
-			discLength: 12
-		});
-
+		/*$localStorage.$default();*/
 
 		var service = {
 			playing: false,
-			storage: $localStorage,
+			storage: {
+				tempo: 120,
+				synthIndex: 0,
+				discLength: 12
+			},
 			synthTemplates: angular.copy(SYNTHS), //localStorageService.storage ? localStorageService.storage.synthTemplates : angular.copy(SYNTHS),
 			node : {},
 			fx: {},
 			clickTrack: 0,
-			startStopPlayback: startStopPlayback,
-			playNotes: playNotes,
 			slice: [],
 			maxFreq: 1500,
-			randomize: randomize
+			randomize: randomize,
+			startStop: startStop,
+			playNotes: playNotes,
+			getFreqArray: getFreqArray,
+			getTimeArray: getTimeArray,
+			getAverageDB: getAverageDB
 		};
-		service.synthTemplate = service.synthTemplates[0];//localStorageService.storage ? localStorageService.storage.synthIndex : 0];
-		for (var i = 0; i <= LENGTH_CONSTRAINTS.MAX; i++) {
-			service.slice.push({
-				a1: 0,
-				a2: 0,
-				c: '',
-				osc: [
-					{x: 0, y: 0, rad: 0, active: false, freq: 200},
-					{x: 0, y: 0, rad: 0, active: false, freq: 600},
-					{x: 0, y: 0, rad: 0, active: false, freq: 1400},
-					{x: 0, y: 0, rad: 0, active: false, freq: -1}
-				]
-			});
-		}
+		service.synthTemplate = 0; //localStorageService.synthIndex;
 
 		angular.element($window).bind('keydown', keyDownEvent);
 
-		initAudioNodes();
+		setupAudioNodesAndDiscSlices();
 
 		return service;
 
@@ -120,7 +109,7 @@
 				case 67 : service.fx.delay.bypass = !service.fx.delay.bypass;			break;
 			}
 		}
-		function startStopPlayback() {
+		function startStop() {
 			service.playing = !service.playing;
 			if (service.playing) {
 				service.node.masterGain.connect(service.node.analyser);
@@ -135,7 +124,12 @@
 		}
 
 		function playNotes() {
-
+			var osc1 = service.slice[service.clickTrack].osc[0];
+			var osc2 = service.slice[service.clickTrack].osc[1];
+			var osc3 = service.slice[service.clickTrack].osc[2];
+			service.node.osc1.frequency.value = !service.playing ? 0 : osc1.active ? osc1.freq : 0;
+			service.node.osc2.frequency.value = !service.playing ? 0 : osc2.active ? osc2.freq : 0;
+			service.node.osc3.frequency.value = !service.playing ? 0 : osc3.active ? osc3.freq : 0;
 		}
 
 		function scheduler(e) {
@@ -158,13 +152,27 @@
 			}
 		}
 
-		function initAudioNodes() {
+		function setupAudioNodesAndDiscSlices() {
+
+			for (var i = 0; i <= LENGTH_CONSTRAINTS.MAX; i++) {
+				service.slice.push({
+					a1: 0,
+					a2: 0,
+					c: '',
+					osc: [
+						{x: 0, y: 0, rad: 0, active: false, freq: 200},
+						{x: 0, y: 0, rad: 0, active: false, freq: 600},
+						{x: 0, y: 0, rad: 0, active: false, freq: 1400},
+						{x: 0, y: 0, rad: 0, active: false, freq: -1}
+					]
+				});
+			}
 
 			service.node.osc1 = audioCtx.createOscillator();
 			service.node.osc2 = audioCtx.createOscillator();
 			service.node.osc3 = audioCtx.createOscillator();
 			service.node.masterGain = audioCtx.createGain();
-		//	service.node.masterGain.gain.value = localStorageService.storage ? localStorageService.storage.volume : 0.5;
+			service.node.masterGain.gain.value = 0.5; //localStorageService.storage ? localStorageService.storage.volume : 0.5;
 			service.node.javascript = audioCtx.createScriptProcessor(audioBufferSize, 0, 1);
 			service.node.analyser = audioCtx.createAnalyser();
 

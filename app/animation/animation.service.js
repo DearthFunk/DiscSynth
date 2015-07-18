@@ -4,7 +4,7 @@
 		.module('animationModule',[])
 		.service('animationService', animationService);
 
-	function animationService(localStorageService) {
+	function animationService() {
 
 		var service = {
 			animations: [
@@ -16,7 +16,7 @@
 				{index: 5, functionToRun: 'Burst'}
 			]
 		};
-		service.animation = service.animations[localStorageService.storage ? localStorageService.storage.animationIndex : 0];
+		service.animation = service.animations[0]; //service.animations[localStorageService.storage ? localStorageService.storage.animationIndex : 0];
 
 		return service;
 
