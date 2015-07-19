@@ -14,17 +14,17 @@
                  data-selected="node.osc3.type"></div>
         </div>
         <div class="right">
-            <div knob data-label="'D'" data-min-value="-2000" data-max-value="2000" data-size="40" data-knob-value="node.osc1.detune.value"></div>
-            <div knob data-label="'D'" data-min-value="-2000" data-max-value="2000" data-size="40" data-knob-value="node.osc2.detune.value"></div>
-            <div knob data-label="'D'" data-min-value="-2000" data-max-value="2000" data-size="40" data-knob-value="node.osc3.detune.value"></div>
+            <div knob data-label="'D'" data-size="40" data-min-value="-2000" data-max-value="2000" data-knob-value="node.osc1.detune.value"></div>
+            <div knob data-label="'D'" data-size="40" data-min-value="-2000" data-max-value="2000" data-knob-value="node.osc2.detune.value"></div>
+            <div knob data-label="'D'" data-size="40" data-min-value="-2000" data-max-value="2000" data-knob-value="node.osc3.detune.value"></div>
         </div>
     </div>
 
 	<div class="section" data-ng-style="{backgroundColor: !fx.moogfilter.bypass ? themeService.theme.menuSectionalBackground : ''}">
 		<span class="title" data-ng-click="fx.moogfilter.bypass = !fx.moogfilter.bypass">Moog Filter</span>
-		<div knob data-label="'Buf'" data-min-value="256" data-max-value="16384" data-size="55" data-knob-value="fx.moogfilter.bufferSize"></div>
-		<div knob data-label="'Cut'" data-min-value="0.0001" data-max-value="1" data-size="55" data-knob-value="fx.moogfilter.cutoff"></div>
-		<div knob data-label="'Res'" data-min-value="0" data-max-value="4" data-size="55" data-knob-value="fx.moogfilter.resonance"></div>
+		<div knob data-label="'Buf'" data-size="55" data-min-value="256" data-max-value="16384" data-knob-value="fx.moogfilter.bufferSize"></div>
+		<div knob data-label="'Cut'" data-size="55" data-min-value="0.0001" data-max-value="1" data-knob-value="fx.moogfilter.cutoff"></div>
+		<div knob data-label="'Res'" data-size="55" data-min-value="0" data-max-value="4" data-knob-value="fx.moogfilter.resonance"></div>
 	</div>
 	<div class="section" data-ng-style="{backgroundColor: !fx.overdrive.bypass ? themeService.theme.menuSectionalBackground : ''}">
 		<span class="title" data-ng-click="fx.overdrive.bypass = !fx.overdrive.bypass">Overdrive</span>
@@ -34,9 +34,9 @@
 	</div>
 	<div class="section" data-ng-style="{backgroundColor: !fx.bitcrusher.bypass ? themeService.theme.menuSectionalBackground : ''}">
 		<span class="title" data-ng-click="fx.bitcrusher.bypass = !fx.bitcrusher.bypass">Bit Crusher</span>
-		<div knob data-label="'Bit'" data-min-value="1" data-max-value="16" data-size="55" data-knob-value="fx.bitcrusher.bits"></div>
-		<div knob data-label="'Siz'" data-min-value="256" data-max-value="16384" data-size="55" data-knob-value="fx.bitcrusher.bufferSize"></div>
-		<div knob data-label="'Frq'" data-min-value="0.0001" data-max-value="1" data-size="55" data-knob-value="fx.bitcrusher.normFreq"></div>
+		<div knob data-label="'Bit'" data-size="55" data-min-value="1" data-max-value="16" data-knob-value="fx.bitcrusher.bits"></div>
+		<div knob data-label="'Siz'" data-size="55" data-min-value="256" data-max-value="16384" data-knob-value="fx.bitcrusher.bufferSize"></div>
+		<div knob data-label="'Frq'" data-size="55" data-min-value="0.0001" data-max-value="1" data-knob-value="fx.bitcrusher.normFreq"></div>
 	</div>
 	<div class="section" data-ng-style="{backgroundColor: !fx.tremolo.bypass ? themeService.theme.menuSectionalBackground : ''}">
 		<span class="title" data-ng-click="fx.tremolo.bypass = !fx.tremolo.bypass">Tremolo</span>
@@ -46,18 +46,18 @@
 	</div>
 	<div class="section" data-ng-style="{backgroundColor: !fx.convolver.bypass ? themeService.theme.menuSectionalBackground : ''}">
 		<span class="title" data-ng-click="fx.convolver .bypass = !fx.convolver .bypass">Convolver</span>
-		<div knob data-label="'Hi'" data-min-value="20" data-max-value="22050" data-size="59" data-knob-value="fx.convolver.highCut.value"></div>
-		<div knob data-label="'Lo'" data-min-value="20" data-max-value="22050" data-size="59" data-knob-value="fx.convolver.lowCut.value"></div>
-		<div knob data-label="'Dry'" data-min-value="0" data-max-value="5" data-size="59" data-knob-value="fx.convolver.dryLevel.value"></div>
-		<div knob data-label="'Wet'" data-min-value="0" data-max-value="5" data-size="59" data-knob-value="fx.convolver.wetLevel.value"></div>
+		<div knob data-label="'Hi'"  data-size="59" data-min-value="20" data-max-value="22050" data-knob-value="fx.convolver.highCut.value"></div>
+		<div knob data-label="'Lo'"  data-size="59" data-min-value="20" data-max-value="22050" data-knob-value="fx.convolver.lowCut.value"></div>
+		<div knob data-label="'Dry'" data-size="59" data-min-value="0" data-max-value="5" data-knob-value="fx.convolver.dryLevel.value"></div>
+		<div knob data-label="'Wet'" data-size="59" data-min-value="0" data-max-value="5" data-knob-value="fx.convolver.wetLevel.value"></div>
 	</div>
 	<div class="section" data-ng-style="{backgroundColor: !fx.delay.bypass ? themeService.theme.menuSectionalBackground : ''}">
 		<span class="title" data-ng-click="fx.delay.bypass = !fx.delay.bypass">Delay</span>
 		<div knob data-label="'Wet'" data-size="55" data-knob-value="fx.delay.wetLevel.value"></div>
 		<div knob data-label="'Dry'" data-size="55" data-knob-value="fx.delay.dryLevel.value"></div>
 		<div knob data-label="'Fbk'" data-size="55" data-knob-value="fx.delay.feedback.value"></div>
-		<div knob data-label="'Dly'" data-min-value="0" data-max-value="300" data-size="55" data-knob-value="fx.delay.delayTime.value"></div>
-		<div knob data-label="'Cut'" data-min-value="20" data-max-value="22050" data-size="55" data-knob-value="fx.delay.cutoff.value"></div>
+		<div knob data-label="'Dly'" data-size="55" data-min-value="0" data-max-value="300"  data-knob-value="fx.delay.delayTime.value"></div>
+		<div knob data-label="'Cut'" data-size="55" data-min-value="20" data-max-value="22050" data-knob-value="fx.delay.cutoff.value"></div>
 	</div>
 
 </div>
