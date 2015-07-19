@@ -161,6 +161,41 @@
 
 		function setSynthTemplate() {
 			service.synthTemplate = service.synthTemplates[$localStorage.synthIndex];
+			service.node.osc1.type = service.synthTemplate.osc1.type;
+			service.node.osc2.type = service.synthTemplate.osc2.type;
+			service.node.osc3.type = service.synthTemplate.osc3.type;
+			service.node.osc1.detune.value = service.synthTemplate.osc1.detune;
+			service.node.osc2.detune.value = service.synthTemplate.osc2.detune;
+			service.node.osc3.detune.value = service.synthTemplate.osc3.detune;
+			service.fx.bitcrusher.bypass = service.synthTemplate.bitcrusher.bypass;
+			service.fx.bitcrusher.bits = service.synthTemplate.bitcrusher.bits;
+			service.fx.bitcrusher.bufferSize = service.synthTemplate.bitcrusher.bufferSize;
+			service.fx.bitcrusher.normFreq = service.synthTemplate.bitcrusher.normFreq;
+			service.fx.delay.bypass = service.synthTemplate.delay.bypass;
+			service.fx.delay.wetLevel.value = service.synthTemplate.delay.wetLevel;
+			service.fx.delay.dryLevel.value = service.synthTemplate.delay.dryLevel;
+			service.fx.delay.feedback.value = service.synthTemplate.delay.feedback;
+			service.fx.delay.delayTime.value = service.synthTemplate.delay.delayTime;
+			service.fx.delay.cutoff.value = service.synthTemplate.delay.cutoff;
+			service.fx.overdrive.bypass = service.synthTemplate.overdrive.bypass;
+			service.fx.overdrive.curveAmount = service.synthTemplate.overdrive.curveAmount;
+			service.fx.overdrive.drive.value = service.synthTemplate.overdrive.drive;
+			service.fx.overdrive.outputGain.value = service.synthTemplate.overdrive.outputGain;
+			service.fx.moogfilter.bypass = service.synthTemplate.moogfilter.bypass;
+			service.fx.moogfilter.bufferSize = service.synthTemplate.moogfilter.bufferSize;
+			service.fx.moogfilter.cutoff = service.synthTemplate.moogfilter.cutoff;
+			service.fx.moogfilter.resonance = service.synthTemplate.moogfilter.resonance;
+
+			service.fx.tremolo.bypass = service.synthTemplate.tremolo.bypass;
+			service.fx.tremolo.intensity = service.synthTemplate.tremolo.intensity;
+			service.fx.tremolo.rate = service.synthTemplate.tremolo.rate;
+			service.fx.tremolo.stereoPhase = service.synthTemplate.tremolo.stereoPhase;
+
+			service.fx.convolver.bypass = service.synthTemplate.convolver.bypass;
+			service.fx.convolver.highCut.value = service.synthTemplate.convolver.highCut;
+			service.fx.convolver.lowCut.value = service.synthTemplate.convolver.lowCut;
+			service.fx.convolver.dryLevel.value = service.synthTemplate.convolver.dryLevel;
+			service.fx.convolver.wetLevel.value = service.synthTemplate.convolver.wetLevel;
 		}
 
 		function randomize() {
@@ -303,7 +338,7 @@
 		 },
 		 delay: {
 		 bypass: disc.fx.delay.bypass,
-		 wetLevel: disc.fx.delay.wetLevel.value,
+		 wetLevel: service.fx.delay.wetLevel.value,
 		 dryLevel: disc.fx.delay.dryLevel.value,
 		 feedback: disc.fx.delay.feedback.value,
 		 delayTime: disc.fx.delay.delayTime.value,

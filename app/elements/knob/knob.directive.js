@@ -53,10 +53,12 @@
 		$scope.mouseUpEvent = mouseUpEvent;
 		$scope.mouseMoveEvent = mouseMoveEvent;
 		$scope.setKnobValue = setKnobValue;
+		$scope.externalUpdateKnobValue = externalUpdateKnobValue;
 
 		$scope.setKnobValue(true);
 
 		$scope.$on('themeChangeEvent', $scope.eraseAndDrawCanvas);
+		$scope.$watch('knobValue', $scope.externalUpdateKnobValue);
 
 		////////////////////////////////////////////////////////////////
 
@@ -95,6 +97,11 @@
 			else {
 				$scope.knobValue = Math.round((range * rotationValue + min) * decimalPercision) / decimalPercision;
 			}
+			$scope.eraseAndDrawCanvas();
+		}
+
+		function externalUpdateKnobValue() {
+			rotationValue = ($scope.knobValue - min) / range;
 			$scope.eraseAndDrawCanvas();
 		}
 
