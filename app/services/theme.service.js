@@ -111,6 +111,7 @@
 		};
 
 		service.setTheme();
+		console.log(service.theme);
 
 		return service;
 
