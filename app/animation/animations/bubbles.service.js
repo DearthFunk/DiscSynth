@@ -9,7 +9,7 @@
 	function bubblesFactory(genColors) {
 
 		var balls = [];
-		var totalBalls = 100;
+		var totalBalls = 1000;
 
 		var service = {
 			draw: draw,
@@ -39,8 +39,8 @@
 				var ball = balls[i];
 				ball.y -= (ball.yX * (1 + (averageDb / 100)));
 				ball.r -= (ball.rX * (1 + (averageDb / 30)));
-				if (ball.y + ball.r < -15 || ball.r < 0) {
-					balls[i] = service.newBall(state);
+				if (ball.r < 0 || averageDb < 10) {
+					balls.splice(i,1); //[i] = service.newBall(state);
 				}
 				else {
 					ctx.beginPath();

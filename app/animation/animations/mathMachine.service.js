@@ -11,21 +11,20 @@
 		var service = {
 			draw: draw
 		};
-		var maxLines = 100;
 		return service;
 
 		///////////////////////////////
 
 		function draw(ctx, state, averageDb, discLength, click) {
+			var angleSize = (1 / discLength) * Math.PI * 2;
 			for (var i = 0; i < discLength; i++) {
-				var angleSize = (1 / maxLines) * Math.PI * 2;
 				var a1 = angleSize * i;
 				var a2 = angleSize * (i + 1);
 				var playAngle = click == i;
 				var numConnectors = playAngle ? 25 : 10;
 				for (var connector = 0; connector < numConnectors; connector++) {
 					var angleAdjust = connector / numConnectors;
-					var rad = averageDb * 3 * ( playAngle ? 1.8 : 1);
+					var rad = averageDb * 3 * ( playAngle ? 2.4 : 2);
 					var x1 = state.xCenter + (rad * angleAdjust) * Math.cos(a1);
 					var y1 = state.yCenter + (rad * angleAdjust) * Math.sin(a1);
 					var x2 = state.xCenter + (rad * (1 - angleAdjust)) * Math.cos(a2);

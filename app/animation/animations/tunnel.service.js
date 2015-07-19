@@ -7,8 +7,7 @@
 	tunnelFactory.$inject = ['genColors'];
 
 	function tunnelFactory(genColors) {
-		var rads = [];
-		var maxLines = 900;
+		var rads = [0];
 
 		var service = {
 			draw: draw
@@ -19,31 +18,34 @@
 		///////////////////////////////////////
 
 		function draw(ctx, state, averageDb) {
+			var nextIndex = false;
 			ctx.lineWidth = 1;
-			ctx.strokeStyle = genColors.convert.rgba('#FFFFFF', averageDb > 10 ? averageDb / 200 : 0);
-			for (var i = 0; i < maxLines + 1; i++) {
+			ctx.strokeStyle = genColors.convert.rgba("#FFFFFF", averageDb > 10 ? averageDb / 200 : 0);
 
-				if (angular.isUndefined(rads[i]) && averageDb > 0) {
-					rads.push(1 + i);
-				}
-
-				if (rads[i]) {
-					rads[i] += 1 + (averageDb / 5);
+			for (var index = 0; index < rads.length + 1; index++) {
+				if (angular.isDefined(rads[index])) {
+					rads[index] += 1 + (averageDb / 5);
 					ctx.beginPath();
 					ctx.arc(
 						state.xCenter,
 						state.yCenter,
-						rads[i],
+						rads[index],
 						0,
 						2 * Math.PI,
 						true
-					);
+						);
 					ctx.stroke();
 				}
+				else if (!nextIndex && rads.length) {
+					nextIndex = true;
+					if (rads[index - 1] > 8 && rads.length < 300) {
+						rads.push(1);
+					}
+				}
 			}
-			for (i = 0; i < rads.length; i++) {
-				if (rads[i] > state.xCenter + 60) {
-					rads.splice(i, 1);
+			for (index = 0; index < rads.length; index++) {
+				if (rads[index] > state.xCenter + 60) {
+					rads.splice(index, 1);
 				}
 			}
 		}
