@@ -52,10 +52,10 @@
 				$localStorage.volume = parsedData.volume;
 				$localStorage.tempo = parsedData.tempo;
 				audioService.synthTemplates = parsedData.synthTemplates;
+
 				audioService.setSynthTemplate();
 				animationService.setAnimation();
 				themeService.setTheme();
-				$scope.$broadcast('redrawSliders');
 			}
 		}
 	}

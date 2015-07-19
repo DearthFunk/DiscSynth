@@ -12,6 +12,7 @@
 			scope: {
 				size: '=size',
 				label: '=?label',
+				color: '=color',
 				minValue: '=?minValue',
 				maxValue: '=?maxValue',
 				knobValue: '=knobValue'
@@ -24,9 +25,9 @@
 		return directive;
 	}
 
-	knobController.$inject = ['$scope', '$element', '$window', 'themeService'];
+	knobController.$inject = ['$scope', '$element', '$window'];
 
-	function knobController($scope, $element, $window, themeService) {
+	function knobController($scope, $element, $window) {
 
 		if (angular.isUndefined($scope.size)) {
 			$scope.size = 40;
@@ -57,7 +58,7 @@
 
 		$scope.setKnobValue(true);
 
-		$scope.$on('redrawSliders', $scope.eraseAndDrawCanvas);
+		$scope.$watch('color', $scope.eraseAndDrawCanvas);
 		$scope.$watch('knobValue', $scope.externalUpdateKnobValue);
 
 		////////////////////////////////////////////////////////////////
@@ -81,7 +82,7 @@
 			ctx.closePath();
 
 			ctx.beginPath();
-			ctx.strokeStyle = themeService.theme.menuHighlight;
+			ctx.strokeStyle = $scope.color;
 			ctx.lineWidth = 7;
 			ctx.lineCap = 'butt';
 			ctx.arc(half, half, half - 10, 0, Math.PI * 2 * (rotationValue), false);
@@ -101,7 +102,6 @@
 		}
 
 		function externalUpdateKnobValue() {
-			console.log(1);
 			rotationValue = ($scope.knobValue - min) / range;
 			$scope.eraseAndDrawCanvas();
 		}

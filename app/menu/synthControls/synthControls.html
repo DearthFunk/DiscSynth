@@ -14,50 +14,50 @@
                  data-selected="audioService.synthTemplate.osc3.type"></div>
         </div>
         <div class="right">
-            <div knob data-label="'D'" data-size="40" data-min-value="-2000" data-max-value="2000" data-knob-value="audioService.synthTemplate.osc1.detune"></div>
-            <div knob data-label="'D'" data-size="40" data-min-value="-2000" data-max-value="2000" data-knob-value="audioService.synthTemplate.osc2.detune"></div>
-            <div knob data-label="'D'" data-size="40" data-min-value="-2000" data-max-value="2000" data-knob-value="audioService.synthTemplate.osc3.detune"></div>
+            <div knob data-color="themeService.theme.menuHighlight" data-label="'D'" data-size="40" data-min-value="-2000" data-max-value="2000" data-knob-value="audioService.synthTemplate.osc1.detune"></div>
+            <div knob data-color="themeService.theme.menuHighlight" data-label="'D'" data-size="40" data-min-value="-2000" data-max-value="2000" data-knob-value="audioService.synthTemplate.osc2.detune"></div>
+            <div knob data-color="themeService.theme.menuHighlight" data-label="'D'" data-size="40" data-min-value="-2000" data-max-value="2000" data-knob-value="audioService.synthTemplate.osc3.detune"></div>
         </div>
     </div>
 
 	<div class="section" data-ng-style="{backgroundColor: !audioService.synthTemplate.moogfilter.bypass ? themeService.theme.menuSectionalBackground : ''}">
 		<span class="title" data-ng-click="audioService.synthTemplate.moogfilter.bypass = !audioService.synthTemplate.moogfilter.bypass">Moog Filter</span>
-		<div knob data-label="'Buf'" data-size="55" data-min-value="256" data-max-value="16384" data-knob-value="audioService.synthTemplate.moogfilter.bufferSize"></div>
-		<div knob data-label="'Cut'" data-size="55" data-min-value="0.0001" data-max-value="1" data-knob-value="audioService.synthTemplate.moogfilter.cutoff"></div>
-		<div knob data-label="'Res'" data-size="55" data-min-value="0" data-max-value="4" data-knob-value="audioService.synthTemplate.moogfilter.resonance"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Buf'" data-size="55" data-min-value="256" data-max-value="16384" data-knob-value="audioService.synthTemplate.moogfilter.bufferSize"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Cut'" data-size="55" data-min-value="0.0001" data-max-value="1" data-knob-value="audioService.synthTemplate.moogfilter.cutoff"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Res'" data-size="55" data-min-value="0" data-max-value="4" data-knob-value="audioService.synthTemplate.moogfilter.resonance"></div>
 	</div>
 	<div class="section" data-ng-style="{backgroundColor: !audioService.synthTemplate.overdrive.bypass ? themeService.theme.menuSectionalBackground : ''}">
 		<span class="title" data-ng-click="audioService.synthTemplate.overdrive.bypass = !audioService.synthTemplate.overdrive.bypass">Overdrive</span>
-		<div knob data-label="'Gai'" data-size="55" data-knob-value="audioService.synthTemplate.overdrive.outputGain"></div>
-		<div knob data-label="'Drv'" data-size="55" data-knob-value="audioService.synthTemplate.overdrive.drive"></div>
-		<div knob data-label="'Crv'" data-size="55" data-knob-value="audioService.synthTemplate.overdrive.curveAmount"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Gai'" data-size="55" data-knob-value="audioService.synthTemplate.overdrive.outputGain"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Drv'" data-size="55" data-knob-value="audioService.synthTemplate.overdrive.drive"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Crv'" data-size="55" data-knob-value="audioService.synthTemplate.overdrive.curveAmount"></div>
 	</div>
 	<div class="section" data-ng-style="{backgroundColor: !audioService.synthTemplate.bitcrusher.bypass ? themeService.theme.menuSectionalBackground : ''}">
 		<span class="title" data-ng-click="audioService.synthTemplate.bitcrusher.bypass = !audioService.synthTemplate.bitcrusher.bypass">Bit Crusher</span>
-		<div knob data-label="'Bit'" data-size="55" data-min-value="1" data-max-value="16" data-knob-value="audioService.synthTemplate.bitcrusher.bits"></div>
-		<div knob data-label="'Siz'" data-size="55" data-min-value="256" data-max-value="16384" data-knob-value="audioService.synthTemplate.bitcrusher.bufferSize"></div>
-		<div knob data-label="'Frq'" data-size="55" data-min-value="0.0001" data-max-value="1" data-knob-value="audioService.synthTemplate.bitcrusher.normFreq"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Bit'" data-size="55" data-min-value="1" data-max-value="16" data-knob-value="audioService.synthTemplate.bitcrusher.bits"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Siz'" data-size="55" data-min-value="256" data-max-value="16384" data-knob-value="audioService.synthTemplate.bitcrusher.bufferSize"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Frq'" data-size="55" data-min-value="0.0001" data-max-value="1" data-knob-value="audioService.synthTemplate.bitcrusher.normFreq"></div>
 	</div>
 	<div class="section" data-ng-style="{backgroundColor: !audioService.synthTemplate.tremolo.bypass ? themeService.theme.menuSectionalBackground : ''}">
 		<span class="title" data-ng-click="audioService.synthTemplate.tremolo.bypass = !audioService.synthTemplate.tremolo.bypass">Tremolo</span>
-		<div knob data-label="'Int'" data-size="55" data-knob-value="audioService.synthTemplate.tremolo.intensity"></div>
-		<div knob data-label="'Rat'" data-size="55" data-min-value="0.1" data-max-value="11" data-knob-value="audioService.synthTemplate.tremolo.rate"></div>
-		<div knob data-label="'Phs'" data-size="55" data-min-value="0" data-max-value="180" data-knob-value="audioService.synthTemplate.tremolo.stereoPhase"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Int'" data-size="55" data-knob-value="audioService.synthTemplate.tremolo.intensity"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Rat'" data-size="55" data-min-value="0.1" data-max-value="11" data-knob-value="audioService.synthTemplate.tremolo.rate"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Phs'" data-size="55" data-min-value="0" data-max-value="180" data-knob-value="audioService.synthTemplate.tremolo.stereoPhase"></div>
 	</div>
 	<div class="section" data-ng-style="{backgroundColor: !audioService.synthTemplate.convolver.bypass ? themeService.theme.menuSectionalBackground : ''}">
 		<span class="title" data-ng-click="audioService.synthTemplate.convolver .bypass = !audioService.synthTemplate.convolver .bypass">Convolver</span>
-		<div knob data-label="'Hi'"  data-size="59" data-min-value="20" data-max-value="22050" data-knob-value="audioService.synthTemplate.convolver.highCut"></div>
-		<div knob data-label="'Lo'"  data-size="59" data-min-value="20" data-max-value="22050" data-knob-value="audioService.synthTemplate.convolver.lowCut"></div>
-		<div knob data-label="'Dry'" data-size="59" data-min-value="0" data-max-value="5" data-knob-value="audioService.synthTemplate.convolver.dryLevel"></div>
-		<div knob data-label="'Wet'" data-size="59" data-min-value="0" data-max-value="5" data-knob-value="audioService.synthTemplate.convolver.wetLevel"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Hi'"  data-size="59" data-min-value="20" data-max-value="22050" data-knob-value="audioService.synthTemplate.convolver.highCut"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Lo'"  data-size="59" data-min-value="20" data-max-value="22050" data-knob-value="audioService.synthTemplate.convolver.lowCut"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Dry'" data-size="59" data-min-value="0" data-max-value="5" data-knob-value="audioService.synthTemplate.convolver.dryLevel"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Wet'" data-size="59" data-min-value="0" data-max-value="5" data-knob-value="audioService.synthTemplate.convolver.wetLevel"></div>
 	</div>
 	<div class="section" data-ng-style="{backgroundColor: !audioService.synthTemplate.delay.bypass ? themeService.theme.menuSectionalBackground : ''}">
 		<span class="title" data-ng-click="audioService.synthTemplate.delay.bypass = !audioService.synthTemplate.delay.bypass">Delay</span>
-		<div knob data-label="'Wet'" data-size="55" data-knob-value="audioService.synthTemplate.delay.wetLevel"></div>
-		<div knob data-label="'Dry'" data-size="55" data-knob-value="audioService.synthTemplate.delay.dryLevel"></div>
-		<div knob data-label="'Fbk'" data-size="55" data-knob-value="audioService.synthTemplate.delay.feedback"></div>
-		<div knob data-label="'Dly'" data-size="55" data-min-value="0" data-max-value="300"  data-knob-value="audioService.synthTemplate.delay.delayTime"></div>
-		<div knob data-label="'Cut'" data-size="55" data-min-value="20" data-max-value="22050" data-knob-value="audioService.synthTemplate.delay.cutoff"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Wet'" data-size="55" data-knob-value="audioService.synthTemplate.delay.wetLevel"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Dry'" data-size="55" data-knob-value="audioService.synthTemplate.delay.dryLevel"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Fbk'" data-size="55" data-knob-value="audioService.synthTemplate.delay.feedback"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Dly'" data-size="55" data-min-value="0" data-max-value="300"  data-knob-value="audioService.synthTemplate.delay.delayTime"></div>
+		<div knob data-color="themeService.theme.menuHighlight" data-label="'Cut'" data-size="55" data-min-value="20" data-max-value="22050" data-knob-value="audioService.synthTemplate.delay.cutoff"></div>
 	</div>
 
 </div>
