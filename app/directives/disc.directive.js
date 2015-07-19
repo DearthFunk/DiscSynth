@@ -126,7 +126,6 @@
 		/////////////////////////////////////////////////////////////////
 
 		function draw() {
-
 			requestAnimationFrame($scope.draw);
 			ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 			for (var i = 0; i < audioService.slice.length - 1; i++) {

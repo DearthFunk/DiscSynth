@@ -16,7 +16,7 @@
 				maxValue: '=?maxValue',
 				knobValue: '=knobValue'
 			},
-			template: '<canvas data-ng-dblclick="setKnobValue(true)" data-ng-mousedown="mouseDownEvent($event)"></canvas>',
+			template: '<canvas class="knob" data-ng-dblclick="setKnobValue(true)" data-ng-mousedown="mouseDownEvent($event)"></canvas>',
 			replace: true,
 			controller: knobController,
 			bindToController: true

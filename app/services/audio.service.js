@@ -125,9 +125,9 @@
 			}
 		]);
 
-	audioService.$inject =['$localStorage', '$window', 'genColors', 'SYNTHS', 'LENGTH_CONSTRAINTS', 'TIME_WORKER_POST_MESSAGE'];
+	audioService.$inject =['$localStorage', 'genColors', 'SYNTHS', 'LENGTH_CONSTRAINTS', 'TIME_WORKER_POST_MESSAGE'];
 
-	function audioService($localStorage, $window, genColors, SYNTHS, LENGTH_CONSTRAINTS, TIME_WORKER_POST_MESSAGE) {
+	function audioService($localStorage, genColors, SYNTHS, LENGTH_CONSTRAINTS, TIME_WORKER_POST_MESSAGE) {
 		var audioCtx = typeof AudioContext !== 'undefined' ? new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() : null;
 		var audioBufferSize = 1024;
 		var nextNoteTime = 0;
@@ -151,8 +151,6 @@
 			getAverageDB: getAverageDB,
 			setSynthTemplate: setSynthTemplate
 		};
-
-		angular.element($window).bind('keydown', keyDownEvent);
 
 		setupAudioNodesAndDiscSlices();
 		service.setSynthTemplate();
@@ -187,21 +185,7 @@
 			return values / dbArray.length;
 		}
 
-		function keyDownEvent(e) {
-			// NEEDS AN APPLY
-			switch (e.keyCode) {
-				case 32 :
-					service.playing = !service.playing;
-					service.playing ? service.node.stopper.connect(service.fx.moogfilter.input) : service.node.stopper.disconnect();
-					break;
-				case 65 : service.fx.bitcrusher.bypass = !service.fx.bitcrusher.bypass; break;
-				case 83 : service.fx.overdrive.bypass = !service.fx.overdrive.bypass;	break;
-				case 68 : service.fx.tremolo.bypass = !service.fx.tremolo.bypass;		break;
-				case 90 : service.fx.convolver.bypass = !service.fx.convolver.bypass;	break;
-				case 88 : service.fx.moogfilter.bypass = !service.fx.moogfilter.bypass;	break;
-				case 67 : service.fx.delay.bypass = !service.fx.delay.bypass;			break;
-			}
-		}
+
 		function startStop() {
 			service.playing = !service.playing;
 			service.node.stopperGain.gain.value = service.playing ? 1 : 0;
