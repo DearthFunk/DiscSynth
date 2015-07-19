@@ -159,7 +159,11 @@
 
 		/////////////////////////////////////
 
-		function mergeObject(obj1, obj2) {
+		function setSynthTemplate() {
+			service.synthTemplate = service.synthTemplates[$localStorage.synthIndex];
+		}
+
+		/*function mergeObject(obj1, obj2) {
 			for (var p in obj2) {
 				try {
 					// Property in destination object set; update its value.
@@ -176,19 +180,31 @@
 			return obj1;
 		}
 
-		function setSynthTemplate() {
-			service.synthTemplate = service.synthTemplates[$localStorage.synthIndex];
-			mergeObject(service.fx.moogfilter, service.synthTemplate.moogfilter);
-			mergeObject(service.fx.overdrive, service.synthTemplate.overdrive);
-			mergeObject(service.fx.bitcrusher, service.synthTemplate.bitcrusher);
-			mergeObject(service.fx.tremolo, service.synthTemplate.tremolo);
-			mergeObject(service.fx.convolver, service.synthTemplate.convolver);
-			mergeObject(service.fx.delay, service.synthTemplate.delay);
-			mergeObject(service.node.osc1, service.synthTemplate.osc1);
-			mergeObject(service.node.osc2, service.synthTemplate.osc2);
-			mergeObject(service.node.osc3, service.synthTemplate.osc3);
-
+		unction setSynthTemplate(index) {
+			var template = service.synthTemplates[index];
+			mergeObject(template.moogfilter, service.fx.moogfilter);
+			mergeObject(template.overdrive, service.fx.overdrive);
+			mergeObject(template.bitcrusher, service.fx.bitcrusher);
+			mergeObject(template.tremolo, service.fx.tremolo);
+			mergeObject(template.convolver, service.fx.convolver);
+			mergeObject(template.delay, service.fx.delay);
+			mergeObject(template.osc1, service.node.osc1);
+			mergeObject(template.osc2, service.node.osc2);
+			mergeObject(template.osc3, service.node.osc3);
 		}
+
+		function setSynthAudio(index) {
+			var template = service.synthTemplates[index];
+			mergeObject(service.fx.moogfilter, template.moogfilter);
+			mergeObject(service.fx.overdrive, template.overdrive);
+			mergeObject(service.fx.bitcrusher, template.bitcrusher);
+			mergeObject(service.fx.tremolo, template.tremolo);
+			mergeObject(service.fx.convolver, template.convolver);
+			mergeObject(service.fx.delay, template.delay);
+			mergeObject(service.node.osc1, template.osc1);
+			mergeObject(service.node.osc2, template.osc2);
+			mergeObject(service.node.osc3, template.osc3);
+		}*/
 
 		function randomize() {
 			for (var discIndex = 0; discIndex < service.slice.length - 1; discIndex++) {
@@ -251,7 +267,6 @@
 		}
 
 		function setupAudioNodesAndDiscSlices() {
-
 			for (var i = 0; i <= LENGTH_CONSTRAINTS.MAX; i++) {
 				service.slice.push({
 					a1: 0,

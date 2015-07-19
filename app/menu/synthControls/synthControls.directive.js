@@ -12,12 +12,7 @@
 			templateUrl: 'app/menu/synthControls/synthControls.html',
 			replace: true,
 			controller: synthControlsController,
-			bindToController: true,
-			scope: {
-				fx: '=fx',
-				node: '=node',
-				playing: '=playing'
-			}
+			bindToController: true
 		};
 		return directive
 	}
@@ -28,6 +23,7 @@
 
 		angular.element($window).bind('keydown', keyDownEvent);
 
+		$scope.audioService = audioService;
 		$scope.themeService = themeService;
 		$scope.oscWaveTypes = [
 			{txt: 'Sine', type: 'sine'},

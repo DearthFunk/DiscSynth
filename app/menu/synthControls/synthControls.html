@@ -14,9 +14,9 @@
                  data-selected="audioService.synthTemplate.osc3.type"></div>
         </div>
         <div class="right">
-            <div knob data-label="'D'" data-size="40" data-min-value="-2000" data-max-value="2000" data-knob-value="audioService.synthTemplate.osc1.detune.value"></div>
-            <div knob data-label="'D'" data-size="40" data-min-value="-2000" data-max-value="2000" data-knob-value="audioService.synthTemplate.osc2.detune.value"></div>
-            <div knob data-label="'D'" data-size="40" data-min-value="-2000" data-max-value="2000" data-knob-value="audioService.synthTemplate.osc3.detune.value"></div>
+            <div knob data-label="'D'" data-size="40" data-min-value="-2000" data-max-value="2000" data-knob-value="audioService.synthTemplate.osc1.detune"></div>
+            <div knob data-label="'D'" data-size="40" data-min-value="-2000" data-max-value="2000" data-knob-value="audioService.synthTemplate.osc2.detune"></div>
+            <div knob data-label="'D'" data-size="40" data-min-value="-2000" data-max-value="2000" data-knob-value="audioService.synthTemplate.osc3.detune"></div>
         </div>
     </div>
 
@@ -28,8 +28,8 @@
 	</div>
 	<div class="section" data-ng-style="{backgroundColor: !audioService.synthTemplate.overdrive.bypass ? themeService.theme.menuSectionalBackground : ''}">
 		<span class="title" data-ng-click="audioService.synthTemplate.overdrive.bypass = !audioService.synthTemplate.overdrive.bypass">Overdrive</span>
-		<div knob data-label="'Gai'" data-size="55" data-knob-value="audioService.synthTemplate.overdrive.outputGain.value"></div>
-		<div knob data-label="'Drv'" data-size="55" data-knob-value="audioService.synthTemplate.overdrive.drive.value"></div>
+		<div knob data-label="'Gai'" data-size="55" data-knob-value="audioService.synthTemplate.overdrive.outputGain"></div>
+		<div knob data-label="'Drv'" data-size="55" data-knob-value="audioService.synthTemplate.overdrive.drive"></div>
 		<div knob data-label="'Crv'" data-size="55" data-knob-value="audioService.synthTemplate.overdrive.curveAmount"></div>
 	</div>
 	<div class="section" data-ng-style="{backgroundColor: !audioService.synthTemplate.bitcrusher.bypass ? themeService.theme.menuSectionalBackground : ''}">
@@ -46,18 +46,18 @@
 	</div>
 	<div class="section" data-ng-style="{backgroundColor: !audioService.synthTemplate.convolver.bypass ? themeService.theme.menuSectionalBackground : ''}">
 		<span class="title" data-ng-click="audioService.synthTemplate.convolver .bypass = !audioService.synthTemplate.convolver .bypass">Convolver</span>
-		<div knob data-label="'Hi'"  data-size="59" data-min-value="20" data-max-value="22050" data-knob-value="audioService.synthTemplate.convolver.highCut.value"></div>
-		<div knob data-label="'Lo'"  data-size="59" data-min-value="20" data-max-value="22050" data-knob-value="audioService.synthTemplate.convolver.lowCut.value"></div>
-		<div knob data-label="'Dry'" data-size="59" data-min-value="0" data-max-value="5" data-knob-value="audioService.synthTemplate.convolver.dryLevel.value"></div>
-		<div knob data-label="'Wet'" data-size="59" data-min-value="0" data-max-value="5" data-knob-value="audioService.synthTemplate.convolver.wetLevel.value"></div>
+		<div knob data-label="'Hi'"  data-size="59" data-min-value="20" data-max-value="22050" data-knob-value="audioService.synthTemplate.convolver.highCut"></div>
+		<div knob data-label="'Lo'"  data-size="59" data-min-value="20" data-max-value="22050" data-knob-value="audioService.synthTemplate.convolver.lowCut"></div>
+		<div knob data-label="'Dry'" data-size="59" data-min-value="0" data-max-value="5" data-knob-value="audioService.synthTemplate.convolver.dryLevel"></div>
+		<div knob data-label="'Wet'" data-size="59" data-min-value="0" data-max-value="5" data-knob-value="audioService.synthTemplate.convolver.wetLevel"></div>
 	</div>
 	<div class="section" data-ng-style="{backgroundColor: !audioService.synthTemplate.delay.bypass ? themeService.theme.menuSectionalBackground : ''}">
 		<span class="title" data-ng-click="audioService.synthTemplate.delay.bypass = !audioService.synthTemplate.delay.bypass">Delay</span>
-		<div knob data-label="'Wet'" data-size="55" data-knob-value="audioService.synthTemplate.delay.wetLevel.value"></div>
-		<div knob data-label="'Dry'" data-size="55" data-knob-value="audioService.synthTemplate.delay.dryLevel.value"></div>
-		<div knob data-label="'Fbk'" data-size="55" data-knob-value="audioService.synthTemplate.delay.feedback.value"></div>
-		<div knob data-label="'Dly'" data-size="55" data-min-value="0" data-max-value="300"  data-knob-value="audioService.synthTemplate.delay.delayTime.value"></div>
-		<div knob data-label="'Cut'" data-size="55" data-min-value="20" data-max-value="22050" data-knob-value="audioService.synthTemplate.delay.cutoff.value"></div>
+		<div knob data-label="'Wet'" data-size="55" data-knob-value="audioService.synthTemplate.delay.wetLevel"></div>
+		<div knob data-label="'Dry'" data-size="55" data-knob-value="audioService.synthTemplate.delay.dryLevel"></div>
+		<div knob data-label="'Fbk'" data-size="55" data-knob-value="audioService.synthTemplate.delay.feedback"></div>
+		<div knob data-label="'Dly'" data-size="55" data-min-value="0" data-max-value="300"  data-knob-value="audioService.synthTemplate.delay.delayTime"></div>
+		<div knob data-label="'Cut'" data-size="55" data-min-value="20" data-max-value="22050" data-knob-value="audioService.synthTemplate.delay.cutoff"></div>
 	</div>
 
 </div>

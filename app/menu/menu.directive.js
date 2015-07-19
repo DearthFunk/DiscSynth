@@ -49,7 +49,7 @@
 		function changeTheme(index) {
 			$localStorage.themeIndex = index;
 			themeService.setTheme();
-			$scope.$broadcast('themeChangeEvent');
+			$scope.$broadcast('redrawSliders');
 		}
 
 		function changeAnimaton(index) {
@@ -64,6 +64,9 @@
 
 		function resetSynth(index) {
 			audioService.synthTemplates[index] = angular.copy(SYNTHS[index]);
+			if (index === $localStorage.synthIndex) {
+				audioService.synthTemplate = audioService.synthTemplates[index];
+			}
 			$scope.resetIndex = index;
 			$timeout(function () {
 				$scope.resetIndex = -1;

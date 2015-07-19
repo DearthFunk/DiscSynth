@@ -57,7 +57,7 @@
 
 		$scope.setKnobValue(true);
 
-		$scope.$on('themeChangeEvent', $scope.eraseAndDrawCanvas);
+		$scope.$on('redrawSliders', $scope.eraseAndDrawCanvas);
 		$scope.$watch('knobValue', $scope.externalUpdateKnobValue);
 
 		////////////////////////////////////////////////////////////////
@@ -101,6 +101,7 @@
 		}
 
 		function externalUpdateKnobValue() {
+			console.log(1);
 			rotationValue = ($scope.knobValue - min) / range;
 			$scope.eraseAndDrawCanvas();
 		}

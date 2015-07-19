@@ -37,7 +37,8 @@
 				animationIndex: $localStorage.animationIndex,
 				discLength: $localStorage.discLength,
 				volume: $localStorage.volume,
-				tempo: $localStorage.tempo
+				tempo: $localStorage.tempo,
+				synthTemplates: audioService.synthTemplates
 			});
 		}
 
@@ -50,11 +51,11 @@
 				$localStorage.discLength = parsedData.discLength;
 				$localStorage.volume = parsedData.volume;
 				$localStorage.tempo = parsedData.tempo;
-
+				audioService.synthTemplates = parsedData.synthTemplates;
+				audioService.setSynthTemplate();
 				animationService.setAnimation();
 				themeService.setTheme();
-				audioService.setSynthTemplate();
-
+				$scope.$broadcast('redrawSliders');
 			}
 		}
 	}
