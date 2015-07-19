@@ -159,43 +159,35 @@
 
 		/////////////////////////////////////
 
+		function mergeObject(obj1, obj2) {
+			for (var p in obj2) {
+				try {
+					// Property in destination object set; update its value.
+					if ( obj2[p].constructor==Object ) {
+						obj1[p] = mergeObject(obj1[p], obj2[p]);
+
+					} else {
+						obj1[p] = obj2[p];
+
+					}
+				} catch(e) {
+				}
+			}
+			return obj1;
+		}
+
 		function setSynthTemplate() {
 			service.synthTemplate = service.synthTemplates[$localStorage.synthIndex];
-			service.node.osc1.type = service.synthTemplate.osc1.type;
-			service.node.osc2.type = service.synthTemplate.osc2.type;
-			service.node.osc3.type = service.synthTemplate.osc3.type;
-			service.node.osc1.detune.value = service.synthTemplate.osc1.detune;
-			service.node.osc2.detune.value = service.synthTemplate.osc2.detune;
-			service.node.osc3.detune.value = service.synthTemplate.osc3.detune;
-			service.fx.bitcrusher.bypass = service.synthTemplate.bitcrusher.bypass;
-			service.fx.bitcrusher.bits = service.synthTemplate.bitcrusher.bits;
-			service.fx.bitcrusher.bufferSize = service.synthTemplate.bitcrusher.bufferSize;
-			service.fx.bitcrusher.normFreq = service.synthTemplate.bitcrusher.normFreq;
-			service.fx.delay.bypass = service.synthTemplate.delay.bypass;
-			service.fx.delay.wetLevel.value = service.synthTemplate.delay.wetLevel;
-			service.fx.delay.dryLevel.value = service.synthTemplate.delay.dryLevel;
-			service.fx.delay.feedback.value = service.synthTemplate.delay.feedback;
-			service.fx.delay.delayTime.value = service.synthTemplate.delay.delayTime;
-			service.fx.delay.cutoff.value = service.synthTemplate.delay.cutoff;
-			service.fx.overdrive.bypass = service.synthTemplate.overdrive.bypass;
-			service.fx.overdrive.curveAmount = service.synthTemplate.overdrive.curveAmount;
-			service.fx.overdrive.drive.value = service.synthTemplate.overdrive.drive;
-			service.fx.overdrive.outputGain.value = service.synthTemplate.overdrive.outputGain;
-			service.fx.moogfilter.bypass = service.synthTemplate.moogfilter.bypass;
-			service.fx.moogfilter.bufferSize = service.synthTemplate.moogfilter.bufferSize;
-			service.fx.moogfilter.cutoff = service.synthTemplate.moogfilter.cutoff;
-			service.fx.moogfilter.resonance = service.synthTemplate.moogfilter.resonance;
+			mergeObject(service.fx.moogfilter, service.synthTemplate.moogfilter);
+			mergeObject(service.fx.overdrive, service.synthTemplate.overdrive);
+			mergeObject(service.fx.bitcrusher, service.synthTemplate.bitcrusher);
+			mergeObject(service.fx.tremolo, service.synthTemplate.tremolo);
+			mergeObject(service.fx.convolver, service.synthTemplate.convolver);
+			mergeObject(service.fx.delay, service.synthTemplate.delay);
+			mergeObject(service.node.osc1, service.synthTemplate.osc1);
+			mergeObject(service.node.osc2, service.synthTemplate.osc2);
+			mergeObject(service.node.osc3, service.synthTemplate.osc3);
 
-			service.fx.tremolo.bypass = service.synthTemplate.tremolo.bypass;
-			service.fx.tremolo.intensity = service.synthTemplate.tremolo.intensity;
-			service.fx.tremolo.rate = service.synthTemplate.tremolo.rate;
-			service.fx.tremolo.stereoPhase = service.synthTemplate.tremolo.stereoPhase;
-
-			service.fx.convolver.bypass = service.synthTemplate.convolver.bypass;
-			service.fx.convolver.highCut.value = service.synthTemplate.convolver.highCut;
-			service.fx.convolver.lowCut.value = service.synthTemplate.convolver.lowCut;
-			service.fx.convolver.dryLevel.value = service.synthTemplate.convolver.dryLevel;
-			service.fx.convolver.wetLevel.value = service.synthTemplate.convolver.wetLevel;
 		}
 
 		function randomize() {
@@ -279,8 +271,8 @@
 			service.node.osc3 = audioCtx.createOscillator();
 			service.node.masterGain = audioCtx.createGain();
 			service.node.stopperGain = audioCtx.createGain();
-			service.node.masterGain.gain.value = 0.5; //localStorageService.storage ? localStorageService.storage.volume : 0.5;
-			service.node.stopperGain.gain.value = 1; //localStorageService.storage ? localStorageService.storage.volume : 0.5;
+			service.node.masterGain.gain.value = $localStorage.volume;
+			service.node.stopperGain.gain.value = 1;
 
 			service.node.javascript = audioCtx.createScriptProcessor(audioBufferSize, 0, 1);
 			service.node.analyser = audioCtx.createAnalyser();
@@ -320,110 +312,5 @@
 			service.node.osc3.start();
 
 		}
-
-		/*
-
-
-		 audioService.switchSynthTemplate = function (index) {
-		 //get current synth data
-		 var data = {
-		 osc1: {type: disc.node.osc1.type, detune: disc.node.osc1.detune.value},
-		 osc2: {type: disc.node.osc2.type, detune: disc.node.osc2.detune.value},
-		 osc3: {type: disc.node.osc3.type, detune: disc.node.osc2.detune.value},
-		 bitcrusher: {
-		 bypass: disc.fx.bitcrusher.bypass,
-		 bits: disc.fx.bitcrusher.bits,
-		 bufferSize: disc.fx.bitcrusher.bufferSize,
-		 normFreq: disc.fx.bitcrusher.normFreq
-		 },
-		 delay: {
-		 bypass: disc.fx.delay.bypass,
-		 wetLevel: service.fx.delay.wetLevel.value,
-		 dryLevel: disc.fx.delay.dryLevel.value,
-		 feedback: disc.fx.delay.feedback.value,
-		 delayTime: disc.fx.delay.delayTime.value,
-		 cutoff: disc.fx.delay.cutoff.value
-		 },
-		 overdrive: {
-		 bypass: disc.fx.overdrive.bypass,
-		 curveAmount: disc.fx.overdrive.curveAmount,
-		 drive: disc.fx.overdrive.drive.value,
-		 outputGain: disc.fx.overdrive.outputGain.value
-		 },
-		 moogfilter: {
-		 bypass: disc.fx.moogfilter.bypass,
-		 bufferSize: disc.fx.moogfilter.bufferSize,
-		 cutoff: disc.fx.moogfilter.cutoff,
-		 resonance: disc.fx.moogfilter.resonance
-		 },
-		 tremolo: {
-		 bypass: disc.fx.tremolo.bypass,
-		 intensity: disc.fx.tremolo.intensity,
-		 rate: disc.fx.tremolo.rate,
-		 stereoPhase: disc.fx.tremolo.stereoPhase
-		 },
-		 convolver: {
-		 bypass: disc.fx.convolver.bypass,
-		 highCut: disc.fx.convolver.highCut.value,
-		 lowCut: disc.fx.convolver.lowCut.value,
-		 dryLevel: disc.fx.convolver.dryLevel.value,
-		 wetLevel: disc.fx.convolver.wetLevel.value
-		 }
-		 };
-
-
-		 //copy current synth and store, then change index
-		 disc.synthTemplates[disc.synthIndex] = angular.copy(data);
-		 disc.synthIndex = index;
-
-		 //load new synth template
-		 disc.loadSynth(index);
-		 };
-		 disc.loadSynth = function (index) {
-
-		 var template = disc.synthTemplates[index];
-
-		 console.log(template);
-		 disc.node.osc1.type = template.osc1.type;
-		 disc.node.osc2.type = template.osc2.type;
-		 disc.node.osc3.type = template.osc3.type;
-		 disc.node.osc1.detune.value = template.osc1.detune;
-		 disc.node.osc2.detune.value = template.osc2.detune;
-		 disc.node.osc3.detune.value = template.osc3.detune;
-		 disc.fx.bitcrusher.bypass = template.bitcrusher.bypass;
-		 disc.fx.bitcrusher.bits = template.bitcrusher.bits;
-		 disc.fx.bitcrusher.bufferSize = template.bitcrusher.bufferSize;
-		 disc.fx.bitcrusher.normFreq = template.bitcrusher.normFreq;
-		 disc.fx.delay.bypass = template.delay.bypass;
-		 disc.fx.delay.wetLevel.value = template.delay.wetLevel;
-		 disc.fx.delay.dryLevel.value = template.delay.dryLevel;
-		 disc.fx.delay.feedback.value = template.delay.feedback;
-		 disc.fx.delay.delayTime.value = template.delay.delayTime;
-		 disc.fx.delay.cutoff.value = template.delay.cutoff;
-		 disc.fx.overdrive.bypass = template.overdrive.bypass;
-		 disc.fx.overdrive.curveAmount = template.overdrive.curveAmount;
-		 disc.fx.overdrive.drive.value = template.overdrive.drive;
-		 disc.fx.overdrive.outputGain.value = template.overdrive.outputGain;
-		 disc.fx.moogfilter.bypass = template.moogfilter.bypass;
-		 disc.fx.moogfilter.bufferSize = template.moogfilter.bufferSize;
-		 disc.fx.moogfilter.cutoff = template.moogfilter.cutoff;
-		 disc.fx.moogfilter.resonance = template.moogfilter.resonance;
-
-		 disc.fx.tremolo.bypass = template.tremolo.bypass;
-		 disc.fx.tremolo.intensity = template.tremolo.intensity;
-		 disc.fx.tremolo.rate = template.tremolo.rate;
-		 disc.fx.tremolo.stereoPhase = template.tremolo.stereoPhase;
-
-		 disc.fx.convolver.bypass = template.convolver.bypass;
-		 disc.fx.convolver.highCut.value = template.convolver.highCut;
-		 disc.fx.convolver.lowCut.value = template.convolver.lowCut;
-		 disc.fx.convolver.dryLevel.value = template.convolver.dryLevel;
-		 disc.fx.convolver.wetLevel.value = template.convolver.wetLevel;
-
-
-		 };
-		 disc.loadSynth(disc.synthIndex);
-
-		*/
 	}
 })();
