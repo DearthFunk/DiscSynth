@@ -16,17 +16,16 @@
 
 		///////////////////////////////
 
-		function draw(ctx, state) {
-			for (var i = 0; i < state.discLength; i++) {
+		function draw(ctx, state, averageDb, discLength, click) {
+			for (var i = 0; i < discLength; i++) {
 				var angleSize = (1 / maxLines) * Math.PI * 2;
-				var db = state.average();
 				var a1 = angleSize * i;
 				var a2 = angleSize * (i + 1);
-				var playAngle = state.clickTrack == i;
+				var playAngle = click == i;
 				var numConnectors = playAngle ? 25 : 10;
 				for (var connector = 0; connector < numConnectors; connector++) {
 					var angleAdjust = connector / numConnectors;
-					var rad = db * 3 * ( playAngle ? 1.8 : 1);
+					var rad = averageDb * 3 * ( playAngle ? 1.8 : 1);
 					var x1 = state.xCenter + (rad * angleAdjust) * Math.cos(a1);
 					var y1 = state.yCenter + (rad * angleAdjust) * Math.sin(a1);
 					var x2 = state.xCenter + (rad * (1 - angleAdjust)) * Math.cos(a2);

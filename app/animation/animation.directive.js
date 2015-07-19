@@ -16,8 +16,8 @@
 		return directive;
 	}
 
-	animationController.$inject = ['$scope', '$element', '$window', 'animationService', 'audioService', 'MENU_SIZE'];
-	function animationController($scope, $element, $window, animationService, audioService, MENU_SIZE) {
+	animationController.$inject = ['$scope', '$element', '$window', '$localStorage', 'animationService', 'audioService', 'MENU_SIZE'];
+	function animationController($scope, $element, $window, $localStorage, animationService, audioService, MENU_SIZE) {
 
 		var cnv = $element[0];
 		var ctx = cnv.getContext('2d');
@@ -57,7 +57,7 @@
 			if (animationService.animation) {
 				$scope.clearCanvas();
 				if (animationService.animation.service) {
-					animationService.animation.service.draw(ctx, state, audioService.getAverageDB());
+					animationService.animation.service.draw(ctx, state, audioService.getAverageDB(), $localStorage.discLength, audioService.clickTrack);
 				}
 
 			}
