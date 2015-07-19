@@ -56,6 +56,8 @@
 
 		$scope.setKnobValue(true);
 
+		$scope.$on('themeChangeEvent', $scope.eraseAndDrawCanvas);
+
 		////////////////////////////////////////////////////////////////
 
 		function eraseAndDrawCanvas() {

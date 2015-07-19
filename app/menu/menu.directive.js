@@ -49,6 +49,7 @@
 		function changeTheme(index) {
 			$localStorage.themeIndex = index;
 			themeService.setTheme();
+			$scope.$broadcast('themeChangeEvent');
 		}
 
 		function changeAnimaton(index) {
