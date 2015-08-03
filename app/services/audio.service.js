@@ -149,62 +149,97 @@
 			startStop: startStop,
 			playNotes: playNotes,
 			getAverageDB: getAverageDB,
-			setSynthTemplate: setSynthTemplate
+			setSynthTemplate: setSynthTemplate,
+			updateSynthTemplate: updateSynthTemplate,
+			setupAudioNodesAndDiscSlices: setupAudioNodesAndDiscSlices
 		};
 
-		setupAudioNodesAndDiscSlices();
-		service.setSynthTemplate();
+		service.setupAudioNodesAndDiscSlices();
+		service.synthTemplate = service.synthTemplates[$localStorage.synthIndex];
 
 		return service;
 
 		/////////////////////////////////////
 
+		function updateSynthTemplate() {
+			var template = service.synthTemplate;
+			var fx = service.fx;
+			var node = service.node;
+			template.osc1.type = node.osc1.type;
+			template.osc1.detune = node.osc1.detune.value;
+			template.osc2.type = node.osc2.type;
+			template.osc2.detune = node.osc2.detune.value;
+			template.osc3.type = node.osc3.type;
+			template.osc3.detune = node.osc3.detune.value;
+			template.bitcrusher.bypass = fx.bitcrusher.bypass;
+			template.bitcrusher.bits = fx.bitcrusher.bits;
+			template.bitcrusher.bufferSize = fx.bitcrusher.bufferSize;
+			template.bitcrusher.normFreq = fx.bitcrusher.normFreq;
+			template.delay.bypass = fx.delay.bypass;
+			template.delay.wetLevel = fx.delay.wetLevel.value;
+			template.delay.dryLevel = fx.delay.dryLevel.value;
+			template.delay.feedback = fx.delay.feedback.value;
+			template.delay.delayTime = fx.delay.delayTime.value;
+			template.delay.cutoff = fx.delay.cutoff.value;
+			template.overdrive.bypass = fx.overdrive.bypass;
+			template.overdrive.curveAmount = fx.overdrive.curveAmount;
+			template.overdrive.drive = fx.overdrive.drive.value;
+			template.overdrive.outputGain = fx.overdrive.outputGain.value;
+			template.moogfilter.bypass = fx.moogfilter.bypass;
+			template.moogfilter.bufferSize = fx.moogfilter.bufferSize;
+			template.moogfilter.cutoff = fx.moogfilter.cutoff;
+			template.moogfilter.resonance = fx.moogfilter.resonance;
+			template.tremolo.bypass = fx.tremolo.bypass;
+			template.tremolo.intensity = fx.tremolo.intensity;
+			template.tremolo.rate = fx.tremolo.rate;
+			template.tremolo.stereoPhase = fx.tremolo.stereoPhase;
+			template.convolver.bypass = fx.convolver.bypass;
+			template.convolver.highCut = fx.convolver.highCut.value;
+			template.convolver.lowCut = fx.convolver.lowCut.value;
+			template.convolver.dryLevel = fx.convolver.dryLevel.value;
+			template.convolver.wetLevel = fx.convolver.wetLevel.value;
+		}
+
 		function setSynthTemplate() {
+			service.updateSynthTemplate();
 			service.synthTemplate = service.synthTemplates[$localStorage.synthIndex];
+			var template = service.synthTemplate;
+			var fx = service.fx;
+			var node = service.node;
+			node.osc1.type =template.osc1.type;
+			node.osc1.detune.value = template.osc1.detune;
+			node.osc2.type = template.osc2.type;
+			node.osc2.detune.value = template.osc2.detune;
+			node.osc3.type = template.osc3.type;
+			node.osc3.detune.value = template.osc3.detune;
+			fx.bitcrusher.bypass = template.bitcrusher.bypass;
+			fx.bitcrusher.bits = template.bitcrusher.bits;
+			fx.bitcrusher.bufferSize = template.bitcrusher.bufferSize;
+			fx.bitcrusher.normFreq = template.bitcrusher.normFreq;
+			fx.delay.bypass = template.delay.bypass;
+			fx.delay.wetLevel = template.delay.wetLevel;
+			fx.delay.dryLevel = template.delay.dryLevel;
+			fx.delay.feedback = template.delay.feedback;
+			fx.delay.delayTime = template.delay.delayTime;
+			fx.delay.cutoff = template.delay.cutoff;
+			fx.overdrive.bypass = template.overdrive.bypass;
+			fx.overdrive.curveAmount = template.overdrive.curveAmount;
+			fx.overdrive.drive = template.overdrive.drive;
+			fx.overdrive.outputGain = template.overdrive.outputGain;
+			fx.moogfilter.bypass = template.moogfilter.bypass;
+			fx.moogfilter.bufferSize = template.moogfilter.bufferSize;
+			fx.moogfilter.cutoff = template.moogfilter.cutoff;
+			fx.moogfilter.resonance = template.moogfilter.resonance;
+			fx.tremolo.bypass = template.tremolo.bypass;
+			fx.tremolo.intensity = template.tremolo.intensity;
+			fx.tremolo.rate = template.tremolo.rate;
+			fx.tremolo.stereoPhase = template.tremolo.stereoPhase;
+			fx.convolver.bypass = template.convolver.bypass;
+			fx.convolver.highCut = template.convolver.highCut;
+			fx.convolver.lowCut = template.convolver.lowCut;
+			fx.convolver.dryLevel = template.convolver.dryLevel;
+			fx.convolver.wetLevel = template.convolver.wetLevel;
 		}
-
-		/*function mergeObject(obj1, obj2) {
-			for (var p in obj2) {
-				try {
-					// Property in destination object set; update its value.
-					if ( obj2[p].constructor==Object ) {
-						obj1[p] = mergeObject(obj1[p], obj2[p]);
-
-					} else {
-						obj1[p] = obj2[p];
-
-					}
-				} catch(e) {
-				}
-			}
-			return obj1;
-		}
-
-		unction setSynthTemplate(index) {
-			var template = service.synthTemplates[index];
-			mergeObject(template.moogfilter, service.fx.moogfilter);
-			mergeObject(template.overdrive, service.fx.overdrive);
-			mergeObject(template.bitcrusher, service.fx.bitcrusher);
-			mergeObject(template.tremolo, service.fx.tremolo);
-			mergeObject(template.convolver, service.fx.convolver);
-			mergeObject(template.delay, service.fx.delay);
-			mergeObject(template.osc1, service.node.osc1);
-			mergeObject(template.osc2, service.node.osc2);
-			mergeObject(template.osc3, service.node.osc3);
-		}
-
-		function setSynthAudio(index) {
-			var template = service.synthTemplates[index];
-			mergeObject(service.fx.moogfilter, template.moogfilter);
-			mergeObject(service.fx.overdrive, template.overdrive);
-			mergeObject(service.fx.bitcrusher, template.bitcrusher);
-			mergeObject(service.fx.tremolo, template.tremolo);
-			mergeObject(service.fx.convolver, template.convolver);
-			mergeObject(service.fx.delay, template.delay);
-			mergeObject(service.node.osc1, template.osc1);
-			mergeObject(service.node.osc2, template.osc2);
-			mergeObject(service.node.osc3, template.osc3);
-		}*/
 
 		function randomize() {
 			for (var discIndex = 0; discIndex < service.slice.length - 1; discIndex++) {
@@ -227,7 +262,6 @@
 			}
 			return values / dbArray.length;
 		}
-
 
 		function startStop() {
 			service.playing = !service.playing;

@@ -1,4 +1,4 @@
-<div class="menuContainer" data-ng-style="{width: menuSize + 'px'}" id="menuContainer">
+<div class="menuContainer verticalScrollBarLight" data-ng-style="{width: menuSize + 'px'}" id="menuContainer">
     <div class="button border"
          data-ng-style="{backgroundColor: hoverHelp ? themeService.theme.menuSectionalBackground : '' }"
          data-ng-mouseenter="hoverHelp = true"
@@ -65,6 +65,6 @@
         </div>
     </div>
 
-    <div synth-controls></div>
+    <div synth-controls data-fx="audioService.fx" data-node="audioService.node"></div>
 
 </div>

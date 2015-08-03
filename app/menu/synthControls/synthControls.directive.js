@@ -12,7 +12,11 @@
 			templateUrl: 'app/menu/synthControls/synthControls.html',
 			replace: true,
 			controller: synthControlsController,
-			bindToController: true
+			bindToController: true,
+			scope: {
+				node: '=node',
+				fx: '=fx'
+			}
 		};
 		return directive
 	}
