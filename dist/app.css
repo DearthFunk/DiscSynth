@@ -1,0 +1,262 @@
+div.dropDownContainer {
+  text-shadow: none;
+  font-weight: normal;
+  box-sizing: border-box;
+  width: 110px;
+  padding: 0;
+  margin-bottom: -1px;
+}
+div.dropDownContainer div,
+div.dropDownContainer span {
+  text-shadow: none;
+}
+div.dropDownContainer div.selected {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+div.dropDownContainer > div.mainBox {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #FFFFFF;
+  border: 1px solid #FFFFFF;
+  overflow: hidden;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  text-align: left;
+  padding: 2px 3px;
+  cursor: pointer;
+  font-size: 12px;
+  height: 20px;
+  width: 100%;
+}
+div.dropDownContainer > div.mainBox > span {
+  float: left;
+  overflow: hidden;
+  white-space: nowrap;
+}
+div.dropDownContainer > div.mainBox > i {
+  float: right;
+}
+div.dropDownContainer > div.optionsContainer {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #FFFFFF;
+  text-align: left;
+  border: 1px solid;
+  position: absolute;
+  padding: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  margin: -3px 0 0 -1px;
+  z-index: 2;
+  width: 110px;
+}
+div.dropDownContainer > div.optionsContainer > div.option {
+  line-height: 18px;
+  min-height: 18px;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 2px 7px;
+}
+div.dropDownContainer > div.optionsContainer > div.bar {
+  text-align: center;
+  padding: 4px 0;
+  cursor: pointer;
+}
+div.dropDownContainer > div.optionsContainer > div.bar.up {
+  border-top: 1px solid black;
+  font-size: 16px;
+}
+div.dropDownContainer > div.optionsContainer > div.bar.down {
+  border-bottom: 1px solid black;
+  font-size: 16px;
+}
+canvas.knob {
+  cursor: pointer;
+}
+div.sliderContainer {
+  cursor: pointer;
+  height: 24px;
+}
+div.sliderContainer > div.horizontalBar {
+  height: 6px;
+  width: 100%;
+  display: inline-block;
+  margin: 8px 0;
+  background-color: #999999;
+  border-top: 1px solid #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+}
+div.sliderContainer > div.horizontalBar > div.sliderThumbContainer {
+  width: 7px;
+  display: inline-block;
+  height: 17px;
+  position: relative;
+  top: -5px;
+}
+div.sliderContainer > div.horizontalBar > div.sliderThumbContainer > div.sliderThumb {
+  width: 100%;
+  height: 100%;
+  display: inline-block;
+  border-left: 1px solid #000000;
+  border-right: 1px solid #000000;
+}
+div.menuContainer {
+  color: #FFFFFF;
+  position: absolute;
+  right: -1px;
+  padding: 0 10px;
+  border: 1px solid white;
+  background-color: rgba(0, 0, 0, 0.6);
+  height: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  z-index: 2;
+  overflow-y: scroll;
+}
+div.menuContainer.verticalScrollBarLight::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+div.menuContainer.verticalScrollBarLight::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.3);
+}
+div.menuContainer.verticalScrollBarLight::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.7);
+}
+div.menuContainer.verticalScrollBarLight::-webkit-scrollbar-corner {
+  background-color: rgba(0, 0, 0, 0);
+}
+div.menuContainer span.title {
+  font-size: 16px;
+  width: 100%;
+  display: table;
+  vertical-align: top;
+}
+div.menuContainer > div.helpPanel {
+  padding: 10px 0;
+}
+div.menuContainer > div.button {
+  text-align: center;
+  padding: 6px 0;
+  font-size: 16px;
+  cursor: pointer;
+}
+div.menuContainer > div.button:hover {
+  background-color: rgba(200, 200, 100, 0.3);
+}
+div.menuContainer > .border {
+  border-bottom: 1px solid #FFFFFF;
+}
+div.menuContainer > table.sliders {
+  width: 100%;
+}
+div.menuContainer > table.sliders td.label {
+  width: 22px;
+  max-width: 22px;
+  font-size: 16px;
+  text-align: right;
+  padding-right: 5px;
+}
+div.menuContainer > div.selector {
+  text-align: center;
+  padding: 10px 0;
+}
+div.menuContainer > div.selector > div.button {
+  width: 26px;
+  display: inline-block;
+  height: 26px;
+  margin: 0 2px;
+  border: 1px solid #999999;
+  border-radius: 3px;
+  cursor: pointer;
+  padding: 2px;
+  box-sizing: border-box;
+  vertical-align: top;
+}
+div.menuContainer > div.selector > div.button > div.inner {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #FFFFFF;
+  box-sizing: border-box;
+  font-size: 14px;
+}
+div.menuContainer > div.selector > div.button > div.inner:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+body {
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  font-family: Calibri, Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  background-color: #000000;
+  background-size: 100% 100%;
+}
+body canvas.fullScreen {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+@font-face {
+  font-family: 'Keys', 'Calibri', 'Arial';
+  src: url('../font/Spac3_neon.ttf');
+}
+div.synthControlsContainer {
+  margin-bottom: 10px;
+  display: inline-block;
+  overflow-y: hidden;
+}
+div.synthControlsContainer > div.synthSelector {
+  height: 25px;
+  border-bottom: 1px solid #FFFFFF;
+  padding: 8px 0;
+  text-align: center;
+}
+div.synthControlsContainer > div.section {
+  font-size: 20px;
+  border-bottom: 1px solid #FFFFFF;
+  text-align: center;
+  padding: 10px 0;
+}
+div.synthControlsContainer > div.section > span.title {
+  margin-bottom: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+div.synthControlsContainer > div.section > div.left {
+  display: inline-block;
+}
+div.synthControlsContainer > div.section > div.right {
+  display: inline-block;
+  vertical-align: top;
+}
+div.helpWindowContainer > span {
+  font-weight: bold;
+  font-size: 16px;
+}
+div.importExportWindowContainer > textarea {
+  width: 100%;
+  height: 90px;
+  max-width: 100%;
+  max-height: 90px;
+  margin-bottom: 10px;
+}
+div.importExportWindowContainer > div.button {
+  display: inline-block;
+  font-size: 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  padding: 10px 0;
+  border: 1px solid #444;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}

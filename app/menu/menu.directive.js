@@ -11,7 +11,7 @@
 	function menu() {
 		var directive = {
 			restrict: 'C',
-			templateUrl: 'app/menu/menu.html',
+			templateUrl: 'CACHE/menu/menu.html',
 			replace: true,
 			controller: menuController,
 			bindToController: true

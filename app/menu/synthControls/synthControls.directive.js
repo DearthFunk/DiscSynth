@@ -9,7 +9,7 @@
 	function synthControls() {
 		var directive = {
 			restrict: 'EA',
-			templateUrl: 'app/menu/synthControls/synthControls.html',
+			templateUrl: 'CACHE/menu/synthControls/synthControls.html',
 			replace: true,
 			controller: synthControlsController,
 			bindToController: true,

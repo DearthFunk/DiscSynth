@@ -8,7 +8,7 @@
 	function dropDown() {
 		var directive = {
 			restrict: 'EA',
-			templateUrl: 'app/elements/dropDown/dropDown.html',
+			templateUrl: 'CACHE/elements/dropDown/dropDown.html',
 			transclude: true,
 			controller: dropDownController,
 			scope: {

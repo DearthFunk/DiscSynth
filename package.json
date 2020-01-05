@@ -1,0 +1,45 @@
+{
+  "name": "discsynth",
+  "version": "1.0.0",
+  "description": "DEMO: <a href=\"http://dearthfunk.github.io/DiscSynth/\">http://dearthfunk.github.io/DiscSynth/</a>",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DearthFunk/DiscSynth.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DearthFunk/DiscSynth/issues"
+  },
+  "homepage": "https://github.com/DearthFunk/DiscSynth#readme",
+  "dependencies": {
+    "connect": "^3.7.0",
+    "gulp": "^4.0.2",
+    "gulp-less": "^4.0.1",
+    "gulp-serve": "^1.4.0",
+    "gulp-webserver": "^0.9.1",
+    "less": "^3.10.3",
+    "ng-storage": "^0.3.2"
+  },
+  "jshintConfig": {
+    "esversion": "6"
+  },
+  "devDependencies": {
+    "angular": ">=1.7.9",
+    "del": "^5.1.0",
+    "gulp-angular-templatecache": "^3.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-concat-css": "^3.1.0",
+    "gulp-connect": "^5.7.0",
+    "gulp-insert": "^0.5.0",
+    "gulp-util": "^3.0.8",
+    "tunajs": "^1.0.11"
+  }
+}

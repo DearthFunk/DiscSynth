@@ -7,7 +7,7 @@
 	function helpWindow() {
 		var directive = {
 			restrict: 'EA',
-			templateUrl: 'app/menu/helpWindow/helpWindow.html',
+			templateUrl: 'CACHE/menu/helpWindow/helpWindow.html',
 			replace: true,
 			controller: helpWindowController,
 			bindToController: true

@@ -7,7 +7,7 @@
 	function importExportWindow() {
 		var directive = {
 			restrict: 'EA',
-			templateUrl: 'app/menu/importExportWindow/importExportWindow.html',
+			templateUrl: 'CACHE/menu/importExportWindow/importExportWindow.html',
 			replace: true,
 			controller: importExportController,
 			bindToController: true,

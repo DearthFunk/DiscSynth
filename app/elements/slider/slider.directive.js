@@ -8,7 +8,7 @@
 	function slider() {
 		var directive = {
 			restrict: 'EA',
-			templateUrl: 'app/elements/slider/slider.html',
+			templateUrl: 'CACHE/elements/slider/slider.html',
 			bindToController: true,
 			controller: sliderController,
 			scope: {
