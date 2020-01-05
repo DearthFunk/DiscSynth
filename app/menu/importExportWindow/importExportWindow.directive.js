@@ -21,7 +21,6 @@
 	importExportController.$inject = ['$scope', 'animationService', 'themeService', 'audioService', '$localStorage'];
 	function importExportController($scope, animationService, themeService, audioService, $localStorage) {
 
-		var client = new ZeroClipboard(document.getElementById('copyButton'));
 		$scope.textAreaData = '';
 		$scope.importData = importData;
 		$scope.getTextAreaData = getTextAreaData;

@@ -58,7 +58,7 @@
 					wetLevel: 0.7,
 					dryLevel: 1,
 					feedback: 0.68,
-					delayTime: 121,
+					delayTime: 0.8,
 					cutoff: 20000
 				},
 				overdrive: {bypass: false, curveAmount: 0.95, drive: 0.95, outputGain: 1},
@@ -96,7 +96,7 @@
 					wetLevel: 1,
 					dryLevel: 0,
 					feedback: 0.7,
-					delayTime: 16.9,
+					delayTime: 0.5,
 					cutoff: 3752.875
 				},
 				overdrive: {bypass: true, curveAmount: 0.725, drive: 1, outputGain: 1},
@@ -268,7 +268,9 @@
 			service.node.stopperGain.gain.value = service.playing ? 1 : 0;
 			notesInQueue = [];
 			nextNoteTime = audioCtx.currentTime;
-			timerWorker.postMessage(service.playing ? TIME_WORKER_POST_MESSAGE.start : TIME_WORKER_POST_MESSAGE.stop);
+			var msg = service.playing ? TIME_WORKER_POST_MESSAGE.start : TIME_WORKER_POST_MESSAGE.stop;
+			timerWorker.postMessage(msg);
+			console.log('postMessage: ', msg);
 		}
 
 		function playNotes() {
