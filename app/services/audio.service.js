@@ -3,11 +3,6 @@
 	angular
 		.module('discSynth')
 		.factory('audioService', audioService)
-		.constant('TIME_WORKER_POST_MESSAGE',{
-			start : 0,
-			stop: 1,
-			tick : 2
-		})
 		.constant('SYNTHS', [
 			{
 				index: 0,
@@ -125,18 +120,14 @@
 			}
 		]);
 
-	audioService.$inject =['$localStorage', 'genColors', 'SYNTHS', 'LENGTH_CONSTRAINTS', 'TIME_WORKER_POST_MESSAGE'];
+	audioService.$inject =['$localStorage', 'genColors', 'SYNTHS', 'LENGTH_CONSTRAINTS', '$timeout'];
 
-	function audioService($localStorage, genColors, SYNTHS, LENGTH_CONSTRAINTS, TIME_WORKER_POST_MESSAGE) {
+	function audioService($localStorage, genColors, SYNTHS, LENGTH_CONSTRAINTS, $timeout) {
 		var audioCtx = typeof AudioContext !== 'undefined' ? new AudioContext() : typeof webkitAudioContext !== 'undefined' ? new webkitAudioContext() : null;
 		var audioBufferSize = 1024;
-		var nextNoteTime = 0;
-		var notesInQueue = [];
 		var tuna = new Tuna(audioCtx);
-		var timerWorker = new Worker('./app/services/metronomeworker.js');
-		timerWorker.onmessage = scheduler;
-		timerWorker.postMessage({'interval':25}); //25 is the interval run value
-
+		var nextNoteTime = null;
+		var clickPromise = null;
 		var service = {
 			playing: false,
 			synthTemplates: angular.copy(SYNTHS), //localStorageService.storage ? localStorageService.storage.synthTemplates : angular.copy(SYNTHS),
@@ -148,6 +139,7 @@
 			randomize: randomize,
 			startStop: startStop,
 			playNotes: playNotes,
+			clickTrackPlayer: clickTrackPlayer,
 			getAverageDB: getAverageDB,
 			setSynthTemplate: setSynthTemplate,
 			updateSynthTemplate: updateSynthTemplate,
@@ -263,14 +255,28 @@
 			return values / dbArray.length;
 		}
 
+		function clickTrackPlayer() {
+			while (nextNoteTime < audioCtx.currentTime + 0.1 ) {
+				var speed = parseInt($localStorage.speed);
+				nextNoteTime += 1.1 - speed;
+
+				if (service.playing) {
+					service.clickTrack++;
+				}
+				if (service.clickTrack >= service.discLength) {
+					service.clickTrack = 0;
+				}
+
+				if (service.playing) {
+					service.playNotes();
+				}
+			}
+			clickPromise = $timeout(service.clickTrackPlayer, 25);
+		}
+
 		function startStop() {
 			service.playing = !service.playing;
 			service.node.stopperGain.gain.value = service.playing ? 1 : 0;
-			notesInQueue = [];
-			nextNoteTime = audioCtx.currentTime;
-			var msg = service.playing ? TIME_WORKER_POST_MESSAGE.start : TIME_WORKER_POST_MESSAGE.stop;
-			timerWorker.postMessage(msg);
-			console.log('postMessage: ', msg);
 		}
 
 		function playNotes() {
@@ -280,26 +286,6 @@
 			service.node.osc1.frequency.value = !service.playing ? 0 : osc1.active ? osc1.freq : 0;
 			service.node.osc2.frequency.value = !service.playing ? 0 : osc2.active ? osc2.freq : 0;
 			service.node.osc3.frequency.value = !service.playing ? 0 : osc3.active ? osc3.freq : 0;
-		}
-
-		function scheduler(e) {
-			if (e.data === TIME_WORKER_POST_MESSAGE.tick) {
-				while (nextNoteTime < audioCtx.currentTime + 0.1) {
-					notesInQueue.push({
-						note: service.clickTrack,
-						time: nextNoteTime
-					});
-					//actually play something
-					service.playNotes();
-					//setup next note
-					var secondsPerBeat = 60.0 / $localStorage.tempo;
-					nextNoteTime += 0.25 * secondsPerBeat;
-					service.clickTrack++;
-					if (service.clickTrack >= $localStorage.discLength) {
-						service.clickTrack = 0;
-					}
-				}
-			}
 		}
 
 		function setupAudioNodesAndDiscSlices() {
@@ -362,6 +348,8 @@
 			service.node.osc2.start();
 			service.node.osc3.start();
 
+			nextNoteTime = audioCtx.currentTime;
+			service.clickTrackPlayer();
 		}
 	}
 })();

@@ -4,7 +4,6 @@
 		.module('menuModule', [])
 		.directive('menu', menu)
 		.constant('MENU_SIZE', 220)
-		.constant('TEMPO_CONSTRAINTS', { MIN: 60,MAX: 180 })
 		.constant('LENGTH_CONSTRAINTS', {MIN: 4, MAX: 32});
 
 	menu.$inject = [];
@@ -20,15 +19,14 @@
 		return directive;
 	}
 
-	menuController.$inject = ['$scope', '$timeout', '$localStorage', 'themeService', 'animationService', 'MENU_SIZE', 'audioService', 'SYNTHS', 'TEMPO_CONSTRAINTS', 'LENGTH_CONSTRAINTS'];
+	menuController.$inject = ['$scope', '$timeout', '$localStorage', 'themeService', 'animationService', 'MENU_SIZE', 'audioService', 'SYNTHS', 'LENGTH_CONSTRAINTS'];
 
-	function menuController($scope, $timeout, $localStorage, themeService, animationService, MENU_SIZE, audioService, SYNTHS, TEMPO_CONSTRAINTS, LENGTH_CONSTRAINTS) {
+	function menuController($scope, $timeout, $localStorage, themeService, animationService, MENU_SIZE, audioService, SYNTHS, LENGTH_CONSTRAINTS) {
 
 		$scope.themeService = themeService;
 		$scope.audioService = audioService;
 		$scope.animationService = animationService;
 		$scope.menuSize = MENU_SIZE;
-		$scope.TEMPO_CONSTRAINTS = TEMPO_CONSTRAINTS;
 		$scope.LENGTH_CONSTRAINTS = LENGTH_CONSTRAINTS;
 		$scope.$localStorage = $localStorage;
 

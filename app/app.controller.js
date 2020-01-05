@@ -15,7 +15,7 @@
 				animationIndex: 0,
 				discLength: 16,
 				volume: 0.5,
-				tempo: 120
+				speed: 0.5
 			});
 		});
 

@@ -36,7 +36,7 @@
 				animationIndex: $localStorage.animationIndex,
 				discLength: $localStorage.discLength,
 				volume: $localStorage.volume,
-				tempo: $localStorage.tempo,
+				speed: $localStorage.speed,
 				synthTemplates: audioService.synthTemplates
 			});
 		}
@@ -49,7 +49,7 @@
 				$localStorage.animationIndex = parsedData.animationIndex;
 				$localStorage.discLength = parsedData.discLength;
 				$localStorage.volume = parsedData.volume;
-				$localStorage.tempo = parsedData.tempo;
+				$localStorage.speed = parsedData.speed;
 				audioService.synthTemplates = parsedData.synthTemplates;
 
 				audioService.setSynthTemplate();
