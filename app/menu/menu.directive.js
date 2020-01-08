@@ -19,24 +19,26 @@
 		return directive;
 	}
 
-	menuController.$inject = ['$scope', '$timeout', '$localStorage', 'themeService', 'animationService', 'MENU_SIZE', 'audioService', 'SYNTHS', 'LENGTH_CONSTRAINTS'];
+	menuController.$inject = ['$scope', '$timeout', '$localStorage', 'themeService', 'animationService', 'MENU_SIZE', 'audioService', 'SYNTHS'];
 
-	function menuController($scope, $timeout, $localStorage, themeService, animationService, MENU_SIZE, audioService, SYNTHS, LENGTH_CONSTRAINTS) {
+	function menuController($scope, $timeout, $localStorage, themeService, animationService, MENU_SIZE, audioService, SYNTHS) {
 
 		$scope.themeService = themeService;
 		$scope.audioService = audioService;
 		$scope.animationService = animationService;
 		$scope.menuSize = MENU_SIZE;
-		$scope.LENGTH_CONSTRAINTS = LENGTH_CONSTRAINTS;
-		$scope.$localStorage = $localStorage;
+		$scope.localStorage = $localStorage;
 
 		$scope.changeTheme = changeTheme;
 		$scope.changeSynth = changeSynth;
 		$scope.changeAnimaton = changeAnimaton;
 
-		$scope.editingVol = false;
-		$scope.editingSpd = false;
-		$scope.editingLen = false;
+		$scope.hoverHelp = false;
+		$scope.hoverImport = false;
+		$scope.hoverRandom = false;
+		$scope.editingVol = {val:false};
+		$scope.editingSpd = {val:false};
+		$scope.editingLen = {val:false};
 		$scope.showHelpWindow = false;
 		$scope.showImportExportWindow = false;
 

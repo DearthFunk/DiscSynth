@@ -21,16 +21,16 @@
 
     <table class="sliders border">
         <tr>
-	        <td class="label">{{editingVol ? audioService.node.masterGain.gain.value.toFixed(1)*10 : 'VOL'}}</td>
+	        <td class="label">{{editingVol.val ? audioService.node.masterGain.gain.value.toFixed(1)*10 : 'VOL'}}</td>
 	        <td><div slider data-currently-moving="editingVol" data-slider-value="audioService.node.masterGain.gain.value"></div></td>
         </tr>
         <tr>
-	        <td class="label">{{editingSpeed ? $localStorage.speed : 'SPD'}}</td>
-	        <td><div slider data-currently-moving="editingSpeed" data-min-value="0.2" data-max-value="1" data-fixed-value="3" data-slider-value="$localStorage.speed"></div></td>
+	        <td class="label">{{editingSpd.val ? localStorage.speed : 'SPD'}}</td>
+	        <td><div slider data-currently-moving="editingSpd" data-min-value="0.2" data-max-value="1" data-fixed-value="3" data-slider-value="localStorage.speed"></div></td>
         </tr>
         <tr>
-	        <td class="label">{{editingLen ? $localStorage.discLength : 'LEN'}}</td>
-	        <td><div slider data-currently-moving="editingLen" data-fixed-value="0" data-slider-value="$localStorage.discLength" data-min-value="LENGTH_CONSTRAINTS.MIN" data-max-value="LENGTH_CONSTRAINTS.MAX"></div></td>
+	        <td class="label">{{editingLen.val ? localStorage.discLength : 'LEN'}}</td>
+	        <td><div slider data-currently-moving="editingLen" data-min-value="4" data-max-value="32" data-fixed-value="0" data-slider-value="localStorage.discLength" ></div></td>
         </tr>
     </table>
 
