@@ -1,10 +1,10 @@
-let gulp = require('gulp');
-let del = require('del');
-let concat = require('gulp-concat');
-let templateCache = require('gulp-angular-templatecache');
-let path = require('path');
-let less = require('gulp-less');
-let connect = require('gulp-connect');
+const gulp = require('gulp');
+const del = require('del');
+const concat = require('gulp-concat');
+const templateCache = require('gulp-angular-templatecache');
+const path = require('path');
+const less = require('gulp-less');
+const connect = require('gulp-connect');
 
 let fp = {
     resources: [
@@ -14,8 +14,7 @@ let fp = {
     lib: [
         './node_modules/tunajs/tuna-min.js',
         './node_modules/angular/angular.min.js',
-        './node_modules/ng-storage/ngStorage.min.js',
-        './node_modules/less/dist/less.min.js'
+        './node_modules/ng-storage/ngStorage.min.js'
     ],
     samples: [
         './node_modules/tunajs/impulses/*.wav'
@@ -65,7 +64,7 @@ function clean(){
 function samples(){
     return gulp
         .src(fp.samples)
-        .pipe(gulp.dest('./dist/impulses'));
+        .pipe(gulp.dest('./impulses'));
 }
 function libs(){
     return gulp
@@ -101,5 +100,6 @@ exports.clean = clean;
 exports.main = main;
 exports.build = build;
 exports.default = build;
-exports.webserver = runConnectServer;
-exports.watch = gulp.series(build, runConnectServer, watch_all);
+
+exports.watch = gulp.series(build, watch_all);
+exports.serve = runConnectServer;
