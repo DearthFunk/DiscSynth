@@ -32,7 +32,7 @@
     "esversion": "6"
   },
   "devDependencies": {
-    "angular": ">=1.7.9",
+    "angular": ">=1.8.0",
     "del": "^5.1.0",
     "gulp-angular-templatecache": "^3.0.0",
     "gulp-concat": "^2.6.1",
